@@ -1,38 +1,62 @@
 <script>
-  import Greet from './lib/Greet.svelte'
+    import { onMount } from "svelte";
+    import EventCard from "./components/atoms/EventCard/EventCard.svelte";
+    import NeonButton from "./components/atoms/AddEventBtn/AddEventBtn.svelte";
+    let color = "#ff0000";
+
+    let transparency = "60";
+    let transparencyHover = "90";
+    let transparencyActive = "AA";
+
+    let events = ["Objetivo"];
+    let eventText = "";
+
+    onMount(() => {
+        const existingEvents = localStorage.getItem("events");
+        events = JSON.parse(existingEvents) || ["Objetivo"];
+    });
+
+    function addEventCard(index) {
+        let title = prompt("Event name", "new event");
+        events.splice(index + 1, 0, title);
+        events = events;
+        localStorage.setItem("events", JSON.stringify(events));
+    }
 </script>
 
-<main class="container">
-  <h1>Welcome to Tauri!</h1>
-
-  <div class="row">
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo vite" alt="Vite Logo" />
-    </a>
-    <a href="https://tauri.app" target="_blank">
-      <img src="/tauri.svg" class="logo tauri" alt="Tauri Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank">
-      <img src="/svelte.svg" class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-
-  <p>
-    Click on the Tauri, Vite, and Svelte logos to learn more.
-  </p>
-
-  <div class="row">
-    <Greet />
-  </div>
-
+<main id="main-container">
+    <button on:click={localStorage.clear} hidden></button>
+    {#each events as event, i}
+        <EventCard
+            eventName={event}
+            --color="{color}{transparency}"
+            --color-hover="{color}{transparencyHover}"
+            --color-active="{color}{transparencyActive}"
+        />
+        <NeonButton
+            func={addEventCard}
+            text={"+"}
+            index={i}
+            --color="{color}{transparency}"
+            --color-hover="{color}{transparencyHover}"
+            --color-active="{color}{transparencyActive}"
+        />
+    {/each}
+    <EventCard
+        eventName="Today"
+        --color="{color}{transparency}"
+        --color-hover="{color}{transparencyHover}"
+        --color-active="{color}{transparencyActive}"
+    />
 </main>
 
 <style>
-  .logo.vite:hover {
-    filter: drop-shadow(0 0 2em #747bff);
-  }
-
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00);
-  }
+    #main-container {
+        padding: 1rem;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
 </style>
