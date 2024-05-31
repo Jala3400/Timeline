@@ -1,62 +1,34 @@
-<script>
-    import { onMount } from "svelte";
-    import EventCard from "./components/atoms/EventCard/EventCard.svelte";
-    import NeonButton from "./components/atoms/AddEventBtn/AddEventBtn.svelte";
-    let color = "#ff0000";
+<script lang="ts">
+    import AddCalendarModal from "./components/Modals/AddCalendarModal/AddCalendarModal.svelte";
+    import AddEventModal from "./components/Modals/AddEventModal/AddEventModal.svelte";
+    import Details from "./components/organisms/Details/Details.svelte";
+    import EventList from "./components/organisms/EventList/EventList.svelte";
+    import IconsBar from "./components/organisms/IconsBar/IconsBar.svelte";
+    import NavBar from "./components/organisms/NavBar/NavBar.svelte";
 
-    let transparency = "60";
-    let transparencyHover = "90";
-    let transparencyActive = "AA";
-
-    let events = ["Objetivo"];
-    let eventText = "";
-
-    onMount(() => {
-        const existingEvents = localStorage.getItem("events");
-        events = JSON.parse(existingEvents) || ["Objetivo"];
-    });
-
-    function addEventCard(index) {
-        let title = prompt("Event name", "new event");
-        events.splice(index + 1, 0, title);
-        events = events;
-        localStorage.setItem("events", JSON.stringify(events));
-    }
+    // Modals
+    let addEventModal: boolean = false;
+    let addCalendarModal: boolean = false;
+    let calendarColor = "#FF0000";
 </script>
 
-<main id="main-container">
-    <button on:click={localStorage.clear} hidden></button>
-    {#each events as event, i}
-        <EventCard
-            eventName={event}
-            --color="{color}{transparency}"
-            --color-hover="{color}{transparencyHover}"
-            --color-active="{color}{transparencyActive}"
-        />
-        <NeonButton
-            func={addEventCard}
-            text={"+"}
-            index={i}
-            --color="{color}{transparency}"
-            --color-hover="{color}{transparencyHover}"
-            --color-active="{color}{transparencyActive}"
-        />
-    {/each}
-    <EventCard
-        eventName="Today"
-        --color="{color}{transparency}"
-        --color-hover="{color}{transparencyHover}"
-        --color-active="{color}{transparencyActive}"
-    />
-</main>
+<div id="main-container" style="height: 100%; ">
+    <IconsBar />
+    <NavBar on:addEvent={() => (addEventModal = true)} />
+    <EventList />
+    <Details />
+</div>
+
+<AddEventModal
+    bind:addEventModal
+    {calendarColor}
+    bind:addCalendarModal
+/>
+<AddCalendarModal bind:addCalendarModal bind:calendarColor />
 
 <style>
     #main-container {
-        padding: 1rem;
-        overflow: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+        display: grid;
+        grid-template: 100% / 2.5rem 1fr 3fr 1.25fr;
     }
 </style>

@@ -1,19 +1,30 @@
 :root {
-  font-family: "Segoe UI", Inter, Avenir, Helvetica, Arial, sans-serif;
+  --color: #f6f6f6;
 
-  color: #0f0f0f;
-  background-color: #f6f6f6;
+  --main-color: #FF0000;
+  --main-background: #202020;
+  --main-background-light: #282828;
+  --main-background-lighter: #404040;
+  --input-background: #0f0f0f98;
+  --dialog-backdop: #00000040;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+
+  color: var(--color);
+  background-color: var(--main-background);
 }
 
 * {
-  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  font-family: "Segoe UI", Inter, Avenir, Helvetica, Arial, sans-serif;
   transition: 0.15s;
+  border: none;
+  caret-color: var(--main-color);
+  box-sizing: border-box;
 }
 
 html,
@@ -22,27 +33,86 @@ body {
   height: 100%;
 }
 
+input,
+button,
+textarea {
+  color: var(--color);
+  background-color: var(--input-background);
+}
+
+select {
+  color: var(--color);
+  background-color: var(--input-background);
+}
+
+select option {
+  background-color: var(--main-background);
+}
+
 button {
+  cursor: pointer;
+  user-select: none;
+  border-radius: 8px;
+}
+
+button:active {
+  background-color: #0f0f0f69;
+}
+
+input,
+select,
+textarea {
+  border-radius: 8px;
+  width: 100%;
+}
+
+input:focus,
+textarea:focus {
+  outline: 1px solid var(--main-color);
+}
+
+input[type="text"],
+textarea {
+  padding: 5px;
+}
+
+input[type="date"],
+select {
+  padding: 4px;
+}
+
+label {
+  cursor: text;
+}
+
+textarea {
+  resize: none;
+}
+
+::-webkit-calendar-picker-indicator {
   cursor: pointer;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: #f6f6f6;
-    background-color: #2f2f2f;
-  }
+::-webkit-scrollbar {
+  display: none;
+}
 
-  a:hover {
-    color: #24c8db;
-  }
+/* ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: transparent;
+}
 
-  input,
-  button {
-    color: #ffffff;
-    background-color: #0f0f0f98;
-  }
+::-webkit-scrollbar-thumb {
+  background-color: var(--main-color);
+  border-radius: 8px;
+}
 
-  button:active {
-    background-color: #0f0f0f69;
-  }
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--main-color-light);
+} */
+
+::-webkit-calendar-picker-indicator {
+  /* Changes the icon of the date picker to white */
+  filter: invert(1);
 }

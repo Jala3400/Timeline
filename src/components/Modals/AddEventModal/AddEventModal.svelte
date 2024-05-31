@@ -1,0 +1,86 @@
+<script lang="ts">
+    //! Keep the orden of the imports. When Evento is on top of calendars the app breaks
+    import { calendars, currentCalendar } from "../../../store";
+    import { Evento } from "../../../classes/Evento";
+    import Modal from "../../templates/Modal/Modal.svelte";
+    import CompInput from "../../molecules/CompInput/CompInput.svelte";
+
+    export let addEventModal: boolean = false;
+    export let calendarColor: string;
+    export let addCalendarModal: boolean;
+
+    let calendar = Object.keys($calendars)[0];
+    let title = "new event";
+    let date = "2000-1-1";
+    let description = "";
+
+    currentCalendar.subscribe((value) => {
+        calendar = value.name;
+    });
+
+    function addEventCard() {
+        $calendars[calendar].addEvent(
+            new Evento(
+                title,
+                new Date(date).toISOString(),
+                description,
+                calendar
+            )
+        );
+    }
+</script>
+
+<Modal
+    bind:showModal={addEventModal}
+    color={addCalendarModal ? calendarColor : $calendars[calendar].color}
+>
+    <h2 slot="header">Add Event</h2>
+    <div slot="content" id="content">
+        <div class="comp-input">
+            <label for="calendar">Calendar</label>
+            <div id="calendar-input">
+                <select id="calendar" bind:value={calendar}>
+                    {#each Object.keys($calendars) as calendar}
+                        <option value={calendar}>
+                            {calendar}
+                        </option>
+                    {/each}
+                </select>
+                <button
+                    type="button"
+                    on:click={() => {
+                        addCalendarModal = true;
+                    }}>+</button
+                >
+            </div>
+        </div>
+        <CompInput label="Title" type="text" bind:value={title} />
+        <CompInput label="Date" type="date" bind:value={date} />
+        <div class="comp-input">
+            <label for="description">Description</label>
+            <textarea id="description" bind:value={description} />
+        </div>
+    </div>
+    <button on:click={addEventCard} slot="buttons">Save</button>
+</Modal>
+
+<style>
+    .comp-input {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 100%;
+    }
+    #content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    #calendar-input {
+        display: flex;
+        gap: 5px;
+    }
+    #calendar {
+        width: 100%;
+    }
+</style>
