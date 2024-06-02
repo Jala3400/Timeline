@@ -1,9 +1,9 @@
 <script lang="ts">
-    import EventCard from "../../atoms/EventCard/EventCard.svelte";
-    import TiempoRestante from "../../atoms/TiempoRestante/TiempoRestante.svelte";
-    import { calendars, configuration, eventsList } from "../../../store";
+    import EventCard from "../../../atoms/EventCard/EventCard.svelte";
+    import TiempoRestante from "../../../atoms/TiempoRestante/TiempoRestante.svelte";
+    import { calendars, configuration, eventsList } from "../../../../store";
 
-    $: defColor = $configuration.mainColor;
+    $: diffColor = $configuration.mainColor;
 
     const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 
@@ -25,19 +25,18 @@
         <TiempoRestante
             text={dateDifference(new Date(event.date))}
             {index}
-            color={defColor}
+            color={diffColor}
         />
     {/each}
 </div>
 
 <style>
     #events-container {
-        padding: 1rem;
-        overflow: auto;
         display: flex;
         gap: 0.5em;
         flex-direction: column;
         align-items: center;
         text-align: center;
+        width: 100%;
     }
 </style>

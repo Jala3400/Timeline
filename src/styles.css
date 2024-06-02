@@ -1,10 +1,18 @@
 :root {
   --color: #f6f6f6;
 
-  --main-color: #FF0000;
+  --main-color: #00FF80;
+
   --main-background: #202020;
   --main-background-light: #282828;
-  --main-background-lighter: #404040;
+  --main-background-lighter: #303030;
+
+  --secondary-background: #404040;
+  --secondary-background-light: #505050;
+  --secondary-background-lighter: #606060;
+
+  --divider-color: #383838;
+
   --input-background: #0f0f0f98;
   --dialog-backdop: #00000040;
 

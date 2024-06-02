@@ -3,7 +3,6 @@
     import {
         currentDetails,
         constants,
-        calendars,
         currentEvent,
     } from "../../../store";
 
@@ -15,10 +14,7 @@
 
     function selectEvent() {
         $currentEvent = { event: event, index: index };
-        $currentDetails = {
-            type: "event",
-            color: $calendars[event.calendar].color,
-        };
+        $currentDetails = "event";
     }
 </script>
 

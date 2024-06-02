@@ -3,13 +3,13 @@
         calendars,
         constants,
         currentCalendar,
-        currentDetails,
         selectedCalendars,
     } from "../../../../store";
+    import { deleteCalendar } from "../../../../lib/ManageEvents";
 
-    $: color = $currentDetails.color;
     const transparency = $constants.transparency;
 
+    $: color = $currentCalendar.calendar.color;
     let calendarName = $currentCalendar.name;
     let prevName = $currentCalendar.name;
 
@@ -43,6 +43,9 @@
             changeName(newName || prevName);
         }
     }
+    currentCalendar.subscribe((value) => {
+        $calendars[value.name].color = value.calendar.color;
+    });
 </script>
 
 <div
@@ -60,6 +63,11 @@
         }}
     />
     <input type="color" bind:value={$currentCalendar.calendar.color} />
+    <button
+        on:click={() => {
+            deleteCalendar($currentCalendar.name);
+        }}>Delete</button
+    >
 </div>
 
 <style>
@@ -81,7 +89,6 @@
     #calendar-name:focus {
         background-color: #0f0f0f98;
     }
-
     @media (max-width: 1200px) {
         #calendar-name {
             font-size: 1.75em;

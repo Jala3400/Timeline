@@ -1,41 +1,37 @@
-<script>
+<script lang="ts">
     import IconCard from "../../atoms/IconCard/IconCard.svelte";
-    import { createEventDispatcher } from "svelte";
-
-    const dispatch = createEventDispatcher();
-
-    function hideSideBar() {
-        dispatch("hideSideBar");
-    }
+    import CalendarsSide from "./CalendarsSide/CalendarsSide.svelte";
 </script>
 
-<div id="icons-bar">
-    <div id="icons-top">
-        <IconCard func={hideSideBar} text="H" />
+<div id="side-bar">
+    <div id="side-top">
+        <IconCard text="B" />
     </div>
-    <div id="icons-main">
-        <IconCard text="~" />
-        <IconCard text="~" />
+    <div id="side-main">
+        <CalendarsSide on:addEvent/>
     </div>
 </div>
 
 <style>
-    #icons-main {
-        padding: 5px;
+    #side-main {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        gap: 0.5em;
+        align-items: flex-start;
+        justify-content: space-between;
+        overflow: hidden;
         background-color: var(--main-background-light);
+        width: 100%;
         height: calc(100% - 2.5em);
         border-right: 1px solid var(--divider-color);
     }
-    #icons-top {
+
+    #side-top {
         padding: 3px;
         display: flex;
         flex-direction: column;
         align-items: center;
         background-color: var(--main-background-lighter);
         border-bottom: 1px solid var(--divider-color);
+        width: 100%;
     }
 </style>

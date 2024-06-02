@@ -1,7 +1,7 @@
 import { get } from 'svelte/store';
 import { Calendar } from '../classes/Calendar';
 import type { Evento } from '../classes/Evento';
-import { calendars, eventsList, selectedCalendars } from '../store';
+import { calendars, eventsList, selectedCalendars, currentCalendar, currentDetails } from '../store';
 
 export function updateEvents() {
     let newEventsList: Evento[] = [];
@@ -45,6 +45,28 @@ function mergeEvents(existing: Evento[], calendar: string) {
 export function addNewCalendar(name: string, color: string) {
     let newCalendars = get(calendars);
     newCalendars[name] = new Calendar(color);
+    calendars.set(newCalendars);
+}
+
+export function deleteCalendar(calendar: string) {
+    // Borra el calendario de los calendarios seleccionados
+    let newSelectedCalendars = get(selectedCalendars);
+    const index = newSelectedCalendars.indexOf(calendar);
+    if (index != -1) {
+        newSelectedCalendars.splice(index, 1);
+        selectedCalendars.set(newSelectedCalendars);
+    }
+
+    // Cambia el calendario actual
+    let newCurrentCalendar = { calendar: Object.values(get(calendars))[0], name: Object.keys(get(calendars))[0] };
+    currentCalendar.set(newCurrentCalendar);
+
+    // Cambia los detalles actuales
+    currentDetails.set("allCalendars")
+
+    // Borra el calendario de los calendarios
+    let newCalendars = get(calendars);
+    delete newCalendars[calendar];
     calendars.set(newCalendars);
 }
 

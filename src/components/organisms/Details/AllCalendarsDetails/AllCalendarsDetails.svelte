@@ -5,7 +5,6 @@
         constants,
         currentCalendar,
         currentDetails,
-        selectedCalendars,
     } from "../../../../store";
     import ColoredButton from "../../../atoms/ColoredButton/ColoredButton.svelte";
 
@@ -14,16 +13,7 @@
 
     function selectCalendar(calendar: string) {
         $currentCalendar = { calendar: $calendars[calendar], name: calendar };
-        $currentDetails = {
-            type: "calendar",
-            color: $calendars[calendar].color,
-        };
-    }
-    function deleteCalendar(calendar: string) {
-        $selectedCalendars.splice($selectedCalendars.indexOf(calendar), 1);
-        $selectedCalendars = $selectedCalendars;
-        delete $calendars[calendar];
-        $calendars = $calendars;
+        $currentDetails = "calendar";
     }
 </script>
 
@@ -44,11 +34,6 @@
                         selectCalendar(calendar);
                     }}
                 />
-                <button
-                    on:click={() => {
-                        deleteCalendar(calendar);
-                    }}>X</button
-                >
             </div>
         {/each}
     </div>
@@ -58,7 +43,7 @@
     #all-calendars-details {
         padding: 1em;
         border-radius: 12px;
-        background-color: var(--main-background-lighter);
+        background-color: var(--secondary-background);
         text-align: unset;
         display: flex;
         flex-direction: column;

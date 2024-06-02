@@ -19,7 +19,7 @@ configuration.subscribe((value) => {
 const existingConstants = JSON.parse(
     //Todo: Uncomment bellow
     // localStorage.getItem("constants") ?? 
-    JSON.stringify({ transparency: { low: "40", main: "60", hover: "90", active: "AA", full: "FF" }, transparencyApp: { none: "00", main: "12", hover: "20", active: "26" }, discreteColor: "#FFFFFF" })
+    JSON.stringify({ transparency: { low: "40", main: "60", hover: "90", active: "AA", full: "FF" }, transparencyApp: { none: "00", main: "1C", hover: "2d", active: "36" }, discreteColor: "#FFFFFF" })
 )
 
 export const constants = readable(existingConstants);
@@ -62,9 +62,9 @@ selectedCalendars.subscribe((value) => {
 
 //* Current details
 
-export const currentDetails: Writable<{ type: string, color: string }> = writable({ type: "allCalendars", color: "#454545" /*get(configuration).mainColor*/ })
+export const currentDetails: Writable<string> = writable("allCalendars")
 
-export const currentEvent: Writable<any> = writable({});
+export const currentEvent: Writable<{ event: Evento, index: number }> = writable({ event: get(eventsList)[0], index: 0 });
 
 const calName = Object.keys(get(calendars))[0];
-export const currentCalendar: Writable<any> = writable({ calendar: get(calendars)[calName], name: calName });
+export const currentCalendar: Writable<{ calendar: Calendar, name: string }> = writable({ calendar: get(calendars)[calName], name: calName });

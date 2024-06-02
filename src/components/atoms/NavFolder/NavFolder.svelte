@@ -15,11 +15,11 @@
 </script>
 
 <button
-    class="nav-folder"
+    class="side-folder"
     class:expanded
-    style="--main-color:{color}{transparency.main};
---main-color-hover:{color}{transparency.hover};
---main-color-active:{color}{transparency.active}"
+    style="--main-color:{color}{transparency.none};
+--main-color-hover:{color}{transparency.main};
+--main-color-active:{color}{transparency.hover}"
     on:click={toggle}
 >
     <div class="collapse-icon" class:is-collapsed={!expanded}>
@@ -57,7 +57,7 @@
 </div>
 
 <style>
-    .nav-folder {
+    .side-folder {
         display: flex;
         align-items: center;
         gap: 5px;
@@ -67,7 +67,7 @@
         border-radius: 6px;
         background-color: var(--main-color);
     }
-    .nav-folder:hover {
+    .side-folder:hover {
         background-color: var(--main-color-hover);
     }
     .folder-name {

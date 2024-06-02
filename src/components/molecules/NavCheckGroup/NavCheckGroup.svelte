@@ -12,7 +12,7 @@
 <div class="checkbox-group">
     {#each Object.entries(list) as [key, value]}
         <label
-            class="nav-checkbox"
+            class="side-checkbox"
             style="--main-color:{value.color}{transparency.low};
             --main-color-hover:{value.color}{transparency.hover};
             --main-color-active:{value.color}{transparency.active};
@@ -31,7 +31,7 @@
 </div>
 
 <style>
-    .nav-checkbox {
+    .side-checkbox {
         background-color: var(--main-color);
         padding: 5px 10px;
         margin: 5px;
@@ -45,13 +45,13 @@
         align-items: center;
         gap: 0.25em;
     }
-    .nav-checkbox:hover {
+    .side-checkbox:hover {
         background-color: var(--main-color-hover);
     }
-    .nav-checkbox:has(> .checkbox:checked) {
+    .side-checkbox:has(> .checkbox:checked) {
         background-color: var(--main-color-hover);
     }
-    .nav-checkbox:hover:has(> .checkbox:checked) {
+    .side-checkbox:hover:has(> .checkbox:checked) {
         background-color: var(--main-color-active);
     }
     .checkbox-label {

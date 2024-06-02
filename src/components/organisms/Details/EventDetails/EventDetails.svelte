@@ -8,7 +8,7 @@
     } from "../../../../store";
     import CompInput from "../../../molecules/CompInput/CompInput.svelte";
 
-    $: color = $currentDetails.color;
+    $: color = $calendars[$currentEvent.event.calendar].color;
     const transparency = $constants.transparency;
 
     let calendar = $currentEvent.event.calendar;
@@ -22,7 +22,7 @@
     }
 
     currentEvent.subscribe((value) => {
-        if ($currentDetails.type == "event" && changeEvent) {
+        if ($currentDetails == "event" && changeEvent) {
             const event = value.event;
             $eventsList[value.index] = event;
             let calIndex = $calendars[event.calendar].events.indexOf(event);

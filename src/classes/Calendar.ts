@@ -30,7 +30,7 @@ export class Calendar {
         } else {
             selectedCalendars.update((value) => [...value, event.calendar]) // It also updates events
         }
-        currentDetails.set({ type: "event", color: get(calendars)[event.calendar].color });
+        currentDetails.set("event");
         currentEvent.set({ event: event, index: get(eventsList).indexOf(event) });
     }
 
@@ -40,8 +40,8 @@ export class Calendar {
     }
 
     deleteEvent(event: Evento) {
-        currentDetails.set({ type: "allCalendars", color: get(configuration).mainColor });
-        currentEvent.set({})
+        currentDetails.set("allCalendars");
+        currentEvent.set({ event: get(eventsList)[0], index: 0 })
         calendars.update((value) => {
             this.tempDeleteEvent(event);
             return value

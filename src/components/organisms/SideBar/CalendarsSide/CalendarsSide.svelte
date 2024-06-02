@@ -2,13 +2,11 @@
     import {
         calendars,
         currentDetails,
-        currentEvent,
         selectedCalendars,
-        configuration,
-    } from "../../../store";
-    import NavFolder from "../../atoms/NavFolder/NavFolder.svelte";
-    import NeonButton from "../../atoms/NeonButton/NeonButton.svelte";
-    import NavCheckGroup from "../../molecules/NavCheckGroup/NavCheckGroup.svelte";
+    } from "../../../../store";
+    import NavFolder from "../../../atoms/NavFolder/NavFolder.svelte";
+    import NeonButton from "../../../atoms/NeonButton/NeonButton.svelte";
+    import NavCheckGroup from "../../../molecules/NavCheckGroup/NavCheckGroup.svelte";
     import { createEventDispatcher } from "svelte";
 
     const dispatch = createEventDispatcher();
@@ -18,31 +16,28 @@
     }
 
     function displayAllCalendars() {
-        $currentDetails = {
-            type: "allCalendars",
-            color: "#454545",
-        };
-        $currentEvent = {};
+        $currentDetails = "allCalendars";
     }
 </script>
-
-<div id="nav-bar">
-    <div id="nav-top">
+<div id="calendars-side">
+    
+    <div id="side-main">
         <NavFolder name="Calendars">
             <NavCheckGroup
-                list={$calendars}
-                bind:group={$selectedCalendars}
-                func={displayAllCalendars}
+            list={$calendars}
+            bind:group={$selectedCalendars}
+            func={displayAllCalendars}
             />
         </NavFolder>
     </div>
-    <div id="nav-bottom">
+    <div id="side-bottom">
         <NeonButton text={"Add Event"} func={addEventEvent} />
     </div>
 </div>
 
+
 <style>
-    #nav-bar {
+    #calendars-side {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -50,9 +45,11 @@
         overflow: hidden;
         padding: 5px;
         background-color: var(--main-background-light);
+        width: 100%;
+        height: 100%;
     }
-    #nav-top,
-    #nav-bottom {
+    #side-main,
+    #side-bottom {
         width: 100%;
     }
 </style>

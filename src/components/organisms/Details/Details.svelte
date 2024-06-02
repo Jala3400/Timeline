@@ -3,6 +3,7 @@
     import CalendarDetails from "../Details/CalendarDetails/CalendarDetails.svelte";
     import EventDetails from "../Details/EventDetails/EventDetails.svelte";
     import AllCalendarsDetails from "../Details/AllCalendarsDetails/AllCalendarsDetails.svelte";
+    import IconCard from "../../atoms/IconCard/IconCard.svelte";
 
     const transparency = $constants.transparency;
 
@@ -13,18 +14,32 @@
     };
 </script>
 
-<div id="current-details">
-    <svelte:component this={details[$currentDetails.type]} />
+<div>
+    <div id="details-top">
+        <IconCard text="#" />
+    </div>
+    <div id="current-details">
+        <svelte:component this={details[$currentDetails]} />
+    </div>
 </div>
 
 <style>
     #current-details {
-        /* border-radius: 12px; */
         background-color: var(--main-background-light);
-        /* margin: 5px; */
         padding: 1em;
         text-align: unset;
         display: flex;
         flex-direction: column;
+        height: calc(100% - 2.5em);
+        border-left: 1px solid var(--divider-color);
+    }
+    #details-top {
+        padding: 3px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: var(--main-background-lighter);
+        border-bottom: 1px solid var(--divider-color);
+        width: 100%;
     }
 </style>
