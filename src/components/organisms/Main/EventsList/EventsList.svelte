@@ -7,6 +7,7 @@
 
     const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 
+    // Calcula la diferencia de días entre dos fechas
     function dateDifference(date1: Date, date2 = new Date()) {
         const diff = (date1.getTime() - date2.getTime()) / oneDay;
         let result = Math.round(diff) + "d";

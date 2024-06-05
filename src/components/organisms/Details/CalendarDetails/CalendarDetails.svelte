@@ -13,15 +13,21 @@
     let calendarName = $currentCalendar.name;
     let prevName = $currentCalendar.name;
 
+    /**
+     *  Cambia el nombre del calendario actual.
+     *  @param calName El nuevo nombre del calendario.
+     */
     function changeName(calName: string) {
         if (calName == prevName) {
             calendarName = prevName;
         } else if (!Object.keys($calendars).includes(calName)) {
+            // Si el nombre no está elegido, se cambia el nombre del calendario.
             let descriptor = Object.getOwnPropertyDescriptor(
                 $calendars,
                 prevName
             );
             if (descriptor) {
+                // Si existe el calendario con el nombre anterior, se cambia el nombre. (Hay que ponerlo así por TypeScript)
                 Object.defineProperty($calendars, calName, descriptor);
                 $calendars = $calendars;
                 $selectedCalendars.splice(
@@ -33,8 +39,13 @@
                 $currentCalendar.name = calName;
                 prevName = calName;
                 $selectedCalendars = $selectedCalendars;
+                for (let event of $calendars[calName].events) {
+                    // Cambia el nombre del calendario de los eventos.
+                    event.setCalendar = calName;
+                }
             }
         } else {
+            // Si el nombre ya está elegido, se pide otro nombre.
             console.log("taken");
             let newName = prompt(
                 "El nombre del calendario ya existe, elige otro",
@@ -43,8 +54,10 @@
             changeName(newName || prevName);
         }
     }
+
+    /// Al cambiar el color del calendario actual, se actualiza el color del calendario.
     currentCalendar.subscribe((value) => {
-        $calendars[value.name].color = value.calendar.color;
+        $calendars[value.name].setColor = value.calendar.color;
     });
 </script>
 
@@ -81,7 +94,8 @@
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
     }
     #calendar-name {
-        margin: 15px 0;
+        margin-bottom: 15px;
+        margin-top: 5px;
         font-size: 2em;
         font-weight: bold;
         background-color: transparent;

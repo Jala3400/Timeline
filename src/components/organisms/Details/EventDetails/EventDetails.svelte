@@ -15,12 +15,14 @@
     let date = new Date($currentEvent.event.date).toISOString().split("T")[0];
     let changeEvent = true;
 
+    /// Cambia la fecha del evento actual.
     function changeDate(date: string) {
         changeEvent = false;
         $currentEvent.event.changeDate(date);
         changeEvent = true;
     }
 
+    // Al cambiar el evento actua, se actualiza el evento.
     currentEvent.subscribe((value) => {
         if ($currentDetails == "event" && changeEvent) {
             const event = value.event;
@@ -100,13 +102,14 @@
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
     }
     #event-title {
-        margin: 15px 0;
+        margin-bottom: 15px;
+        margin-top: 5px;
         font-size: 2em;
         font-weight: bold;
         background-color: transparent;
     }
     #event-title:focus {
-        background-color: var(--input-background);
+        background-color: var(--bg-input);
     }
     #event-data {
         display: grid;

@@ -4,6 +4,7 @@
 
     const dispatch = createEventDispatcher();
 
+    // Lanza el evento para ocultar la barra lateral
     function hideSideBar() {
         dispatch("hideSideBar");
     }
@@ -26,7 +27,7 @@
         flex-direction: column;
         align-items: center;
         gap: 0.5em;
-        background-color: var(--main-background-light);
+        background-color: var(--bg-light);
         height: calc(100% - 2.5em);
         border-right: 1px solid var(--divider-color);
     }
@@ -35,7 +36,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: var(--main-background-lighter);
+        background-color: var(--bg-lighter);
         border-bottom: 1px solid var(--divider-color);
     }
 </style>

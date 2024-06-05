@@ -11,22 +11,24 @@
 
     const dispatch = createEventDispatcher();
 
+    // Lanza el evento para añadir un evento
     function addEventEvent() {
         dispatch("addEvent");
     }
 
+    // Lanza un evento para ver todos los calendarios
     function displayAllCalendars() {
         $currentDetails = "allCalendars";
     }
 </script>
+
 <div id="calendars-side">
-    
     <div id="side-main">
         <NavFolder name="Calendars">
             <NavCheckGroup
-            list={$calendars}
-            bind:group={$selectedCalendars}
-            func={displayAllCalendars}
+                list={$calendars}
+                bind:group={$selectedCalendars}
+                func={displayAllCalendars}
             />
         </NavFolder>
     </div>
@@ -34,7 +36,6 @@
         <NeonButton text={"Add Event"} func={addEventEvent} />
     </div>
 </div>
-
 
 <style>
     #calendars-side {
@@ -44,7 +45,7 @@
         justify-content: space-between;
         overflow: hidden;
         padding: 5px;
-        background-color: var(--main-background-light);
+        background-color: var(--bg-light);
         width: 100%;
         height: 100%;
     }

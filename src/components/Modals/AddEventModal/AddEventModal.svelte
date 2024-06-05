@@ -14,10 +14,12 @@
     let date = "2000-1-1";
     let description = "";
 
+    // Al cambiar el calendario actual, se actualiza el calendario al que se añade el evento
     currentCalendar.subscribe((value) => {
         calendar = value.name;
     });
 
+    // Añade un evento al calendario seleccionado
     function addEventCard() {
         $calendars[calendar].addEvent(
             new Evento(
@@ -49,6 +51,7 @@
                 <button
                     type="button"
                     on:click={() => {
+                        // Muestra el modal de añadir calendario
                         addCalendarModal = true;
                     }}>+</button
                 >

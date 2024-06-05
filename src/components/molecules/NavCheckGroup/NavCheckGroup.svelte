@@ -1,8 +1,8 @@
 <script lang="ts">
-    import type { Calendar } from "../../../classes/Calendar";
+    import type { Calendario } from "../../../classes/Calendario";
     import { constants } from "../../../store";
 
-    export let list: { [key: string]: Calendar };
+    export let list: { [key: string]: Calendario };
     export let group: string[];
     export let func = (key: string) => {};
 

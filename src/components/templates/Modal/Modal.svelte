@@ -47,7 +47,7 @@
         border-radius: 0.2em;
         border: none;
         padding: 0;
-        background-color: var(--main-background);
+        background-color: var(--bg);
         border: 2px solid var(--main-color-full);
         border-radius: 12px;
     }

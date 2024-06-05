@@ -9,6 +9,7 @@
     const color = $constants.discreteColor;
     const transparency = $constants.transparencyApp;
 
+    /// Cambia el estado de la carpeta
     function toggle() {
         expanded = !expanded;
     }

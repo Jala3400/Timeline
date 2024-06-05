@@ -3,17 +3,17 @@
 
   --main-color: #00FF80;
 
-  --main-background: #202020;
-  --main-background-light: #282828;
-  --main-background-lighter: #303030;
+  --bg: #202020;
+  --bg-light: #282828;
+  --bg-lighter: #303030;
 
-  --secondary-background: #404040;
-  --secondary-background-light: #505050;
-  --secondary-background-lighter: #606060;
+  --bg-secondary: #404040;
+  --bg-secondary-light: #505050;
+  --bg-secondary-lighter: #606060;
 
   --divider-color: #383838;
 
-  --input-background: #0f0f0f98;
+  --bg-input: #0f0f0f98;
   --dialog-backdop: #00000040;
 
   font-synthesis: none;
@@ -24,7 +24,7 @@
 
 
   color: var(--color);
-  background-color: var(--main-background);
+  background-color: var(--bg);
 }
 
 * {
@@ -45,16 +45,16 @@ input,
 button,
 textarea {
   color: var(--color);
-  background-color: var(--input-background);
+  background-color: var(--bg-input);
 }
 
 select {
   color: var(--color);
-  background-color: var(--input-background);
+  background-color: var(--bg-input);
 }
 
 select option {
-  background-color: var(--main-background);
+  background-color: var(--bg);
 }
 
 button {
@@ -97,15 +97,24 @@ textarea {
   resize: none;
 }
 
+::-moz-selection {
+  /* Code for Firefox */
+  background: var(--main-color);
+}
+
+::selection {
+  background: var(--main-color);
+}
+
 ::-webkit-calendar-picker-indicator {
   cursor: pointer;
 }
 
-::-webkit-scrollbar {
-  display: none;
-}
-
 /* ::-webkit-scrollbar {
+  display: none;
+} */
+
+::-webkit-scrollbar {
   width: 8px;
   height: 8px;
   background-color: transparent;
@@ -116,7 +125,7 @@ textarea {
   border-radius: 8px;
 }
 
-::-webkit-scrollbar-thumb:hover {
+/* ::-webkit-scrollbar-thumb:hover {
   background-color: var(--main-color-light);
 } */
 

@@ -19,7 +19,7 @@
         align-items: flex-start;
         justify-content: space-between;
         overflow: hidden;
-        background-color: var(--main-background-light);
+        background-color: var(--bg-light);
         width: 100%;
         height: calc(100% - 2.5em);
         border-right: 1px solid var(--divider-color);
@@ -30,7 +30,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: var(--main-background-lighter);
+        background-color: var(--bg-lighter);
         border-bottom: 1px solid var(--divider-color);
         width: 100%;
     }

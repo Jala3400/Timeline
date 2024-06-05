@@ -13,6 +13,15 @@
 </div>
 
 <style>
+    #main-top {
+        padding: 3px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: var(--bg-lighter);
+        border-bottom: 1px solid var(--divider-color);
+        width: 100%;
+    }
     #main {
         padding: 1rem;
         overflow: auto;
@@ -21,14 +30,6 @@
         flex-direction: column;
         align-items: center;
         text-align: center;
-    }
-    #main-top {
-        padding: 3px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: var(--main-background-lighter);
-        border-bottom: 1px solid var(--divider-color);
-        width: 100%;
+        height: calc(100% - 2.5em);
     }
 </style>

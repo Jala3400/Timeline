@@ -1,13 +1,11 @@
 <script lang="ts">
-    import { currentDetails, constants } from "../../../store";
+    import { currentDetails } from "../../../store";
     import CalendarDetails from "../Details/CalendarDetails/CalendarDetails.svelte";
     import EventDetails from "../Details/EventDetails/EventDetails.svelte";
     import AllCalendarsDetails from "../Details/AllCalendarsDetails/AllCalendarsDetails.svelte";
     import IconCard from "../../atoms/IconCard/IconCard.svelte";
 
-    const transparency = $constants.transparency;
-
-    let details = {
+    let details: { [key: string]: any } = {
         event: EventDetails,
         calendar: CalendarDetails,
         allCalendars: AllCalendarsDetails,
@@ -25,7 +23,7 @@
 
 <style>
     #current-details {
-        background-color: var(--main-background-light);
+        background-color: var(--bg-light);
         padding: 1em;
         text-align: unset;
         display: flex;
@@ -38,7 +36,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: var(--main-background-lighter);
+        background-color: var(--bg-lighter);
         border-bottom: 1px solid var(--divider-color);
         width: 100%;
     }

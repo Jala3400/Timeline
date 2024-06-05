@@ -1,8 +1,11 @@
 import { get } from 'svelte/store';
-import { Calendar } from '../classes/Calendar';
+import { Calendario } from '../classes/Calendario';
 import type { Evento } from '../classes/Evento';
 import { calendars, eventsList, selectedCalendars, currentCalendar, currentDetails } from '../store';
 
+/**
+ * Actualiza la lista de eventos que se muestran por pantalla
+  */
 export function updateEvents() {
     let newEventsList: Evento[] = [];
     for (let calendar of get(selectedCalendars)) {
@@ -11,20 +14,23 @@ export function updateEvents() {
     eventsList.set(newEventsList);
 }
 
+/** 
+ * Combina dos listas de eventos ordenadas por fecha
+ */
 function mergeEvents(existing: Evento[], calendar: string) {
     let arr = [];
-    let right = get(calendars)[calendar].events;
+    let newEvents = get(calendars)[calendar].events;
 
     let i = 0;
     let j = 0;
 
-    while (i < existing.length && j < right.length) {
-        if (new Date(existing[i].date) > new Date(right[j].date)) {
+    while (i < existing.length && j < newEvents.length) {
+        if (new Date(existing[i].date) > new Date(newEvents[j].date)) {
             arr.push(existing[i]);
             i++;
         } else {
-            let event = right[j];
-            event.calendar = calendar;
+            let event = newEvents[j];
+            event.setCalendar = calendar;
             arr.push(event);
             j++;
         }
@@ -33,22 +39,34 @@ function mergeEvents(existing: Evento[], calendar: string) {
         arr.push(existing[i]);
         i++;
     }
-    while (j < right.length) {
-        let event = right[j];
-        event.calendar = calendar;
-        arr.push(event);
+    while (j < newEvents.length) {
+        arr.push(newEvents[j]);
         j++;
     }
     return arr;
 }
 
+/**
+ * Añade un nuevo calendario 
+ * @param name el nombre del calendario
+ * @param color el color del calendario
+ */
 export function addNewCalendar(name: string, color: string) {
     let newCalendars = get(calendars);
-    newCalendars[name] = new Calendar(color);
+    let newCal = new Calendario(color);
+    newCalendars[name] = newCal;
     calendars.set(newCalendars);
+    currentCalendar.set({ calendar: newCal, name: name });
 }
 
-export function deleteCalendar(calendar: string) {
+/**
+ * Elimina un calendario
+ * @param calendar el nombre del calendario
+ */
+export function deleteCalendar(calendar: string): boolean {
+    if (Object.keys(get(calendars)).length == 1) {
+        return false;
+    }
     // Borra el calendario de los calendarios seleccionados
     let newSelectedCalendars = get(selectedCalendars);
     const index = newSelectedCalendars.indexOf(calendar);
@@ -68,8 +86,14 @@ export function deleteCalendar(calendar: string) {
     let newCalendars = get(calendars);
     delete newCalendars[calendar];
     calendars.set(newCalendars);
+    return true;
 }
 
+/**
+ * Devuelve el índice en el que se debe insertar un evento en una lista de eventos ordenada por fecha.
+ * @param date la fecha del evento
+ * @param events la lista en la que se va a insertar el evento
+ */
 export function insEvent(date: string | Date, events: Evento[]) {
     let i = 0;
     let found = false;
@@ -84,7 +108,7 @@ export function insEvent(date: string | Date, events: Evento[]) {
     return i;
 }
 
-// Todo: Ins event with binary search
+// Todo: Ins event con binary search
 // function insEvent(date, events) {
 //     let start = 0;
 //     let end = events.length - 1;

@@ -11,6 +11,7 @@
     const transparency = $constants.transparency;
     let color = $configuration.mainColor;
 
+    /// Establece el calendario actual y cambia la vista a la de detalles del calendario.
     function selectCalendar(calendar: string) {
         $currentCalendar = { calendar: $calendars[calendar], name: calendar };
         $currentDetails = "calendar";
@@ -43,14 +44,14 @@
     #all-calendars-details {
         padding: 1em;
         border-radius: 12px;
-        background-color: var(--secondary-background);
+        background-color: var(--bg-secondary);
         text-align: unset;
         display: flex;
         flex-direction: column;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
     }
     #title {
-        margin-top: 20px;
+        margin-top: 10px;
         margin-left: 5px;
     }
     #calendars {

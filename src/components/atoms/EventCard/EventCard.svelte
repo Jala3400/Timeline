@@ -12,6 +12,7 @@
 
     const transparency = $constants.transparency;
 
+    // Establece el evento actual y cambia la vista a la de detalles del evento.
     function selectEvent() {
         $currentEvent = { event: event, index: index };
         $currentDetails = "event";
