@@ -17,8 +17,10 @@
 
     /// Cambia la fecha del evento actual.
     function changeDate(date: string) {
+        // Al cambiar la fecha del evento, no se debe actualizar el currentEvent, porque entonces se forma un búcle
         changeEvent = false;
         $currentEvent.event.changeDate(date);
+        $calendars = $calendars; // Actualiza el store para que se actualice la vista indivual de calendarios (CalendarsList).
         changeEvent = true;
     }
 

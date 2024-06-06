@@ -4,7 +4,7 @@
         currentDetails,
         selectedCalendars,
     } from "../../../../store";
-    import NavFolder from "../../../atoms/NavFolder/NavFolder.svelte";
+    import NavFolder from "../../../molecules/NavFolder/NavFolder.svelte";
     import NeonButton from "../../../atoms/NeonButton/NeonButton.svelte";
     import NavCheckGroup from "../../../molecules/NavCheckGroup/NavCheckGroup.svelte";
     import { createEventDispatcher } from "svelte";

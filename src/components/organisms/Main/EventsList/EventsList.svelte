@@ -1,5 +1,5 @@
 <script lang="ts">
-    import EventCard from "../../../atoms/EventCard/EventCard.svelte";
+    import EventCard from "../../../molecules/EventCard/EventCard.svelte";
     import TiempoRestante from "../../../atoms/TiempoRestante/TiempoRestante.svelte";
     import { calendars, configuration, eventsList } from "../../../../store";
 
@@ -34,6 +34,7 @@
 <style>
     #events-container {
         display: flex;
+        padding: 1rem;
         gap: 0.5em;
         flex-direction: column;
         align-items: center;

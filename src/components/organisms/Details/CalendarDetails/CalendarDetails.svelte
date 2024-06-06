@@ -39,9 +39,9 @@
                 $currentCalendar.name = calName;
                 prevName = calName;
                 $selectedCalendars = $selectedCalendars;
-                for (let event of $calendars[calName].events) {
+                for (let i = 0; i < $calendars[calName].events.length; i++) {
                     // Cambia el nombre del calendario de los eventos.
-                    event.setCalendar = calName;
+                    $calendars[calName].events[i].setCalendar = calName;
                 }
             }
         } else {

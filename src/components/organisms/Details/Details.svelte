@@ -34,8 +34,8 @@
     #details-top {
         padding: 3px;
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
+        justify-content: center;
         background-color: var(--bg-lighter);
         border-bottom: 1px solid var(--divider-color);
         width: 100%;

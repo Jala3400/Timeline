@@ -6,24 +6,15 @@
     import IconsBar from "./components/organisms/IconsBar/IconsBar.svelte";
     import SideBar from "./components/organisms/SideBar/SideBar.svelte";
 
-    // Side Bar
-    let sideBar = true;
-
     // Modals
     let addEventModal: boolean = false;
     let addCalendarModal: boolean = false;
     let calendarColor = "#FF0000";
 </script>
 
-<div id="main-container" class:hidSideBar={!sideBar} style="height: 100%; ">
-    <IconsBar
-        on:hideSideBar={() => {
-            sideBar = !sideBar;
-        }}
-    />
-    {#if sideBar}
-        <SideBar on:addEvent={() => (addEventModal = true)} />
-    {/if}
+<div id="main-container" style="height: 100%; ">
+    <IconsBar />
+    <SideBar on:addEvent={() => (addEventModal = true)} />
     <Main />
     <Details />
 </div>
@@ -35,8 +26,5 @@
     #main-container {
         display: grid;
         grid-template: 100% / 2.5rem 1fr 3fr 1.2fr;
-    }
-    .hidSideBar {
-        grid-template: 100% / 2.5rem 3fr 1.2fr !important;
     }
 </style>
