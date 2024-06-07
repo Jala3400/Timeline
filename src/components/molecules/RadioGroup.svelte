@@ -1,31 +1,39 @@
 <script lang="ts">
-    import type { Calendario } from "../../../classes/Calendario";
-    import { constants } from "../../../store";
+    import type { Calendario } from "../../classes/Calendario";
+    import { constants, currentCalendar, currentDetails } from "../../store";
 
     export let list: { [key: string]: Calendario };
-    export let group: string[];
+    export let focusCalendar: string = $currentCalendar.name;
     export let func = (key: string) => {};
+
+    currentCalendar.subscribe((value) => {
+        focusCalendar = value.name;
+    });
 
     const transparency = $constants.transparency;
 </script>
 
 <div class="checkbox-group">
-    {#each Object.entries(list) as [key, value]}
+    {#each Object.entries(list) as [calendarName, calendar]}
         <label
             class="side-checkbox"
-            style="--main-color:{value.color}{transparency.low};
-            --main-color-hover:{value.color}{transparency.hover};
-            --main-color-active:{value.color}{transparency.active};
-            --main-color-full:{value.color}{transparency.full}"
+            style="--main-color:{calendar.color}{transparency.low};
+            --main-color-hover:{calendar.color}{transparency.hover};
+            --main-color-active:{calendar.color}{transparency.active};
+            --main-color-full:{calendar.color}{transparency.full}"
         >
             <input
-                type="checkbox"
+                type="radio"
                 class="checkbox"
-                value={key}
-                bind:group
-                on:change={() => func(key)}
+                value={calendarName}
+                bind:group={focusCalendar}
+                on:change={() => {
+                    func(calendarName);
+                    $currentCalendar = calendar;
+                    $currentDetails = "calendar";
+                }}
             />
-            <span class="checkbox-label">{key}</span>
+            <span class="checkbox-label">{calendarName}</span>
         </label>
     {/each}
 </div>

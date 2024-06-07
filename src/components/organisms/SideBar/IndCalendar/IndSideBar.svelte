@@ -1,6 +1,7 @@
 <script lang="ts">
-    import IconCard from "../../atoms/IconCard/IconCard.svelte";
+    import IconCard from "../../../atoms/IconCard.svelte";
     import CalendarsSide from "./CalendarsSide/CalendarsSide.svelte";
+
 </script>
 
 <div id="side-bar">

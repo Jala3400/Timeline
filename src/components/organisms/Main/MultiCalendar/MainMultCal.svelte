@@ -1,10 +1,9 @@
 <script lang="ts">
-    import IconCard from "../../atoms/IconCard/IconCard.svelte";
-    import CalendarsList from "./CalendarsList/CalendarsList.svelte";
-    import EventsList from "./EventsList/EventsList.svelte";
+    import IconCard from "../../../atoms/IconCard.svelte";
+    import CalendarsList from "./MultiCaledarsList/MultiCalendarsList.svelte";
+    import EventsList from "./MultiEventsList/MultiEventsList.svelte";
 
     let currentView: string = "eventsList";
-
     let view: { [key: string]: any } = {
         eventsList: EventsList,
         calendarsList: CalendarsList,

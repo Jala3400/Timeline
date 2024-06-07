@@ -6,7 +6,7 @@
         currentEvent,
         constants,
     } from "../../../../store";
-    import CompInput from "../../../molecules/CompInput/CompInput.svelte";
+    import CompInput from "../../../molecules/CompInput.svelte";
 
     $: color = $calendars[$currentEvent.event.calendar].color;
     const transparency = $constants.transparency;

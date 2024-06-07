@@ -1,10 +1,10 @@
 <script lang="ts">
-    import type { Evento } from "../../../classes/Evento";
+    import type { Evento } from "../../classes/Evento";
     import {
         currentDetails,
         constants,
         currentEvent,
-    } from "../../../store";
+    } from "../../store";
 
     export let event: Evento;
     export let index: number;

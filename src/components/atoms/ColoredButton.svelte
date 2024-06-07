@@ -1,5 +1,5 @@
 <script>
-    import { constants } from "../../../store";
+    import { constants } from "../../store";
 
     export let func;
     export let text;

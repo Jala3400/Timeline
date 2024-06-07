@@ -9,7 +9,7 @@
 
     const transparency = $constants.transparency;
 
-    $: color = $currentCalendar.calendar.color;
+    $: color = $currentCalendar.color;
     let calendarName = $currentCalendar.name;
     let prevName = $currentCalendar.name;
 
@@ -57,7 +57,9 @@
 
     /// Al cambiar el color del calendario actual, se actualiza el color del calendario.
     currentCalendar.subscribe((value) => {
-        $calendars[value.name].setColor = value.calendar.color;
+        $calendars[value.name].setColor = value.color;
+        calendarName = value.name;
+        prevName = value.name;
     });
 </script>
 
@@ -75,7 +77,7 @@
             changeName(calendarName);
         }}
     />
-    <input type="color" bind:value={$currentCalendar.calendar.color} />
+    <input type="color" bind:value={$currentCalendar.color} />
     <button
         on:click={() => {
             deleteCalendar($currentCalendar.name);

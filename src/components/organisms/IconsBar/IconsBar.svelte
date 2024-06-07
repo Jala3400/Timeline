@@ -1,5 +1,7 @@
-<script>
-    import IconCard from "../../atoms/IconCard/IconCard.svelte";
+<script lang="ts">
+    import { currentDetails } from "../../../store";
+    import IconCard from "../../atoms/IconCard.svelte";
+    export let currentMode: string = "multiCalendar";
 </script>
 
 <div id="icons-bar">
@@ -7,8 +9,20 @@
         <IconCard text="H" />
     </div>
     <div id="icons-main">
-        <IconCard text="~" />
-        <IconCard text="~" />
+        <IconCard
+            text="M"
+            func={() => {
+                currentMode = "multiCalendar";
+                $currentDetails = "allCalendars";
+            }}
+        />
+        <IconCard
+            text="I"
+            func={() => {
+                currentMode = "indCalendar";
+                $currentDetails = "calendar";
+            }}
+        />
     </div>
 </div>
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import type { Calendario } from "../../../../classes/Calendario";
     import {
         calendars,
         configuration,
@@ -6,14 +7,14 @@
         currentCalendar,
         currentDetails,
     } from "../../../../store";
-    import ColoredButton from "../../../atoms/ColoredButton/ColoredButton.svelte";
+    import ColoredButton from "../../../atoms/ColoredButton.svelte";
 
     const transparency = $constants.transparency;
     let color = $configuration.mainColor;
 
     /// Establece el calendario actual y cambia la vista a la de detalles del calendario.
-    function selectCalendar(calendar: string) {
-        $currentCalendar = { calendar: $calendars[calendar], name: calendar };
+    function selectCalendar(calendar: Calendario) {
+        $currentCalendar = calendar;
         $currentDetails = "calendar";
     }
 </script>
@@ -26,11 +27,11 @@
 >
     <h1 id="title">Calendars</h1>
     <div id="calendars">
-        {#each Object.entries($calendars) as [calendar, value]}
+        {#each Object.entries($calendars) as [calendarName, calendar]}
             <div class="calendar-details">
                 <ColoredButton
-                    text={calendar}
-                    color={value.color}
+                    text={calendarName}
+                    color={calendar.color}
                     func={() => {
                         selectCalendar(calendar);
                     }}

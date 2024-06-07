@@ -3,7 +3,7 @@
     import CalendarDetails from "../Details/CalendarDetails/CalendarDetails.svelte";
     import EventDetails from "../Details/EventDetails/EventDetails.svelte";
     import AllCalendarsDetails from "../Details/AllCalendarsDetails/AllCalendarsDetails.svelte";
-    import IconCard from "../../atoms/IconCard/IconCard.svelte";
+    import IconCard from "../../atoms/IconCard.svelte";
 
     let details: { [key: string]: any } = {
         event: EventDetails,

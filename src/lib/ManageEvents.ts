@@ -53,10 +53,10 @@ function mergeEvents(existing: Evento[], calendar: string) {
  */
 export function addNewCalendar(name: string, color: string) {
     let newCalendars = get(calendars);
-    let newCal = new Calendario(color);
+    let newCal = new Calendario(color, [], name);
     newCalendars[name] = newCal;
     calendars.set(newCalendars);
-    currentCalendar.set({ calendar: newCal, name: name });
+    currentCalendar.set(newCal);
 }
 
 /**
@@ -76,8 +76,7 @@ export function deleteCalendar(calendar: string): boolean {
     }
 
     // Cambia el calendario actual
-    let newCurrentCalendar = { calendar: Object.values(get(calendars))[0], name: Object.keys(get(calendars))[0] };
-    currentCalendar.set(newCurrentCalendar);
+    currentCalendar.set(Object.values(get(calendars))[0]);
 
     // Cambia los detalles actuales
     currentDetails.set("allCalendars")

@@ -36,7 +36,7 @@ const testEvent = new Evento("Test", new Date(0).toISOString(), "asd", "test")
 export const eventsList: Writable<Evento[]> = writable([])
 
 //* Existing calendars
-const existingCalendars = JSON.parse(localStorage.getItem("calendars") ?? JSON.stringify({ default: new Calendario("#FF0000", [defaultEvent]), test: new Calendario("#FF00FF", [testEvent]) }));
+const existingCalendars = JSON.parse(localStorage.getItem("calendars") ?? JSON.stringify({ default: new Calendario("#FF0000", [defaultEvent], "default"), test: new Calendario("#FF00FF", [testEvent], "test") }));
 
 export const calendars: Writable<{ [key: string]: Calendario }> = writable(
     // Goes from JSON to Calendar for every calendar (and Evento for its events)
@@ -67,4 +67,4 @@ export const currentDetails: Writable<string> = writable("allCalendars")
 export const currentEvent: Writable<{ event: Evento, index: number }> = writable({ event: get(eventsList)[0], index: 0 });
 
 const calName = Object.keys(get(calendars))[0];
-export const currentCalendar: Writable<{ calendar: Calendario, name: string }> = writable({ calendar: get(calendars)[calName], name: calName });
+export const currentCalendar: Writable<Calendario> = writable(get(calendars)[calName]);

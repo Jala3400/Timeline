@@ -3,10 +3,10 @@
         calendars,
         currentDetails,
         selectedCalendars,
-    } from "../../../../store";
-    import NavFolder from "../../../molecules/NavFolder/NavFolder.svelte";
-    import NeonButton from "../../../atoms/NeonButton/NeonButton.svelte";
-    import NavCheckGroup from "../../../molecules/NavCheckGroup/NavCheckGroup.svelte";
+    } from "../../../../../store";
+    import NavFolder from "../../../../molecules/NavFolder.svelte";
+    import NeonButton from "../../../../atoms/NeonButton.svelte";
+    import NavCheckGroup from "../../../../molecules/CheckGroup.svelte";
     import { createEventDispatcher } from "svelte";
 
     const dispatch = createEventDispatcher();

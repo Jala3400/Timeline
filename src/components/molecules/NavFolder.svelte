@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { constants } from "../../../store";
+    import { constants } from "../../store";
     // import NavChild from "../NavChild/NavChild.svelte";
 
     export let expanded = true;

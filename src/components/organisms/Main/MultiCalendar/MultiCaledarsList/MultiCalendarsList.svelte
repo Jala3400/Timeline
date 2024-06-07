@@ -4,9 +4,9 @@
         configuration,
         constants,
         selectedCalendars,
-    } from "../../../../store";
-    import TiempoRestante from "../../../atoms/TiempoRestante/TiempoRestante.svelte";
-    import EventCard from "../../../molecules/EventCard/EventCard.svelte";
+    } from "../../../../../store";
+    import TiempoRestante from "../../../../atoms/TiempoRestante.svelte";
+    import EventCard from "../../../../molecules/EventCard.svelte";
 
     // Todo: Reordenar cuando el currentEvent cambia la fecha
 

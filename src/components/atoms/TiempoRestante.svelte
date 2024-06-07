@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { constants } from "../../../store";
+    import { constants } from "../../store";
 
     export let func: Function = () => {};
     export let text: string;

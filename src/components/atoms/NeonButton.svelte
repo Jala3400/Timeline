@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { configuration } from "../../../store";
+    import { configuration } from "../../store";
 
     export let func: Function = () => {};
     export let text: string;

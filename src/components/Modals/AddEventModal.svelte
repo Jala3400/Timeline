@@ -1,9 +1,9 @@
 <script lang="ts">
     //! Keep the orden of the imports. When Evento is on top of calendars the app breaks
-    import { calendars, currentCalendar } from "../../../store";
-    import { Evento } from "../../../classes/Evento";
-    import Modal from "../../templates/Modal/Modal.svelte";
-    import CompInput from "../../molecules/CompInput/CompInput.svelte";
+    import { calendars, currentCalendar } from "../../store";
+    import { Evento } from "../../classes/Evento";
+    import Modal from "../templates/Modal/Modal.svelte";
+    import CompInput from "../molecules/CompInput.svelte";
 
     export let addEventModal: boolean = false;
     export let calendarColor: string;

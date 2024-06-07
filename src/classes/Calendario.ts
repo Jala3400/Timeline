@@ -9,10 +9,12 @@ import { Evento } from "./Evento";
 export class Calendario {
     color: string;
     events: Evento[];
+    name: string;
 
-    constructor(color: string = "#FF0000", events: Evento[] = []) {
+    constructor(color: string = "#FF0000", events: Evento[] = [], name: string) {
         this.color = color;
         this.events = events;
+        this.name = name;
     }
 
     /**
@@ -46,6 +48,7 @@ export class Calendario {
     set setEvents(events: Evento[]) {
         this.events = events;
     }
+
     /**
      * Método que convierte un objeto JSON en un objeto de la clase Calendar.
      * @param json Objeto JSON que representa un calendario.

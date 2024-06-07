@@ -1,8 +1,8 @@
 <script lang="ts">
-    import Modal from "../../templates/Modal/Modal.svelte";
-    import CompInput from "../../molecules/CompInput/CompInput.svelte";
-    import { addNewCalendar } from "../../../lib/ManageEvents";
-    import { calendars, currentCalendar } from "../../../store";
+    import Modal from "../templates/Modal/Modal.svelte";
+    import CompInput from "../molecules/CompInput.svelte";
+    import { addNewCalendar } from "../../lib/ManageEvents";
+    import { calendars, currentCalendar } from "../../store";
 
     export let addCalendarModal: boolean = false;
     export let calendarColor: string;
