@@ -44,7 +44,7 @@
         display: grid;
         grid-template-columns: 1em auto;
         align-items: center;
-        gap: 0.25em;
+        gap: 5px;
     }
     .side-checkbox:hover {
         background-color: var(--main-color-hover);
@@ -66,7 +66,7 @@
         background-color: #fff0;
         margin: 0;
         width: 1em;
-        height: 1em;
+        aspect-ratio: 1/1;
         border-radius: 100%;
         display: grid;
         cursor: pointer;

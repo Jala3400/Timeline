@@ -70,7 +70,7 @@
         background-color: #fff0;
         margin: 0;
         width: 1em;
-        height: 1em;
+        aspect-ratio: 1/1;
         border-radius: 100%;
         display: grid;
         cursor: pointer;

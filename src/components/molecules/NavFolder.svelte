@@ -87,7 +87,7 @@
     }
     .svg-icon {
         width: 0.75em;
-        height: 0.75em;
+        aspect-ratio: 1/1;
     }
     .collapse-icon.is-collapsed .svg-icon {
         transform: rotate(-90deg);

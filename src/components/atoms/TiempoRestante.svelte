@@ -26,9 +26,8 @@
         color: #ffffff;
         background-color: var(--main-color);
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-        width: 2.8em;
-        height: 2.5em;
-        min-height: 2.5em;
+        width: 2.75em;
+        aspect-ratio: 1/1;
         /* border: 1px solid transparent; */
     }
     .tiempo-restante:hover {
