@@ -32,7 +32,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 0.5em;
+        gap: 5px;
         background-color: var(--bg-light);
         height: calc(100% - 2.5em);
         border-right: 1px solid var(--divider-color);

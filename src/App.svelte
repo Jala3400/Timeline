@@ -1,7 +1,7 @@
 <script lang="ts">
     import IconsBar from "./components/organisms/IconsBar/IconsBar.svelte";
-    import MultiCalendar from "./components/pages/MultiCalendar.svelte";
-    import IndCalendar from "./components/pages/IndCalendar.svelte";
+    import MultiCalendar from "./components/pages/MultiCalendar/MultiCalendars.svelte";
+    import IndCalendar from "./components/pages/IndCalendar/IndCalendar.svelte";
 
     // Main panel
     let currentMode: string = "multiCalendar";

@@ -1,8 +1,8 @@
 <script lang="ts">
     import { currentDetails } from "../../../store";
-    import CalendarDetails from "../Details/CalendarDetails/CalendarDetails.svelte";
-    import EventDetails from "../Details/EventDetails/EventDetails.svelte";
-    import AllCalendarsDetails from "../Details/AllCalendarsDetails/AllCalendarsDetails.svelte";
+    import CalendarDetails from "./DetailBlocks/CalendarDetails.svelte";
+    import EventDetails from "./DetailBlocks/EventDetails.svelte";
+    import AllCalendarsDetails from "./DetailBlocks/AllCalendarsDetails.svelte";
     import IconCard from "../../atoms/IconCard.svelte";
 
     let details: { [key: string]: any } = {

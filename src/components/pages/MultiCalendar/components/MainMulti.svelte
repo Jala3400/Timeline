@@ -1,16 +1,19 @@
 <script lang="ts">
     import IconCard from "../../../atoms/IconCard.svelte";
-    import IndEventsList from "./IndEventsList/IndEventsList.svelte";
+    import CalendarsList from "./Main/CalendarsList.svelte";
+    import EventsList from "./Main/EventsList.svelte";
 
     let currentView: string = "eventsList";
     let view: { [key: string]: any } = {
-        eventsList: IndEventsList,
+        eventsList: EventsList,
+        calendarsList: CalendarsList,
     };
 </script>
 
 <div id="main">
     <div id="main-top">
         <IconCard text="E" func={() => (currentView = "eventsList")} />
+        <IconCard text="C" func={() => (currentView = "calendarsList")} />
     </div>
     <div id="main-content">
         <svelte:component this={view[currentView]} />
@@ -30,7 +33,6 @@
     #main-content {
         overflow: auto;
         display: flex;
-        gap: 0.5em;
         flex-direction: column;
         align-items: center;
         text-align: center;

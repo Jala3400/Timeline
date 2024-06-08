@@ -60,10 +60,6 @@
         flex-direction: column;
         gap: 5px;
     }
-    .calendar-details {
-        display: flex;
-        gap: 0.5em;
-    }
     @media (max-width: 1200px) {
         #title {
             font-size: 1.75em;

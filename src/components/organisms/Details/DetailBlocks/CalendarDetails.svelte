@@ -30,11 +30,10 @@
                 // Si existe el calendario con el nombre anterior, se cambia el nombre.
                 Object.defineProperty($calendars, calName, descriptor);
                 $calendars = $calendars;
-                $selectedCalendars.splice(
-                    $selectedCalendars.indexOf(prevName),
-                    1,
-                    calName
-                );
+                const index = $selectedCalendars.indexOf(calName);
+                if (index != -1) {
+                    $selectedCalendars.splice(index, 1, calName);
+                }
                 delete $calendars[prevName];
                 $currentCalendar.name = calName;
                 prevName = calName;

@@ -24,7 +24,7 @@
         border-radius: 8px;
         color: #ffffff;
         width: 2.5em;
-        min-height: 2.5em;
+        aspect-ratio: 1/1;
         background-color: var(--main-color);
     }
     .iconCard:hover {
