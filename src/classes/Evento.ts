@@ -10,7 +10,7 @@ export class Evento {
     description: string;
     calendar: string
 
-    constructor(title: string = "new event", date: Date | string = new Date, description: string = "", calendar: string) {
+    constructor(title: string = "new event", date: Date | string = new Date, description: string = "", calendar: string = "") {
         this.title = title;
         this.date = new Date(date).toISOString();
         this.description = description;
@@ -102,7 +102,7 @@ export class Evento {
             return value;
         })
         currentEvent.update((value => {
-            value.event.calendar = calendar;
+            value.calendar = calendar;
             return value
         }))
         this.calendar = calendar;
@@ -130,10 +130,6 @@ export class Evento {
      */
     delete() {
         get(calendars)[this.calendar].deleteEvent(this);
-        eventsList.update((value) => {
-            const index = value.indexOf(this);
-            value.splice(index, 1);
-            return value;
-        })
+        eventsList.update((value) => value.filter((event) => event !== this));
     }
 }

@@ -27,7 +27,7 @@
                 prevName
             );
             if (descriptor) {
-                // Si existe el calendario con el nombre anterior, se cambia el nombre. (Hay que ponerlo así por TypeScript)
+                // Si existe el calendario con el nombre anterior, se cambia el nombre.
                 Object.defineProperty($calendars, calName, descriptor);
                 $calendars = $calendars;
                 $selectedCalendars.splice(
@@ -57,7 +57,7 @@
 
     /// Al cambiar el color del calendario actual, se actualiza el color del calendario.
     currentCalendar.subscribe((value) => {
-        $calendars[value.name].setColor = value.color;
+        $calendars = $calendars;
         calendarName = value.name;
         prevName = value.name;
     });

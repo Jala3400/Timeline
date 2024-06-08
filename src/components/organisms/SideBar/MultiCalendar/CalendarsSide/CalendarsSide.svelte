@@ -15,11 +15,6 @@
     function addEventEvent() {
         dispatch("addEvent");
     }
-
-    // Lanza un evento para ver todos los calendarios
-    function displayAllCalendars() {
-        $currentDetails = "allCalendars";
-    }
 </script>
 
 <div id="calendars-side">
@@ -28,7 +23,7 @@
             <NavCheckGroup
                 list={$calendars}
                 bind:group={$selectedCalendars}
-                func={displayAllCalendars}
+                change={() => ($currentDetails = "allCalendars")}
             />
         </NavFolder>
     </div>

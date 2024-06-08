@@ -22,7 +22,7 @@
 
 <div id="events-container">
     {#each $eventsList as event, index}
-        <EventCard {event} {index} color={$calendars[event.calendar].color} />
+        <EventCard {event} color={$calendars[event.calendar].color} />
         <TiempoRestante
             text={dateDifference(new Date(event.date))}
             {index}

@@ -1,39 +1,36 @@
 <script lang="ts">
-    import type { Calendario } from "../../classes/Calendario";
-    import { constants, currentCalendar, currentDetails } from "../../store";
+    import { constants } from "../../store";
 
-    export let list: { [key: string]: Calendario };
-    export let focusCalendar: string = $currentCalendar.name;
-    export let func = (key: string) => {};
-
-    currentCalendar.subscribe((value) => {
-        focusCalendar = value.name;
-    });
+    export let list: { [key: string]: any };
+    export let focusObject: any;
+    export let change = (key: string) => {};
+    export let click = (key: any) => {};
 
     const transparency = $constants.transparency;
 </script>
 
 <div class="checkbox-group">
-    {#each Object.entries(list) as [calendarName, calendar]}
+    {#each Object.entries(list) as [key, value]}
         <label
             class="side-checkbox"
-            style="--main-color:{calendar.color}{transparency.low};
-            --main-color-hover:{calendar.color}{transparency.hover};
-            --main-color-active:{calendar.color}{transparency.active};
-            --main-color-full:{calendar.color}{transparency.full}"
+            style="--main-color:{value.color}{transparency.low};
+            --main-color-hover:{value.color}{transparency.hover};
+            --main-color-active:{value.color}{transparency.active};
+            --main-color-full:{value.color}{transparency.full}"
         >
             <input
                 type="radio"
                 class="checkbox"
-                value={calendarName}
-                bind:group={focusCalendar}
+                value={value}
+                bind:group={focusObject}
                 on:change={() => {
-                    func(calendarName);
-                    $currentCalendar = calendar;
-                    $currentDetails = "calendar";
+                    change(key);
+                }}
+                on:click={() => {
+                    click(value);
                 }}
             />
-            <span class="checkbox-label">{calendarName}</span>
+            <span class="checkbox-label">{key}</span>
         </label>
     {/each}
 </div>

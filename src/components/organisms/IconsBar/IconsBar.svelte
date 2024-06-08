@@ -20,7 +20,7 @@
             text="I"
             func={() => {
                 currentMode = "indCalendar";
-                $currentDetails = "calendar";
+                $currentDetails = "allCalendars";
             }}
         />
     </div>

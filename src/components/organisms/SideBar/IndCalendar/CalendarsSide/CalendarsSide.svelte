@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { calendars, currentDetails, currentCalendar } from "../../../../../store";
+    import { calendars, currentCalendar, currentDetails } from "../../../../../store";
     import NavFolder from "../../../../molecules/NavFolder.svelte";
     import NeonButton from "../../../../atoms/NeonButton.svelte";
     import RadioGroup from "../../../../molecules/RadioGroup.svelte";
@@ -11,11 +11,6 @@
     function addEventEvent() {
         dispatch("addEvent");
     }
-
-    // Lanza un evento para ver todos los calendarios
-    function displayAllCalendars() {
-        $currentDetails = "allCalendars";
-    }
 </script>
 
 <div id="calendars-side">
@@ -23,7 +18,11 @@
         <NavFolder name="Calendars">
             <RadioGroup
                 list={$calendars}
-                func={displayAllCalendars}
+                bind:focusObject={$currentCalendar}
+                click={(calendar) => {
+                    $currentCalendar = calendar;
+                    $currentDetails = "calendar";
+                }}
             />
         </NavFolder>
     </div>

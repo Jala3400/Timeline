@@ -8,8 +8,6 @@
     import TiempoRestante from "../../../../atoms/TiempoRestante.svelte";
     import EventCard from "../../../../molecules/EventCard.svelte";
 
-    // Todo: Reordenar cuando el currentEvent cambia la fecha
-
     const transparency = $constants.transparency;
 
     const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
@@ -41,7 +39,6 @@
                     {#each calendar.events as event, index}
                         <EventCard
                             {event}
-                            {index}
                             color={$calendars[event.calendar].color}
                         />
                         <TiempoRestante

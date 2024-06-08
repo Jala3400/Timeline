@@ -1,7 +1,12 @@
 <script lang="ts">
     import EventCard from "../../../../molecules/EventCard.svelte";
     import TiempoRestante from "../../../../atoms/TiempoRestante.svelte";
-    import { calendars, configuration, currentCalendar, eventsList } from "../../../../../store";
+    import {
+        calendars,
+        configuration,
+        currentCalendar,
+        currentEvent,
+    } from "../../../../../store";
 
     $: diffColor = $configuration.mainColor;
 
@@ -18,11 +23,15 @@
         }
         return result;
     }
+
+    currentEvent.subscribe((value) => {
+        $currentCalendar = $currentCalendar;
+    });
 </script>
 
 <div id="events-container">
     {#each $currentCalendar.events as event, index}
-        <EventCard {event} {index} color={$calendars[event.calendar].color} />
+        <EventCard {event} color={$calendars[event.calendar].color} />
         <TiempoRestante
             text={dateDifference(new Date(event.date))}
             {index}

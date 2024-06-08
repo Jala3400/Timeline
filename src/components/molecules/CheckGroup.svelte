@@ -1,10 +1,10 @@
 <script lang="ts">
-    import type { Calendario } from "../../classes/Calendario";
     import { constants } from "../../store";
 
-    export let list: { [key: string]: Calendario };
+    export let list: { [key: string]: any };
     export let group: string[];
-    export let func = (key: string) => {};
+    export let change = (key: string) => {};
+    export let click = (key: any) => {};
 
     const transparency = $constants.transparency;
 </script>
@@ -23,7 +23,8 @@
                 class="checkbox"
                 value={key}
                 bind:group
-                on:change={() => func(key)}
+                on:change={() => change(key)}
+                on:click={() => click(value)}
             />
             <span class="checkbox-label">{key}</span>
         </label>

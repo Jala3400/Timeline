@@ -7,14 +7,13 @@
     } from "../../store";
 
     export let event: Evento;
-    export let index: number;
     export let color = "#FF0000";
 
     const transparency = $constants.transparency;
 
     // Establece el evento actual y cambia la vista a la de detalles del evento.
     function selectEvent() {
-        $currentEvent = { event: event, index: index };
+        $currentEvent = event;
         $currentDetails = "event";
     }
 </script>

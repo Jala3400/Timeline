@@ -8,18 +8,18 @@
     } from "../../../../store";
     import CompInput from "../../../molecules/CompInput.svelte";
 
-    $: color = $calendars[$currentEvent.event.calendar].color;
+    $: color = $calendars[$currentEvent.calendar].color;
     const transparency = $constants.transparency;
 
-    let calendar = $currentEvent.event.calendar;
-    let date = new Date($currentEvent.event.date).toISOString().split("T")[0];
+    let calendar = $currentEvent.calendar;
+    let date = new Date($currentEvent.date).toISOString().split("T")[0];
     let changeEvent = true;
 
     /// Cambia la fecha del evento actual.
     function changeDate(date: string) {
         // Al cambiar la fecha del evento, no se debe actualizar el currentEvent, porque entonces se forma un búcle
         changeEvent = false;
-        $currentEvent.event.changeDate(date);
+        $currentEvent.changeDate(date);
         $calendars = $calendars; // Actualiza el store para que se actualice la vista indivual de calendarios (CalendarsList).
         changeEvent = true;
     }
@@ -27,10 +27,9 @@
     // Al cambiar el evento actua, se actualiza el evento.
     currentEvent.subscribe((value) => {
         if ($currentDetails == "event" && changeEvent) {
-            const event = value.event;
-            $eventsList[value.index] = event;
-            let calIndex = $calendars[event.calendar].events.indexOf(event);
-            $calendars[event.calendar].events[calIndex] = event;
+            $eventsList = $eventsList;
+            $calendars = $calendars;
+            const event = value;
             date = new Date(event.date).toISOString().split("T")[0];
             calendar = event.calendar;
         }
@@ -46,7 +45,7 @@
     <input
         id="event-title"
         type="text"
-        bind:value={$currentEvent.event.title}
+        bind:value={$currentEvent.title}
     />
     <div id="event-data">
         <div class="comp-input">
@@ -55,7 +54,7 @@
                 id="calendar"
                 bind:value={calendar}
                 on:change={() => {
-                    $currentEvent.event.changeCalendar(calendar);
+                    $currentEvent.changeCalendar(calendar);
                 }}
             >
                 {#each Object.keys($calendars) as calendar}
@@ -79,14 +78,14 @@
             <textarea
                 name="description"
                 id="description"
-                bind:value={$currentEvent.event.description}
+                bind:value={$currentEvent.description}
             />
         </div>
 
         <div id="buttons" style="grid-area: Buttons;">
             <button
                 on:click={() => {
-                    $currentEvent.event.delete();
+                    $currentEvent.delete();
                 }}>Delete</button
             >
         </div>

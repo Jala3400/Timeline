@@ -23,7 +23,6 @@
                 console.log("Ya existe un calendario con ese nombre");
             } else {
                 addNewCalendar(calendarName, calendarColor);
-                $currentCalendar.name = calendarName;
             }
         }}
         slot="buttons">Save</button

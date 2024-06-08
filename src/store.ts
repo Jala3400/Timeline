@@ -64,7 +64,6 @@ selectedCalendars.subscribe((value) => {
 
 export const currentDetails: Writable<string> = writable("allCalendars")
 
-export const currentEvent: Writable<{ event: Evento, index: number }> = writable({ event: get(eventsList)[0], index: 0 });
+export const currentEvent: Writable<Evento> = writable(get(eventsList)[0]);
 
-const calName = Object.keys(get(calendars))[0];
-export const currentCalendar: Writable<Calendario> = writable(get(calendars)[calName]);
+export const currentCalendar: Writable<Calendario> = writable(get(calendars)[Object.keys(get(calendars))[0]]);

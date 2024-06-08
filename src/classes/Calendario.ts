@@ -77,7 +77,7 @@ export class Calendario {
             selectedCalendars.update((value) => [...value, event.calendar]) // It also updates events
         }
         currentDetails.set("event");
-        currentEvent.set({ event: event, index: get(eventsList).indexOf(event) });
+        currentEvent.set(event);
     }
 
     /**
@@ -95,7 +95,7 @@ export class Calendario {
     */
     deleteEvent(event: Evento) {
         currentDetails.set("allCalendars");
-        currentEvent.set({ event: get(eventsList)[0], index: 0 })
+        currentEvent.set(get(eventsList)[0]);
         calendars.update((value) => {
             this.tempDeleteEvent(event);
             return value
