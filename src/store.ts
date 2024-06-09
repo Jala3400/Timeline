@@ -53,7 +53,7 @@ calendars.subscribe((value) => {
 //* Selected calendars
 const existingSelectedCalendars = JSON.parse(localStorage.getItem("selectedCalendars") ?? JSON.stringify(["default"]));
 
-export const selectedCalendars = writable(existingSelectedCalendars)
+export const selectedCalendars: Writable<string[]> = writable(existingSelectedCalendars)
 
 selectedCalendars.subscribe((value) => {
     updateEvents();

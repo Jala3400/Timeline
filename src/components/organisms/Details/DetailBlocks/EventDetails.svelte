@@ -29,9 +29,8 @@
         if ($currentDetails == "event" && changeEvent) {
             $eventsList = $eventsList;
             $calendars = $calendars;
-            const event = value;
-            date = new Date(event.date).toISOString().split("T")[0];
-            calendar = event.calendar;
+            date = new Date(value.date).toISOString().split("T")[0];
+            calendar = value.calendar;
         }
     });
 </script>

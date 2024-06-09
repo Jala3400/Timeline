@@ -3,9 +3,29 @@ import { Calendario } from '../classes/Calendario';
 import type { Evento } from '../classes/Evento';
 import { calendars, eventsList, selectedCalendars, currentCalendar, currentDetails } from '../store';
 
+
+const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+
+/** 
+ *  Calcula la diferencia de días entre dos fechas
+ * @param date1 la primera fecha
+ * @param date2 la segunda fecha
+ */
+export function dateDifference(date1: Date, date2 = new Date()) {
+    const diff = (date1.getTime() - date2.getTime()) / oneDay;
+    let result = Math.round(diff) + "d";
+    if (Math.abs(diff) > 365) {
+        result = Math.round(diff / 365) + "y";
+    } else if (Math.abs(diff) < 1) {
+        result = Math.round(diff * 24) + "h";
+    }
+    return result;
+}
+
+
 /**
  * Actualiza la lista de eventos que se muestran por pantalla
-  */
+ */
 export function updateEvents() {
     let newEventsList: Evento[] = [];
     for (let calendar of get(selectedCalendars)) {
