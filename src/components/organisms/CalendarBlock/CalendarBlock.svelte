@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { Calendario } from "../../../classes/Calendario";
-    import { constants } from "../../../store";
+    import { constants, currentCalendar, currentDetails } from "../../../store";
     import EventsList from "../EventsList/EventsList.svelte";
 
     export let calendar: Calendario;
@@ -22,9 +22,11 @@
     .calendar-block {
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
         border-radius: 8px;
         background-color: var(--main-color);
-        padding: 1em 0;
+        padding: 1rem;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
         min-width: 700px;
         max-width: 700px;

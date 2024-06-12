@@ -1,11 +1,18 @@
 <script lang="ts">
-    import { calendars, constants, currentCalendar } from "../../../../store";
-    import { deleteCalendar, changeName } from "../../../../lib/ManageEvents";
-    import CompInput from "../../../molecules/CompInput.svelte";
+    import {
+        changeName,
+        deleteCalendar,
+    } from "../../../../../lib/ManageEvents";
+    import {
+        calendars,
+        constants,
+        currentCalendar,
+    } from "../../../../../store";
+    import CompInput from "../../../../molecules/CompInput.svelte";
+    $: calendar = $currentCalendar;
 
     const transparency = $constants.transparency;
 
-    $: color = $currentCalendar.color;
     let calendarName = $currentCalendar.name;
     let prevName = $currentCalendar.name;
 
@@ -18,11 +25,13 @@
 </script>
 
 <div
-    id="calendar-details"
-    style="--main-color:{color}{transparency.main};
-    --main-color-hover:{color}{transparency.hover};
-    --main-color-active:{color}{transparency.active}"
+    id="calendar-panel"
+    style="--main-color:{calendar.color}{transparency.main};
+            --main-color-hover:{calendar.color}{transparency.hover};
+            --main-color-active:{calendar.color}{transparency.active}"
 >
+    <!-- <h1>{calendar.name}</h1> -->
+
     <input
         id="calendar-name"
         type="text"
@@ -31,13 +40,17 @@
             changeName(calendarName, prevName);
         }}
     />
+
     <div id="calendar-data">
         <CompInput
             label="Color"
             type="color"
             bind:value={$currentCalendar.color}
         />
-        <div class="comp-input" style="grid-area:Description">
+        <div id="stats" style="grid-area: Stats">
+            <div>Nº de eventos: {$currentCalendar.events.length}</div>
+        </div>
+        <div class="comp-input" style="grid-area: Description">
             <div>Description</div>
             <textarea
                 name="description"
@@ -57,33 +70,48 @@
 </div>
 
 <style>
-    #calendar-details {
-        padding: 1em;
-        border-radius: 12px;
-        background-color: var(--main-color);
-        text-align: unset;
+    #calendar-panel {
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        background-color: var(--main-color);
+        padding: 1rem;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+        width: clamp(300px, 90%, 700px);
+        max-height: 100%;
+        overflow: auto;
+        scroll-snap-align: center;
     }
+
     #calendar-name {
         margin-bottom: 15px;
         margin-top: 5px;
         font-size: 2em;
         font-weight: bold;
         background-color: transparent;
+        justify-content: center;
+        text-align: center;
     }
     #calendar-name:focus {
         background-color: #0f0f0f98;
+    }
+    #stats {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     #calendar-data {
         display: grid;
         grid-template-areas:
-            "Color"
-            "Description"
-            "Buttons";
+            "Color Stats"
+            "Description Description"
+            "Footer Buttons";
         gap: 20px;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
     }
     #buttons {
         display: flex;
@@ -94,16 +122,12 @@
         flex-direction: column;
         gap: 5px;
         width: 100%;
+        align-items: flex-start;
     }
+
     @media (max-width: 1200px) {
         #calendar-name {
             font-size: 1.75em;
-        }
-        #calendar-data {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            align-items: flex-end;
         }
     }
 </style>

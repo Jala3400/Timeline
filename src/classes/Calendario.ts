@@ -10,11 +10,13 @@ export class Calendario {
     color: string;
     events: Evento[];
     name: string;
+    description: string;
 
-    constructor(color: string = "#FF0000", events: Evento[] = [], name: string) {
+    constructor(color: string = "#FF0000", events: Evento[] = [], name: string, description: string = "") {
         this.color = color;
         this.events = events;
         this.name = name;
+        this.description = description;
     }
 
     /**
@@ -47,6 +49,37 @@ export class Calendario {
      */
     set setEvents(events: Evento[]) {
         this.events = events;
+    }
+
+    /**
+     * Método getter para la propiedad name.
+     * @returns El nombre del calendario.
+     */
+    get getName(): string {
+        return this.name;
+    }
+
+    /**
+     * Método setter para la propiedad name.
+     * @param name El nuevo nombre para el calendario.
+     */
+    set setName(name: string) {
+        this.name = name;
+    }
+    /**
+     * Método getter para la propiedad description.
+     * @returns La descripción del calendario.
+     */
+    get getDescription(): string {
+        return this.description;
+    }
+
+    /**
+     * Método setter para la propiedad description.
+     * @param description La nueva descripción para el calendario.
+     */
+    set setDescription(description: string) {
+        this.description = description;
     }
 
     /**

@@ -21,7 +21,7 @@
             <input
                 type="radio"
                 class="checkbox"
-                value={value}
+                {value}
                 bind:group={focusObject}
                 on:change={() => {
                     change(key);
@@ -48,7 +48,7 @@
         display: grid;
         grid-template-columns: 1em auto;
         align-items: center;
-        gap: 0.25em;
+        gap: 5px;
     }
     .side-checkbox:hover {
         background-color: var(--main-color-hover);

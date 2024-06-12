@@ -1,9 +1,8 @@
 <script lang="ts">
     import { constants } from "../../store";
 
-    export let func: Function = () => {};
+    export let func: Function = (...ags: any) => {};
     export let text: string;
-    export let index: number;
 
     export let color = "#FF0000";
 
@@ -12,7 +11,6 @@
 
 <button
     on:click={func()}
-    id={"add" + index}
     class="tiempo-restante"
     style="--main-color:{color}{transparency.main};
     --main-color-hover:{color}{transparency.hover};

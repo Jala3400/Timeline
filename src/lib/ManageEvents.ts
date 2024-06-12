@@ -22,6 +22,51 @@ export function dateDifference(date1: Date, date2 = new Date()) {
     return result;
 }
 
+/**
+ *  Cambia el nombre del calendario actual.
+ *  @param calName El nuevo nombre del calendario.
+ * @param prevName El nombre anterior del calendario.
+ */
+export function changeName(calName: string, prevName: string) {
+    if (calName == prevName) {
+        // Si el nombre es el mismo, no se hace nada.
+    } else if (!Object.keys(get(calendars)).includes(calName)) {
+        // Si el nombre no está elegido, se cambia el nombre del calendario.
+        let newCalendars = get(calendars);
+        let descriptor = Object.getOwnPropertyDescriptor(
+            newCalendars,
+            prevName
+        );
+        if (descriptor) {
+            // Si existe el calendario con el nombre anterior, se cambia el nombre.
+            Object.defineProperty(newCalendars, calName, descriptor);
+            delete newCalendars[prevName];
+            let newSelectedCalendars = get(selectedCalendars);
+            const index = newSelectedCalendars.indexOf(prevName);
+            if (index != -1) {
+                newSelectedCalendars.splice(index, 1, calName);
+            }
+            calendars.set(newCalendars);
+            currentCalendar.update((currentCalendar) => {
+                currentCalendar.name = calName;
+                return currentCalendar;
+            })
+            prevName = calName;
+            selectedCalendars.set(newSelectedCalendars);
+            for (let i = 0; i < get(calendars)[calName].events.length; i++) {
+                // Cambia el nombre del calendario de los eventos.
+                get(calendars)[calName].events[i].setCalendar = calName;
+            }
+        }
+    } else {
+        // Si el nombre ya está elegido, se pide otro nombre.
+        let newName = prompt(
+            "El nombre del calendario ya existe, elige otro",
+            prevName
+        );
+        changeName(newName || prevName, prevName);
+    }
+}
 
 /**
  * Actualiza la lista de eventos que se muestran por pantalla
@@ -72,13 +117,23 @@ function mergeEvents(existing: Evento[], calendar: string) {
  * @param color el color del calendario
  */
 export function addNewCalendar(name: string, color: string) {
-    let newCalendars = get(calendars);
-    let newCal = new Calendario(color, [], name);
-    newCalendars[name] = newCal;
-    calendars.set(newCalendars);
-    currentCalendar.set(newCal);
+    if (!Object.keys(get(calendars)).includes(name)) {
+        let newCalendars = get(calendars);
+        let newCal = new Calendario(color, [], name);
+        newCalendars[name] = newCal;
+        calendars.set(newCalendars);
+        currentCalendar.set(newCal);
+    } else {
+        // Si el nombre ya está elegido, se pide otro nombre.
+        let newName = prompt(
+            "El nombre del calendario ya existe, elige otro",
+            name + "(2)"
+        );
+        if (newName) {
+            addNewCalendar(newName, color);
+        }
+    }
 }
-
 /**
  * Elimina un calendario
  * @param calendar el nombre del calendario

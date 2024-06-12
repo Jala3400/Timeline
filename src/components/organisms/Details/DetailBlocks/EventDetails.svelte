@@ -48,7 +48,7 @@
     />
     <div id="event-data">
         <div class="comp-input">
-            <label for="calendar">Calendar:</label>
+            <label for="calendar">Calendar</label>
             <select
                 id="calendar"
                 bind:value={calendar}
