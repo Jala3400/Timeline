@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { Calendario } from "../../../classes/Calendario";
-    import { constants, currentCalendar, currentDetails } from "../../../store";
+    import { calendars, constants } from "../../../store";
     import EventsList from "../EventsList/EventsList.svelte";
 
     export let calendar: Calendario;
@@ -14,7 +14,12 @@
             --main-color-hover:{calendar.color}{transparency.hover};
             --main-color-active:{calendar.color}{transparency.active}"
 >
-    <h1>{calendar.name}</h1>
+    <input
+        id="calendar-name"
+        type="text"
+        bind:value={calendar.name}
+        on:input={() => ($calendars = $calendars)}
+    />
     <EventsList eventsList={calendar.events} />
 </div>
 
@@ -33,5 +38,18 @@
         max-height: 100%;
         overflow: auto;
         scroll-snap-align: center;
+    }
+
+    #calendar-name {
+        margin-bottom: 15px;
+        margin-top: 5px;
+        font-size: 2em;
+        font-weight: bold;
+        background-color: transparent;
+        justify-content: center;
+        text-align: center;
+    }
+    #calendar-name:focus {
+        background-color: #0f0f0f98;
     }
 </style>

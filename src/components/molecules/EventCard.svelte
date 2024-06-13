@@ -25,7 +25,7 @@
 --main-color-hover:{color}{transparency.hover};
 --main-color-active:{color}{transparency.active}"
 >
-    <h2>{event.title}</h2>
+    <h2>{event.name}</h2>
     <!-- <p class="date">{new Date(event.date).toLocaleDateString()}</p> -->
 </button>
 

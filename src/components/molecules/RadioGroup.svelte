@@ -1,7 +1,7 @@
 <script lang="ts">
     import { constants } from "../../store";
 
-    export let list: { [key: string]: any };
+    export let list: any[];
     export let focusObject: any;
     export let change = (key: string) => {};
     export let click = (key: any) => {};
@@ -10,7 +10,7 @@
 </script>
 
 <div class="checkbox-group">
-    {#each Object.entries(list) as [key, value]}
+    {#each list as value}
         <label
             class="side-checkbox"
             style="--main-color:{value.color}{transparency.low};
@@ -24,13 +24,13 @@
                 {value}
                 bind:group={focusObject}
                 on:change={() => {
-                    change(key);
+                    change(value);
                 }}
                 on:click={() => {
                     click(value);
                 }}
             />
-            <span class="checkbox-label">{key}</span>
+            <span class="checkbox-label">{value.name}</span>
         </label>
     {/each}
 </div>

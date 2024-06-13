@@ -17,13 +17,13 @@
 
 <div id="events-container">
     {#each eventsList as event}
-        <EventCard {event} color={$calendars[event.calendar].color} />
+        <EventCard {event} color={event.calendar.color} />
         <TiempoRestante
             text={dateDifference(new Date(event.date))}
             color={diffColor}
             func={() => {
                 // Al hacer click en el tiempo restante, se cambian los detalles al calendario del evento.
-                $currentCalendar = $calendars[event.calendar];
+                $currentCalendar = event.calendar;
                 $currentDetails = "calendar";
             }}
         />

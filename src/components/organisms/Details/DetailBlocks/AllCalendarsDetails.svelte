@@ -27,10 +27,10 @@
 >
     <h1 id="title">Calendars</h1>
     <div id="calendars">
-        {#each Object.entries($calendars) as [calendarName, calendar]}
+        {#each $calendars as calendar}
             <div class="calendar-details">
                 <ColoredButton
-                    text={calendarName}
+                    text={calendar.name}
                     color={calendar.color}
                     func={() => {
                         selectCalendar(calendar);

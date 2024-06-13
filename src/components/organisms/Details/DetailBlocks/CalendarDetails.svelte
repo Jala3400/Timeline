@@ -1,19 +1,15 @@
 <script lang="ts">
     import { calendars, constants, currentCalendar } from "../../../../store";
-    import { deleteCalendar, changeName } from "../../../../lib/ManageEvents";
+    import { deleteCalendar } from "../../../../lib/ManageEvents";
     import CompInput from "../../../molecules/CompInput.svelte";
 
     const transparency = $constants.transparency;
 
     $: color = $currentCalendar.color;
-    let calendarName = $currentCalendar.name;
-    let prevName = $currentCalendar.name;
 
     /// Actualiza los calendarios
     currentCalendar.subscribe((value) => {
         $calendars = $calendars;
-        calendarName = value.name;
-        prevName = value.name;
     });
 </script>
 
@@ -23,14 +19,7 @@
     --main-color-hover:{color}{transparency.hover};
     --main-color-active:{color}{transparency.active}"
 >
-    <input
-        id="calendar-name"
-        type="text"
-        bind:value={calendarName}
-        on:change={() => {
-            changeName(calendarName, prevName);
-        }}
-    />
+    <input id="calendar-name" type="text" bind:value={$currentCalendar.name} />
     <div id="calendar-data">
         <CompInput
             label="Color"
@@ -49,7 +38,7 @@
         <div id="buttons" style="grid-area: Buttons;">
             <button
                 on:click={() => {
-                    deleteCalendar($currentCalendar.name);
+                    deleteCalendar($currentCalendar);
                 }}>Delete</button
             >
         </div>

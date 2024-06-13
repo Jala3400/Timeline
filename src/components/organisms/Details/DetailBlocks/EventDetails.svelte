@@ -8,7 +8,7 @@
     } from "../../../../store";
     import CompInput from "../../../molecules/CompInput.svelte";
 
-    $: color = $calendars[$currentEvent.calendar].color;
+    $: color = calendar.color;
     const transparency = $constants.transparency;
 
     let calendar = $currentEvent.calendar;
@@ -41,11 +41,7 @@
     --main-color-hover:{color}{transparency.hover};
     --main-color-active:{color}{transparency.active}"
 >
-    <input
-        id="event-title"
-        type="text"
-        bind:value={$currentEvent.title}
-    />
+    <input id="event-name" type="text" bind:value={$currentEvent.name} />
     <div id="event-data">
         <div class="comp-input">
             <label for="calendar">Calendar</label>
@@ -56,9 +52,9 @@
                     $currentEvent.changeCalendar(calendar);
                 }}
             >
-                {#each Object.keys($calendars) as calendar}
+                {#each $calendars as calendar}
                     <option value={calendar}>
-                        {calendar}
+                        {calendar.name}
                     </option>
                 {/each}
             </select>
@@ -101,14 +97,14 @@
         flex-direction: column;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
     }
-    #event-title {
+    #event-name {
         margin-bottom: 15px;
         margin-top: 5px;
         font-size: 2em;
         font-weight: bold;
         background-color: transparent;
     }
-    #event-title:focus {
+    #event-name:focus {
         background-color: var(--bg-input);
     }
     #event-data {
@@ -131,7 +127,7 @@
         width: 100%;
     }
     @media (max-width: 1200px) {
-        #event-title {
+        #event-name {
             font-size: 1.75em;
         }
         #event-data {

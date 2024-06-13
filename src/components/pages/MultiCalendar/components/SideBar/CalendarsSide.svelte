@@ -1,9 +1,5 @@
 <script lang="ts">
-    import {
-        calendars,
-        currentDetails,
-        selectedCalendars,
-    } from "../../../../../store";
+    import { calendars, currentDetails } from "../../../../../store";
     import NavFolder from "../../../../molecules/NavFolder.svelte";
     import NeonButton from "../../../../atoms/NeonButton.svelte";
     import NavCheckGroup from "../../../../molecules/CheckGroup.svelte";
@@ -22,8 +18,8 @@
         <NavFolder name="Calendars">
             <NavCheckGroup
                 list={$calendars}
-                bind:group={$selectedCalendars}
-                change={() => ($currentDetails = "allCalendars")}
+                click={() => ($currentDetails = "allCalendars")}
+                change={() => ($calendars = $calendars)}
             />
         </NavFolder>
     </div>

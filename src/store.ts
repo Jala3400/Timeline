@@ -1,7 +1,7 @@
 import { get, readable, writable, type Writable } from 'svelte/store';
 import { Calendario } from './classes/Calendario';
 import { Evento } from './classes/Evento';
-import { updateEvents } from './lib/ManageEvents';
+import { saveCalendars, updateEvents } from './lib/ManageEvents';
 
 //* Configuration
 
@@ -30,34 +30,25 @@ constants.subscribe((value) => {
 
 //* Events list
 // Temporary default events
-const defaultEvent = new Evento("Default", new Date().toISOString(), "test", "default");
-const testEvent = new Evento("Test", new Date(0).toISOString(), "asd", "test")
-
 export const eventsList: Writable<Evento[]> = writable([])
 
 //* Existing calendars
-const existingCalendars = JSON.parse(localStorage.getItem("calendars") ?? JSON.stringify({ default: new Calendario("#FF0000", [defaultEvent], "default"), test: new Calendario("#FF00FF", [testEvent], "test") }));
 
-export const calendars: Writable<{ [key: string]: Calendario }> = writable(
-    // Goes from JSON to Calendar for every calendar (and Evento for its events)
-    Object.entries(existingCalendars).reduce((acc, [key, value]) => {
-        acc[key] = Calendario.fromJSON(value);
-        return acc;
-    }, {} as { [key: string]: Calendario })
-);
+const defaultCalendar = new Calendario("#FF0000", [new Evento("Default", new Date().toISOString(), "test")], "default");
+const testCalendar = new Calendario("#FF00FF", [new Evento("Test", new Date(0).toISOString(), "asd",)], "test");
 
-calendars.subscribe((value) => {
-    localStorage.setItem("calendars", JSON.stringify(value));
+let existingCalendars: Calendario[] = JSON.parse(localStorage.getItem("calendars") ?? JSON.stringify([defaultCalendar, testCalendar]));
+
+existingCalendars = existingCalendars.map((calendar) => {
+    calendar = Calendario.fromJSON(calendar);
+    return calendar;
 })
 
-//* Selected calendars
-const existingSelectedCalendars = JSON.parse(localStorage.getItem("selectedCalendars") ?? JSON.stringify(["default"]));
+export const calendars: Writable<Calendario[]> = writable([...existingCalendars]);
 
-export const selectedCalendars: Writable<string[]> = writable(existingSelectedCalendars)
-
-selectedCalendars.subscribe((value) => {
+calendars.subscribe((value) => {
+    saveCalendars();
     updateEvents();
-    localStorage.setItem("selectedCalendars", JSON.stringify(value));
 })
 
 //* Current details
@@ -66,4 +57,4 @@ export const currentDetails: Writable<string> = writable("allCalendars")
 
 export const currentEvent: Writable<Evento> = writable(get(eventsList)[0]);
 
-export const currentCalendar: Writable<Calendario> = writable(get(calendars)[Object.keys(get(calendars))[0]]);
+export const currentCalendar: Writable<Calendario> = writable(get(calendars)[0]);

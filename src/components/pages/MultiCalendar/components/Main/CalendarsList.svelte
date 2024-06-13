@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { calendars, selectedCalendars } from "../../../../../store";
+    import { calendars } from "../../../../../store";
     import CalendarBlock from "../../../../organisms/CalendarBlock/CalendarBlock.svelte";
 </script>
 
 <div id="calendars-container">
-    {#each Object.entries($calendars) as [name, calendar]}
-        {#if $selectedCalendars.includes(name)}
+    {#each $calendars as calendar}
+        {#if calendar.selected}
             <CalendarBlock {calendar} />
         {/if}
     {/each}
@@ -14,7 +14,6 @@
 <style>
     #calendars-container {
         display: flex;
-        padding: 1rem;
         gap: 1em;
         flex-direction: row;
         align-items: flex-start;

@@ -1,8 +1,9 @@
 <script lang="ts">
     import { constants } from "../../store";
 
-    export let list: { [key: string]: any };
-    export let group: string[];
+    export let list: any[];
+    // export let group: any[] = [];
+    // export let checked: boolean = false;
     export let change = (key: string) => {};
     export let click = (key: any) => {};
 
@@ -10,7 +11,7 @@
 </script>
 
 <div class="checkbox-group">
-    {#each Object.entries(list) as [key, value]}
+    {#each list as value}
         <label
             class="side-checkbox"
             style="--main-color:{value.color}{transparency.low};
@@ -21,12 +22,12 @@
             <input
                 type="checkbox"
                 class="checkbox"
-                value={key}
-                bind:group
-                on:change={() => change(key)}
+                value={value.name}
+                bind:checked={value.selected}
+                on:change={() => change(value)}
                 on:click={() => click(value)}
             />
-            <span class="checkbox-label">{key}</span>
+            <span class="checkbox-label">{value.name}</span>
         </label>
     {/each}
 </div>

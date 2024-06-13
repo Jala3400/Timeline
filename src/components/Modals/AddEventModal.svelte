@@ -4,26 +4,27 @@
     import { Evento } from "../../classes/Evento";
     import Modal from "../templates/Modal/Modal.svelte";
     import CompInput from "../molecules/CompInput.svelte";
+    import { Calendario } from "../../classes/Calendario";
 
     export let addEventModal: boolean = false;
     export let calendarColor: string;
     export let addCalendarModal: boolean;
 
-    let calendar = Object.keys($calendars)[0];
-    let title = "new event";
+    let calendar = $calendars[0];
+    let name = "new event";
     let date = "2000-1-1";
     let description = "";
 
     // Al cambiar el calendario actual, se actualiza el calendario al que se añade el evento
     currentCalendar.subscribe((value) => {
-        calendar = value.name;
+        calendar = value;
     });
 
     // Añade un evento al calendario seleccionado
-    function addEventCard() {
-        $calendars[calendar].addEvent(
+    function addEventCard(calendar: Calendario) {
+        calendar.addEvent(
             new Evento(
-                title,
+                name,
                 new Date(date).toISOString(),
                 description,
                 calendar
@@ -34,7 +35,7 @@
 
 <Modal
     bind:showModal={addEventModal}
-    color={addCalendarModal ? calendarColor : $calendars[calendar].color}
+    color={addCalendarModal ? calendarColor : calendar.color}
 >
     <h2 slot="header">Add Event</h2>
     <div slot="content" id="content">
@@ -42,9 +43,9 @@
             <label for="calendar">Calendar</label>
             <div id="calendar-input">
                 <select id="calendar" bind:value={calendar}>
-                    {#each Object.keys($calendars) as calendar}
+                    {#each $calendars as calendar}
                         <option value={calendar}>
-                            {calendar}
+                            {calendar.name}
                         </option>
                     {/each}
                 </select>
@@ -57,14 +58,14 @@
                 >
             </div>
         </div>
-        <CompInput label="Title" type="text" bind:value={title} />
+        <CompInput label="Name" type="text" bind:value={name} />
         <CompInput label="Date" type="date" bind:value={date} />
         <div class="comp-input">
             <label for="description">Description</label>
             <textarea id="description" bind:value={description} />
         </div>
     </div>
-    <button on:click={addEventCard} slot="buttons">Save</button>
+    <button on:click={() => addEventCard(calendar)} slot="buttons">Save</button>
 </Modal>
 
 <style>

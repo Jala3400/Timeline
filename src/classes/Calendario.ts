@@ -1,16 +1,17 @@
 import { get } from 'svelte/store';
-import { insEvent, updateEvents } from '../lib/ManageEvents';
-import { calendars, currentDetails, currentEvent, eventsList, selectedCalendars } from '../store';
+import { insEvent } from '../lib/ManageEvents';
+import { calendars, currentDetails, currentEvent, eventsList } from '../store';
 import { Evento } from "./Evento";
 
 /**
  * Clase que representa un calendario.
 */
 export class Calendario {
+    name: string;
     color: string;
     events: Evento[];
-    name: string;
     description: string;
+    selected: boolean = true;
 
     constructor(color: string = "#FF0000", events: Evento[] = [], name: string, description: string = "") {
         this.color = color;
@@ -83,6 +84,22 @@ export class Calendario {
     }
 
     /**
+     * Método getter para la propiedad selected.
+     * @returns El valor de la propiedad selected.
+     */
+    get isSelected(): boolean {
+        return this.selected;
+    }
+
+    /**
+     * Método setter para la propiedad selected.
+     * @param selected El nuevo valor para la propiedad selected.
+     */
+    set setSelected(selected: boolean) {
+        this.selected = selected;
+    }
+
+    /**
      * Método que convierte un objeto JSON en un objeto de la clase Calendar.
      * @param json Objeto JSON que representa un calendario.
      * @returns Objeto de la clase Calendar.
@@ -90,7 +107,7 @@ export class Calendario {
     static fromJSON(json: any): Calendario {
         let calendar = Object.create(Calendario.prototype);
         return Object.assign(calendar, json, {
-            events: json.events.map((event: any) => Evento.fromJSON(event))
+            events: json.events.map((event: any) => Evento.fromJSON(event, calendar))
         });
     }
 
@@ -104,11 +121,6 @@ export class Calendario {
             0,
             event
         );
-        if (get(selectedCalendars).includes(event.calendar)) {
-            updateEvents();
-        } else {
-            selectedCalendars.update((value) => [...value, event.calendar]) // It also updates events
-        }
         currentDetails.set("event");
         currentEvent.set(event);
     }
