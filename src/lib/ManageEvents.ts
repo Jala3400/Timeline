@@ -97,17 +97,12 @@ export function deleteCalendar(calendar: Calendario) {
 
 export function saveCalendars() {
     const calendarios = get(calendars);
-    const savableCalendar = new Calendario("", [], "", "");
     for (let calendar of Object.values(calendarios)) {
-        for (let event of calendar.events) {
-            event.calendar = savableCalendar;
-        }
+        calendar.toSavable();
     }
     localStorage.setItem("calendars", JSON.stringify(calendarios));
     for (let calendar of Object.values(calendarios)) {
-        for (let event of calendar.events) {
-            event.calendar = calendar;
-        }
+        calendar.toUsable();
     }
 }
 

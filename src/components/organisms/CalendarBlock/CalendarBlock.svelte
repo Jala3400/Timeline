@@ -1,18 +1,32 @@
 <script lang="ts">
     import type { Calendario } from "../../../classes/Calendario";
-    import { calendars, constants } from "../../../store";
+    import { calendars, constants, currentEvent } from "../../../store";
     import EventsList from "../EventsList/EventsList.svelte";
 
     export let calendar: Calendario;
 
     const transparency = $constants.transparency;
+
+    function onDragOver(e: DragEvent) {
+        e.preventDefault();
+    }
+
+    function onDrop(e: DragEvent) {
+        if (e.dataTransfer?.getData("type") === "event") {
+            e.preventDefault();
+            $currentEvent.changeCalendar(calendar);
+        }
+    }
 </script>
 
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
     class="calendar-block"
     style="--main-color:{calendar.color}{transparency.main};
             --main-color-hover:{calendar.color}{transparency.hover};
             --main-color-active:{calendar.color}{transparency.active}"
+    on:drop={(e) => onDrop(e)}
+    on:dragover={onDragOver}
 >
     <input
         id="calendar-name"

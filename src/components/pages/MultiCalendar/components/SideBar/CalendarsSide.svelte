@@ -2,7 +2,7 @@
     import { calendars, currentDetails } from "../../../../../store";
     import NavFolder from "../../../../molecules/NavFolder.svelte";
     import NeonButton from "../../../../atoms/NeonButton.svelte";
-    import NavCheckGroup from "../../../../molecules/CheckGroup.svelte";
+    import CheckGroup from "../../../../molecules/CheckGroup.svelte";
     import { createEventDispatcher } from "svelte";
 
     const dispatch = createEventDispatcher();
@@ -16,10 +16,12 @@
 <div id="calendars-side">
     <div id="side-main">
         <NavFolder name="Calendars">
-            <NavCheckGroup
+            <CheckGroup
                 list={$calendars}
                 click={() => ($currentDetails = "allCalendars")}
                 change={() => ($calendars = $calendars)}
+                onDrop={() => ($calendars = $calendars)}
+                focusObject={null}
             />
         </NavFolder>
     </div>

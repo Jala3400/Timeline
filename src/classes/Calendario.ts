@@ -146,4 +146,17 @@ export class Calendario {
             return value
         })
     }
+
+    toSavable() {
+        const savableCalendar = new Calendario("", [], "", "");
+        for (let event of this.events) {
+            event.calendar = savableCalendar;
+        }
+    }
+
+    toUsable() {
+        for (let event of this.events) {
+            event.calendar = this;
+        }
+    }
 }

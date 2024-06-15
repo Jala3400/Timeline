@@ -1,9 +1,13 @@
 <script lang="ts">
-    import { calendars, currentCalendar, currentDetails } from "../../../../../store";
+    import {
+        calendars,
+        currentCalendar,
+        currentDetails,
+    } from "../../../../../store";
     import NavFolder from "../../../../molecules/NavFolder.svelte";
     import NeonButton from "../../../../atoms/NeonButton.svelte";
-    import RadioGroup from "../../../../molecules/RadioGroup.svelte";
     import { createEventDispatcher } from "svelte";
+    import CheckGroup from "../../../../molecules/CheckGroup.svelte";
 
     const dispatch = createEventDispatcher();
 
@@ -16,13 +20,15 @@
 <div id="calendars-side">
     <div id="side-main">
         <NavFolder name="Calendars">
-            <RadioGroup
+            <CheckGroup
+                radio={true}
                 list={$calendars}
                 bind:focusObject={$currentCalendar}
                 click={(calendar) => {
                     $currentCalendar = calendar;
                     $currentDetails = "calendar";
                 }}
+                onDrop={() => ($calendars = $calendars)}
             />
         </NavFolder>
     </div>
