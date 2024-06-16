@@ -25,7 +25,7 @@ export function dateDifference(date1: Date, date2 = new Date()) {
 /**
  * Actualiza la lista de eventos que se muestran por pantalla
  */
-export function updateEvents() {
+export function loadEvents() {
     let newEventsList: Evento[] = [];
     for (let calendar of get(calendars)) {
         if (calendar.selected) {

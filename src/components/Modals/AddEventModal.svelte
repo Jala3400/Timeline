@@ -1,10 +1,11 @@
 <script lang="ts">
     //! Keep the orden of the imports. When Evento is on top of calendars the app breaks
-    import { calendars, currentCalendar } from "../../store";
+    import { calendars, currentCalendar, eventsList } from "../../store";
     import { Evento } from "../../classes/Evento";
     import Modal from "../templates/Modal/Modal.svelte";
     import CompInput from "../molecules/CompInput.svelte";
     import { Calendario } from "../../classes/Calendario";
+    import { insEvent } from "../../lib/ManageEvents";
 
     export let addEventModal: boolean = false;
     export let calendarColor: string;
@@ -22,14 +23,14 @@
 
     // Añade un evento al calendario seleccionado
     function addEventCard(calendar: Calendario) {
-        calendar.addEvent(
-            new Evento(
-                name,
-                new Date(date).toISOString(),
-                description,
-                calendar
-            )
+        const evento = new Evento(
+            name,
+            new Date(date).toISOString(),
+            description,
+            calendar
         );
+        calendar.addEvent(evento);
+        $eventsList.splice(insEvent(evento.date, $eventsList), 0, evento);
     }
 </script>
 

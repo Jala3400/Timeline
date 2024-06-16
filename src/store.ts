@@ -1,7 +1,7 @@
 import { get, readable, writable, type Writable } from 'svelte/store';
 import { Calendario } from './classes/Calendario';
 import { Evento } from './classes/Evento';
-import { saveCalendars, updateEvents } from './lib/ManageEvents';
+import { saveCalendars, loadEvents } from './lib/ManageEvents';
 
 //* Configuration
 
@@ -46,9 +46,12 @@ existingCalendars = existingCalendars.map((calendar) => {
 
 export const calendars: Writable<Calendario[]> = writable([...existingCalendars]);
 
+let timer: NodeJS.Timeout;
+
 calendars.subscribe((value) => {
-    saveCalendars();
-    updateEvents();
+    // Debounce saving
+    clearTimeout(timer);
+    timer = setTimeout(() => saveCalendars(), 1000);
 })
 
 //* Current details
@@ -58,3 +61,7 @@ export const currentDetails: Writable<string> = writable("allCalendars")
 export const currentEvent: Writable<Evento> = writable(get(eventsList)[0]);
 
 export const currentCalendar: Writable<Calendario> = writable(get(calendars)[0]);
+
+currentCalendar.subscribe((value) => {
+    calendars.update((calendars) => { return calendars });
+})

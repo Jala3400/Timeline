@@ -3,7 +3,9 @@
     export let type: string;
     export let value: any;
 
-    export let handleChange = () => {};
+    export let change = () => {};
+
+    export let input = () => {};
 
     function handleInput(e: any) {
         value = e.target.value;
@@ -12,7 +14,15 @@
 
 <label class="comp-input">
     {label}
-    <input {type} on:input={handleInput} {value} on:change={handleChange} />
+    <input
+        {type}
+        on:input={(e) => {
+            handleInput(e);
+            input();
+        }}
+        {value}
+        on:change={change}
+    />
 </label>
 
 <style>

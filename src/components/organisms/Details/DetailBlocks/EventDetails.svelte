@@ -2,9 +2,9 @@
     import {
         calendars,
         currentDetails,
-        eventsList,
         currentEvent,
         constants,
+        eventsList,
     } from "../../../../store";
     import CompInput from "../../../molecules/CompInput.svelte";
 
@@ -63,7 +63,7 @@
             label="Date"
             type="date"
             bind:value={date}
-            handleChange={() => {
+            change={() => {
                 changeDate(date);
             }}
         />

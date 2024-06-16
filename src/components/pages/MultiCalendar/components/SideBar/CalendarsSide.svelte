@@ -4,6 +4,7 @@
     import NeonButton from "../../../../atoms/NeonButton.svelte";
     import CheckGroup from "../../../../molecules/CheckGroup.svelte";
     import { createEventDispatcher } from "svelte";
+    import { loadEvents } from "../../../../../lib/ManageEvents";
 
     const dispatch = createEventDispatcher();
 
@@ -19,7 +20,10 @@
             <CheckGroup
                 list={$calendars}
                 click={() => ($currentDetails = "allCalendars")}
-                change={() => ($calendars = $calendars)}
+                change={() => {
+                    $calendars = $calendars;
+                    loadEvents();
+                }}
                 onDrop={() => ($calendars = $calendars)}
                 focusObject={null}
             />

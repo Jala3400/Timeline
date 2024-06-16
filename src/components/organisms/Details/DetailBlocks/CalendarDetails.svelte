@@ -1,16 +1,11 @@
 <script lang="ts">
-    import { calendars, constants, currentCalendar } from "../../../../store";
+    import { constants, currentCalendar, eventsList } from "../../../../store";
     import { deleteCalendar } from "../../../../lib/ManageEvents";
     import CompInput from "../../../molecules/CompInput.svelte";
 
     const transparency = $constants.transparency;
 
     $: color = $currentCalendar.color;
-
-    /// Actualiza los calendarios
-    currentCalendar.subscribe((value) => {
-        $calendars = $calendars;
-    });
 </script>
 
 <div
@@ -25,6 +20,7 @@
             label="Color"
             type="color"
             bind:value={$currentCalendar.color}
+            input={() => ($eventsList = $eventsList)}
         />
         <div class="comp-input" style="grid-area:Description">
             <div>Description</div>

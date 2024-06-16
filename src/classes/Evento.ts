@@ -1,6 +1,6 @@
-import { get } from 'svelte/store';
 import { calendars, currentEvent, eventsList } from '../store';
 import { Calendario } from './Calendario';
+import { insEvent } from '../lib/ManageEvents';
 
 /**
  * Clase que representa un evento.
@@ -119,6 +119,11 @@ export class Evento {
         this.calendar.tempDeleteEvent(this);
         this.date = date;
         this.calendar.addEvent(this);
+        eventsList.update((value) => {
+            value.splice(value.indexOf(this), 1);
+            value.splice(insEvent(this.date, value), 0, this);
+            return value;
+        });
     }
 
     /**

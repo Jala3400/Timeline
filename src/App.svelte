@@ -2,6 +2,7 @@
     import IconsBar from "./components/organisms/IconsBar/IconsBar.svelte";
     import MultiCalendar from "./components/pages/MultiCalendar/MultiCalendars.svelte";
     import IndCalendar from "./components/pages/IndCalendar/IndCalendar.svelte";
+    import { loadEvents } from "./lib/ManageEvents";
 
     // Main panel
     let currentMode: string = "multiCalendar";
@@ -9,6 +10,7 @@
         multiCalendar: MultiCalendar,
         indCalendar: IndCalendar,
     };
+    loadEvents();
 </script>
 
 <div id="main-container">
