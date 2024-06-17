@@ -19,8 +19,10 @@
         background-color: var(--bg-lighter);
         border-bottom: 1px solid var(--divider-color);
         width: 100%;
+        gap: 5px;
     }
     #side-main {
+        padding: 10px;
         display: flex;
         flex-direction: column;
         align-items: flex-start;

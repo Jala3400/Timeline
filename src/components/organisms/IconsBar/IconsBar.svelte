@@ -1,27 +1,29 @@
 <script lang="ts">
     import { currentDetails } from "../../../store";
-    import IconCard from "../../atoms/IconCard.svelte";
+    import IconButton from "../../atoms/IconButton.svelte";
     export let currentMode: string = "multiCalendar";
 </script>
 
 <div id="icons-bar">
     <div id="icons-top">
-        <IconCard text="H" />
+        <IconButton text="H" />
     </div>
     <div id="icons-main">
-        <IconCard
+        <IconButton
             text="M"
             func={() => {
                 currentMode = "multiCalendar";
                 $currentDetails = "allCalendars";
             }}
+            selected={currentMode === "multiCalendar"}
         />
-        <IconCard
+        <IconButton
             text="I"
             func={() => {
                 currentMode = "indCalendar";
                 $currentDetails = "allCalendars";
             }}
+            selected={currentMode === "indCalendar"}
         />
     </div>
 </div>

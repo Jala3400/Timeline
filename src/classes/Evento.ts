@@ -1,6 +1,7 @@
 import { calendars, currentEvent, eventsList } from '../store';
 import { Calendario } from './Calendario';
 import { insEvent } from '../lib/ManageEvents';
+import type { EventoFiltro } from './EventoFilltro';
 
 /**
  * Clase que representa un evento.
@@ -132,5 +133,16 @@ export class Evento {
     delete() {
         this.calendar.deleteEvent(this);
         eventsList.update((value) => value.filter((event) => event !== this));
+    }
+
+    pasaFiltro(filtro: EventoFiltro) {
+        return (
+            (this.name.includes(filtro.name) || filtro.name == "")
+            && (!filtro.filtByDate
+                || (
+                    new Date(this.date) >= new Date(filtro.startDate)
+                    && new Date(this.date) <= new Date(filtro.endDate)
+                ))
+        )
     }
 }

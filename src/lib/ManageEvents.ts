@@ -28,9 +28,7 @@ export function dateDifference(date1: Date, date2 = new Date()) {
 export function loadEvents() {
     let newEventsList: Evento[] = [];
     for (let calendar of get(calendars)) {
-        if (calendar.selected) {
-            newEventsList = mergeEvents(newEventsList, calendar.events);
-        }
+        newEventsList = mergeEvents(newEventsList, calendar.events);
     }
     eventsList.set(newEventsList);
 }

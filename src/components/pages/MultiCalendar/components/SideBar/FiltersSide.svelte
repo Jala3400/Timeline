@@ -1,10 +1,7 @@
 <script lang="ts">
-    import { calendars, currentDetails } from "../../../../../store";
-    import NavFolder from "../../../../molecules/NavFolder.svelte";
     import NeonButton from "../../../../atoms/NeonButton.svelte";
-    import CheckGroup from "../../../../molecules/CheckGroup.svelte";
     import { createEventDispatcher } from "svelte";
-    import { loadEvents } from "../../../../../lib/ManageEvents";
+    import Filter from "../../../../organisms/Filter/Filter.svelte";
 
     const dispatch = createEventDispatcher();
 
@@ -16,18 +13,7 @@
 
 <div id="calendars-side">
     <div id="side-main">
-        <NavFolder name="Calendars">
-            <CheckGroup
-                list={$calendars}
-                click={() => ($currentDetails = "allCalendars")}
-                change={() => {
-                    $calendars = $calendars;
-                    loadEvents();
-                }}
-                onDrop={() => ($calendars = $calendars)}
-                focusObject={null}
-            />
-        </NavFolder>
+        <Filter />
     </div>
     <div id="side-bottom">
         <NeonButton text={"Add Event"} func={addEventEvent} />
@@ -41,10 +27,14 @@
         align-items: flex-start;
         justify-content: space-between;
         overflow: hidden;
-        padding: 5px;
         background-color: var(--bg-light);
         width: 100%;
         height: 100%;
+    }
+    #side-main {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
     #side-main,
     #side-bottom {

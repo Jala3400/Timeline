@@ -1,25 +1,30 @@
 <script lang="ts">
     import { currentDetails } from "../../../../store";
-    import IconCard from "../../../atoms/IconCard.svelte";
+    import IconButton from "../../../atoms/IconButton.svelte";
     import CalendarPlan from "./Main/CalendarPlan.svelte";
-    import IndEventsList from "./Main/EventList.svelte";
+    import IndEventList from "./Main/IndEventList.svelte";
 
     let currentView: string = "eventsList";
     let view: { [key: string]: any } = {
-        eventsList: IndEventsList,
+        eventsList: IndEventList,
         calendarPlan: CalendarPlan,
     };
 </script>
 
 <div id="main">
     <div id="main-top">
-        <IconCard text="E" func={() => (currentView = "eventsList")} />
-        <IconCard
+        <IconButton
+            text="E"
+            func={() => (currentView = "eventsList")}
+            selected={currentView === "eventsList"}
+        />
+        <IconButton
             text="P"
             func={() => {
                 currentView = "calendarPlan";
                 $currentDetails = "calendar";
             }}
+            selected={currentView === "calendarPlan"}
         />
     </div>
     <div id="main-content">
@@ -36,6 +41,7 @@
         background-color: var(--bg-lighter);
         border-bottom: 1px solid var(--divider-color);
         width: 100%;
+        gap: 5px;
     }
     #main-content {
         overflow: auto;

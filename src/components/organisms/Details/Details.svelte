@@ -3,7 +3,7 @@
     import CalendarDetails from "./DetailBlocks/CalendarDetails.svelte";
     import EventDetails from "./DetailBlocks/EventDetails.svelte";
     import AllCalendarsDetails from "./DetailBlocks/AllCalendarsDetails.svelte";
-    import IconCard from "../../atoms/IconCard.svelte";
+    import IconButton from "../../atoms/IconButton.svelte";
 
     let details: { [key: string]: any } = {
         event: EventDetails,
@@ -14,7 +14,21 @@
 
 <div>
     <div id="details-top">
-        <IconCard text="#" />
+        <IconButton
+            text="A"
+            selected={$currentDetails === "allCalendars"}
+            func={() => ($currentDetails = "allCalendars")}
+        />
+        <IconButton
+            text="C"
+            selected={$currentDetails === "calendar"}
+            func={() => ($currentDetails = "calendar")}
+        />
+        <IconButton
+            text="E"
+            selected={$currentDetails === "event"}
+            func={() => ($currentDetails = "event")}
+        />
     </div>
     <div id="current-details">
         <svelte:component this={details[$currentDetails]} />
@@ -39,5 +53,6 @@
         background-color: var(--bg-lighter);
         border-bottom: 1px solid var(--divider-color);
         width: 100%;
+        gap: 5px;
     }
 </style>

@@ -1,7 +1,8 @@
 import { get, readable, writable, type Writable } from 'svelte/store';
 import { Calendario } from './classes/Calendario';
 import { Evento } from './classes/Evento';
-import { saveCalendars, loadEvents } from './lib/ManageEvents';
+import { saveCalendars } from './lib/ManageEvents';
+import { EventoFiltro } from './classes/EventoFilltro';
 
 //* Configuration
 
@@ -19,7 +20,7 @@ configuration.subscribe((value) => {
 const existingConstants = JSON.parse(
     //Todo: Uncomment bellow
     // localStorage.getItem("constants") ?? 
-    JSON.stringify({ transparency: { low: "40", main: "60", hover: "90", active: "AA", full: "FF" }, transparencyApp: { none: "00", main: "1C", hover: "2d", active: "36" }, discreteColor: "#FFFFFF" })
+    JSON.stringify({ transparency: { low: "40", main: "60", hover: "90", active: "AA", full: "FF" }, transparencyApp: { none: "00", light: "0A", main: "1C", hover: "2d", active: "36" }, discreteColor: "#FFFFFF" })
 )
 
 export const constants = readable(existingConstants);
@@ -58,10 +59,20 @@ calendars.subscribe((value) => {
 
 export const currentDetails: Writable<string> = writable("allCalendars")
 
-export const currentEvent: Writable<Evento> = writable(get(eventsList)[0]);
+export const currentEvent: Writable<Evento> = writable();
 
 export const currentCalendar: Writable<Calendario> = writable(get(calendars)[0]);
 
 currentCalendar.subscribe((value) => {
     calendars.update((calendars) => { return calendars });
+})
+
+//* Filter
+
+const existingEventFilter = JSON.parse(localStorage.getItem("eventFilter") ?? JSON.stringify(new EventoFiltro("", false, new Date(0).toISOString(), new Date().toISOString())));
+
+export const eventFilter: Writable<EventoFiltro> = writable(existingEventFilter);
+
+eventFilter.subscribe((value) => {
+    localStorage.setItem("eventFilter", JSON.stringify(value));
 })

@@ -1,12 +1,12 @@
 <script lang="ts">
-    import IconCard from "../../../atoms/IconCard.svelte";
+    import IconButton from "../../../atoms/IconButton.svelte";
     import SideBar from "../../../organisms/SideBar/SideBar.svelte";
-    import CalendarsSide from "./SideBar/CalendarSide.svelte";
+    import FilterSide from "./SideBar/FilterSide.svelte";
 </script>
 
 <SideBar>
     <div slot="top">
-        <IconCard text="B" />
+        <IconButton text="B" />
     </div>
-    <CalendarsSide on:addEvent slot="main" />
+    <FilterSide on:addEvent slot="main" />
 </SideBar>

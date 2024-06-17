@@ -2,6 +2,7 @@
     export let label: string;
     export let type: string;
     export let value: any;
+    export let placeholder: string = "";
 
     export let change = () => {};
 
@@ -21,6 +22,7 @@
             input();
         }}
         {value}
+        {placeholder}
         on:change={change}
     />
 </label>
