@@ -19,8 +19,9 @@
         align-items: flex-start;
         text-align: center;
         height: 100%;
-        max-width: 100%;
+        width: 100%;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
+        padding: 1rem;
     }
 </style>

@@ -1,8 +1,8 @@
 import { get, readable, writable, type Writable } from 'svelte/store';
 import { Calendario } from './classes/Calendario';
 import { Evento } from './classes/Evento';
-import { saveCalendars } from './lib/ManageEvents';
 import { EventoFiltro } from './classes/EventoFilltro';
+import { parse, stringify } from 'flatted';
 
 //* Configuration
 
@@ -35,10 +35,10 @@ export const eventsList: Writable<Evento[]> = writable([])
 
 //* Existing calendars
 
-const defaultCalendar = new Calendario("#FF0000", [new Evento("Default", new Date().toISOString(), "test")], "default");
+const defaultCalendar = new Calendario("#FF0000", [new Evento("Default", new Date().toISOString(), "def")], "default");
 const testCalendar = new Calendario("#FF00FF", [new Evento("Test", new Date(0).toISOString(), "asd",)], "test");
 
-let existingCalendars: Calendario[] = JSON.parse(localStorage.getItem("calendars") ?? JSON.stringify([defaultCalendar, testCalendar]));
+let existingCalendars: Calendario[] = parse(localStorage.getItem("calendars") ?? stringify([defaultCalendar, testCalendar]));
 
 existingCalendars = existingCalendars.map((calendar) => {
     calendar = Calendario.fromJSON(calendar);
@@ -46,14 +46,6 @@ existingCalendars = existingCalendars.map((calendar) => {
 })
 
 export const calendars: Writable<Calendario[]> = writable([...existingCalendars]);
-
-let timer: NodeJS.Timeout;
-
-calendars.subscribe((value) => {
-    // Debounce saving
-    clearTimeout(timer);
-    timer = setTimeout(() => saveCalendars(), 1000);
-})
 
 //* Current details
 

@@ -1,7 +1,8 @@
 import { get } from 'svelte/store';
 import { Calendario } from '../classes/Calendario';
 import type { Evento } from '../classes/Evento';
-import { calendars, eventsList, currentCalendar, currentDetails, currentEvent } from '../store';
+import { calendars, eventsList, currentCalendar, currentDetails } from '../store';
+import { stringify } from 'flatted';
 
 
 const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
@@ -94,14 +95,7 @@ export function deleteCalendar(calendar: Calendario) {
 }
 
 export function saveCalendars() {
-    const calendarios = get(calendars);
-    for (let calendar of Object.values(calendarios)) {
-        calendar.toSavable();
-    }
-    localStorage.setItem("calendars", JSON.stringify(calendarios));
-    for (let calendar of Object.values(calendarios)) {
-        calendar.toUsable();
-    }
+    localStorage.setItem("calendars", stringify(get(calendars)));
 }
 
 /**
@@ -109,7 +103,7 @@ export function saveCalendars() {
  * @param date la fecha del evento
  * @param events la lista en la que se va a insertar el evento
  */
-export function insEvent(date: string | Date, events: Evento[]) {
+export function lookDate(date: string | Date, events: Evento[]) {
     let i = 0;
     let found = false;
     date = new Date(date);

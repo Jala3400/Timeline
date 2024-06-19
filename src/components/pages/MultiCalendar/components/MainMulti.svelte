@@ -46,7 +46,6 @@
         align-items: center;
         text-align: center;
         height: calc(100% - 2.5em);
-        padding: 1rem;
     }
     #main {
         width: 100%;

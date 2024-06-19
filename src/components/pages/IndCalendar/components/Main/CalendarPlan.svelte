@@ -66,6 +66,7 @@
         max-height: 100%;
         overflow: auto;
         scroll-snap-align: center;
+        margin: 1rem;
     }
 
     #calendar-name {

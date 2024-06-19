@@ -5,7 +5,7 @@
     import Modal from "../templates/Modal/Modal.svelte";
     import CompInput from "../molecules/CompInput.svelte";
     import { Calendario } from "../../classes/Calendario";
-    import { insEvent } from "../../lib/ManageEvents";
+    import { lookDate } from "../../lib/ManageEvents";
 
     export let addEventModal: boolean = false;
     export let calendarColor: string;
@@ -13,7 +13,7 @@
 
     let calendar = $calendars[0];
     let name = "new event";
-    let date = "2000-1-1";
+    let date = new Date().toISOString().substring(0, 16);
     let description = "";
 
     // Al cambiar el calendario actual, se actualiza el calendario al que se añade el evento
@@ -30,7 +30,7 @@
             calendar
         );
         calendar.addEvent(evento);
-        $eventsList.splice(insEvent(evento.date, $eventsList), 0, evento);
+        $eventsList.splice(lookDate(evento.date, $eventsList), 0, evento);
     }
 </script>
 
@@ -60,7 +60,12 @@
             </div>
         </div>
         <CompInput label="Name" type="text" bind:value={name} />
-        <CompInput label="Date" type="date" bind:value={date} />
+        <CompInput
+            label="Date"
+            type="datetime-local"
+            bind:value={date}
+            input={() => console.log(date)}
+        />
         <div class="comp-input">
             <label for="description">Description</label>
             <textarea id="description" bind:value={description} />

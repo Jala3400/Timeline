@@ -12,7 +12,7 @@
     const transparency = $constants.transparency;
 
     let calendar = $currentEvent.calendar;
-    let date = new Date($currentEvent.date).toISOString().split("T")[0];
+    let date = new Date($currentEvent.date).toISOString().substring(0, 16);
     let changeEvent = true;
 
     /// Cambia la fecha del evento actual.
@@ -29,7 +29,7 @@
         if ($currentDetails == "event" && changeEvent) {
             $eventsList = $eventsList;
             $calendars = $calendars;
-            date = new Date(value.date).toISOString().split("T")[0];
+            date = new Date(value.date).toISOString().substring(0, 16);
             calendar = value.calendar;
         }
     });
@@ -61,7 +61,7 @@
         </div>
         <CompInput
             label="Date"
-            type="date"
+            type="datetime-local"
             bind:value={date}
             change={() => {
                 changeDate(date);

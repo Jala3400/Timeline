@@ -1,5 +1,5 @@
 import { get } from 'svelte/store';
-import { insEvent } from '../lib/ManageEvents';
+import { lookDate } from '../lib/ManageEvents';
 import { calendars, currentDetails, currentEvent, eventsList } from '../store';
 import { Evento } from "./Evento";
 
@@ -117,7 +117,7 @@ export class Calendario {
     */
     addEvent(event: Evento) {
         this.events.splice(
-            insEvent(event.date, this.events),
+            lookDate(event.date, this.events),
             0,
             event
         );
@@ -145,18 +145,5 @@ export class Calendario {
             this.tempDeleteEvent(event);
             return value
         })
-    }
-
-    toSavable() {
-        const savableCalendar = new Calendario("", [], "", "");
-        for (let event of this.events) {
-            event.calendar = savableCalendar;
-        }
-    }
-
-    toUsable() {
-        for (let event of this.events) {
-            event.calendar = this;
-        }
     }
 }

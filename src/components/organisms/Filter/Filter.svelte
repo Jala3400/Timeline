@@ -14,8 +14,8 @@
 
     let startDate = new Date($eventFilter.startDate)
         .toISOString()
-        .split("T")[0];
-    let endDate = new Date($eventFilter.endDate).toISOString().split("T")[0];
+        .substring(0, 16);
+    let endDate = new Date($eventFilter.endDate).toISOString().substring(0, 16);
 
     function changeStartDate(date: string) {
         $eventFilter.startDate = date;
@@ -52,7 +52,7 @@
             <span class="checkbox-label"> Filter by date </span>
         </label>
         <CompInput
-            type="date"
+            type="datetime-local"
             bind:value={startDate}
             label="From"
             change={() => {
@@ -60,7 +60,7 @@
             }}
         />
         <CompInput
-            type="date"
+            type="datetime-local"
             bind:value={endDate}
             label="To"
             change={() => {

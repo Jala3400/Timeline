@@ -1,6 +1,6 @@
 import { calendars, currentEvent, eventsList } from '../store';
 import { Calendario } from './Calendario';
-import { insEvent } from '../lib/ManageEvents';
+import { lookDate } from '../lib/ManageEvents';
 import type { EventoFiltro } from './EventoFilltro';
 
 /**
@@ -122,7 +122,7 @@ export class Evento {
         this.calendar.addEvent(this);
         eventsList.update((value) => {
             value.splice(value.indexOf(this), 1);
-            value.splice(insEvent(this.date, value), 0, this);
+            value.splice(lookDate(this.date, value), 0, this);
             return value;
         });
     }
