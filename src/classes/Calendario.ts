@@ -111,16 +111,24 @@ export class Calendario {
         });
     }
 
-    /** 
-     * Método que añade un evento al calendario.
+    /**
+     * Método que añade un evento al calendario sin actualizar nada.
      * @param event Evento a añadir.
     */
-    addEvent(event: Evento) {
+    tempAddEvent(event: Evento) {
         this.events.splice(
             lookDate(event.date, this.events),
             0,
             event
         );
+    }
+
+    /** 
+     * Método que añade un evento al calendario.
+     * @param event Evento a añadir.
+    */
+    addEvent(event: Evento) {
+        this.tempAddEvent(event);
         currentDetails.set("event");
         currentEvent.set(event);
     }

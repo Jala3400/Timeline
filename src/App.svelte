@@ -28,7 +28,6 @@
     });
 
     function savedNotification() {
-        console.log("saved");
         savedOn = true;
         setTimeout(() => {
             savedOn = false;
@@ -55,9 +54,9 @@
         padding: 5px;
         border-top-left-radius: 8px;
         opacity: 0;
+        transition: opacity 0.5s;
     }
     #saved.savedOn {
         opacity: 1;
-        transition: opacity 0.5s;
     }
 </style>

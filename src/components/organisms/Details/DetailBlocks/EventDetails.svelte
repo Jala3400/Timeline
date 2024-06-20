@@ -29,7 +29,19 @@
         if ($currentDetails == "event" && changeEvent) {
             $eventsList = $eventsList;
             $calendars = $calendars;
-            date = new Date(value.date).toISOString().substring(0, 16);
+            // Pone la fecha sin el timezone del usuario.
+            const eventDate = new Date(value.date);
+            const localDate =
+                eventDate.getFullYear() +
+                "-" +
+                ("0" + (eventDate.getMonth() + 1)).slice(-2) +
+                "-" +
+                ("0" + eventDate.getDate()).slice(-2) +
+                "T" +
+                ("0" + eventDate.getHours()).slice(-2) +
+                ":" +
+                ("0" + eventDate.getMinutes()).slice(-2);
+            date = localDate;
             calendar = value.calendar;
         }
     });

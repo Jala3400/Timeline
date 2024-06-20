@@ -64,7 +64,6 @@
             label="Date"
             type="datetime-local"
             bind:value={date}
-            input={() => console.log(date)}
         />
         <div class="comp-input">
             <label for="description">Description</label>

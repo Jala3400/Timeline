@@ -110,9 +110,7 @@ export function lookDate(date: string | Date, events: Evento[]) {
     while (i < events.length && !found) {
         if (date > new Date(events[i].date)) {
             found = true;
-            i--;
-        }
-        i++;
+        } else { i++ };
     }
     return i;
 }

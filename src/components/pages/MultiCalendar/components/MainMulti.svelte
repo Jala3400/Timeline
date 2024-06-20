@@ -1,12 +1,14 @@
 <script lang="ts">
     import IconButton from "../../../atoms/IconButton.svelte";
     import CalendarsList from "./Main/CalendarsList.svelte";
+    import MultDays from "./Main/MultDays.svelte";
     import MultiEventsList from "./Main/MultiEventsList.svelte";
 
     let currentView: string = "eventsList";
     let view: { [key: string]: any } = {
         eventsList: MultiEventsList,
         calendarsList: CalendarsList,
+        day: MultDays,
     };
 </script>
 
@@ -21,6 +23,11 @@
             text="C"
             func={() => (currentView = "calendarsList")}
             selected={currentView === "calendarsList"}
+        />
+        <IconButton
+            text="D"
+            func={() => (currentView = "day")}
+            selected={currentView === "day"}
         />
     </div>
     <div id="main-content">

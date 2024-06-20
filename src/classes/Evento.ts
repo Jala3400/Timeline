@@ -102,7 +102,7 @@ export class Evento {
     changeCalendar(targCalendar: Calendario) {
         calendars.update((value) => {
             this.calendar.tempDeleteEvent(this);
-            targCalendar.addEvent(this);
+            targCalendar.tempAddEvent(this);
             return value;
         })
         currentEvent.update((value => {
@@ -119,7 +119,7 @@ export class Evento {
     changeDate(date: string) {
         this.calendar.tempDeleteEvent(this);
         this.date = date;
-        this.calendar.addEvent(this);
+        this.calendar.tempAddEvent(this);
         eventsList.update((value) => {
             value.splice(value.indexOf(this), 1);
             value.splice(lookDate(this.date, value), 0, this);

@@ -2,7 +2,6 @@
     import EventCard from "../../molecules/EventCard.svelte";
     import TiempoRestante from "../../atoms/TiempoRestante.svelte";
     import {
-        calendars,
         configuration,
         currentCalendar,
         currentDetails,
@@ -17,7 +16,7 @@
 
 <div id="events-container">
     {#each eventsList as event}
-        <EventCard {event} color={event.calendar.color} />
+        <EventCard {event}/>
         <TiempoRestante
             text={dateDifference(new Date(event.date))}
             color={diffColor}

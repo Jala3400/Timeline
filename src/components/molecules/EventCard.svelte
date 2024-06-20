@@ -3,7 +3,7 @@
     import { currentDetails, constants, currentEvent } from "../../store";
 
     export let event: Evento;
-    export let color = "#FF0000";
+    $: color = event.calendar.color;
 
     const transparency = $constants.transparency;
 
