@@ -10,10 +10,10 @@
     export let addEventModal: boolean = false;
     export let calendarColor: string;
     export let addCalendarModal: boolean;
+    export let date = new Date().toISOString().substring(0, 16);
 
     let calendar = $calendars[0];
     let name = "new event";
-    let date = new Date().toISOString().substring(0, 16);
     let description = "";
 
     // Al cambiar el calendario actual, se actualiza el calendario al que se añade el evento
@@ -60,11 +60,7 @@
             </div>
         </div>
         <CompInput label="Name" type="text" bind:value={name} />
-        <CompInput
-            label="Date"
-            type="datetime-local"
-            bind:value={date}
-        />
+        <CompInput label="Date" type="datetime-local" bind:value={date} />
         <div class="comp-input">
             <label for="description">Description</label>
             <textarea id="description" bind:value={description} />

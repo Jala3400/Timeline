@@ -31,7 +31,7 @@
         />
     </div>
     <div id="main-content">
-        <svelte:component this={view[currentView]} />
+        <svelte:component this={view[currentView]} on:addEvent />
     </div>
 </div>
 

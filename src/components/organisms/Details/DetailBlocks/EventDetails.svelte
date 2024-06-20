@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { dateToString } from "../../../../lib/ManageEvents";
     import {
         calendars,
         currentDetails,
@@ -29,19 +30,7 @@
         if ($currentDetails == "event" && changeEvent) {
             $eventsList = $eventsList;
             $calendars = $calendars;
-            // Pone la fecha sin el timezone del usuario.
-            const eventDate = new Date(value.date);
-            const localDate =
-                eventDate.getFullYear() +
-                "-" +
-                ("0" + (eventDate.getMonth() + 1)).slice(-2) +
-                "-" +
-                ("0" + eventDate.getDate()).slice(-2) +
-                "T" +
-                ("0" + eventDate.getHours()).slice(-2) +
-                ":" +
-                ("0" + eventDate.getMinutes()).slice(-2);
-            date = localDate;
+            date = dateToString(new Date(value.date));
             calendar = value.calendar;
         }
     });

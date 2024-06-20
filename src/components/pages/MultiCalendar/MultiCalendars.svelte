@@ -5,18 +5,30 @@
     import MultiSideBar from "./components/SideBarMulti.svelte";
     import MainMultCal from "./components/MainMulti.svelte";
     import MainTemplate from "../../templates/MainTemplate/MainTemplate.svelte";
+    import { dateToString } from "../../../lib/ManageEvents";
 
     // Modals
     let addEventModal: boolean = false;
     let addCalendarModal: boolean = false;
     let calendarColor = "#FF0000";
+    let eventDate = new Date().toISOString().substring(0, 16);
+
+    function handleAddEvent(e: { detail: { date: Date } }) {
+        eventDate = dateToString(e.detail.date);
+        addEventModal = true;
+    }
 </script>
 
 <MainTemplate>
     <MultiSideBar on:addEvent={() => (addEventModal = true)} slot="sidebar" />
-    <MainMultCal slot="main" />
+    <MainMultCal on:addEvent={handleAddEvent} slot="main" />
     <Details slot="details" />
 </MainTemplate>
 
-<AddEventModal bind:addEventModal {calendarColor} bind:addCalendarModal />
+<AddEventModal
+    bind:addEventModal
+    {calendarColor}
+    bind:addCalendarModal
+    bind:date={eventDate}
+/>
 <AddCalendarModal bind:addCalendarModal bind:calendarColor />

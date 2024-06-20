@@ -20,7 +20,10 @@
     }
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
+    on:click|stopPropagation
     style="--main-color:{color}{transparency.main};
 --main-color-hover:{color}{transparency.hover};
 --main-color-active:{color}{transparency.active};
@@ -34,6 +37,7 @@
 
 <style>
     .time-bar {
+        transition: top 0s;
         position: absolute;
         top: var(--top);
         width: 50%;
@@ -43,13 +47,13 @@
         /* border-top: 2px solid var(--main-color); */
     }
     .event-name {
+        transition: top 0s;
         position: absolute;
         top: min(
             var(--top),
             calc(100% - 2em)
         ); /* El máximo es 100% - 2em porque los eventos tardíos se salen de la pantalla*/
         background-color: var(--main-color);
-        border: none;
         font-size: 16px;
         border-radius: 0 5px 5px 5px;
         padding: 5px;

@@ -7,6 +7,25 @@ import { stringify } from 'flatted';
 
 const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 
+
+/**
+ * Convierte una fecha en formato de cadena de texto aceptable por input type="datetime-local".
+ * 
+ * @param date La fecha a convertir.
+ * @returns La fecha en formato de cadena de texto.
+ */
+export function dateToString(date: Date) {
+    return date.getFullYear() +
+        "-" +
+        ("0" + (date.getMonth() + 1)).slice(-2) +
+        "-" +
+        ("0" + date.getDate()).slice(-2) +
+        "T" +
+        ("0" + date.getHours()).slice(-2) +
+        ":" +
+        ("0" + date.getMinutes()).slice(-2);
+}
+
 /** 
  *  Calcula la diferencia de días entre dos fechas
  * @param date1 la primera fecha
