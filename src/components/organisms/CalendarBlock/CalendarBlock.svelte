@@ -34,7 +34,9 @@
         bind:value={calendar.name}
         on:input={() => ($calendars = $calendars)}
     />
-    <EventsList eventsList={calendar.events} />
+    <div class="calendar-events">
+        <EventsList eventsList={calendar.events} />
+    </div>
 </div>
 
 <style>
@@ -65,5 +67,13 @@
     }
     #calendar-name:focus {
         background-color: #0f0f0f98;
+    }
+    .calendar-events {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
     }
 </style>

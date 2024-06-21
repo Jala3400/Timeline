@@ -7,7 +7,7 @@
     export let eventos: Evento[] = [];
     export let day: Date;
 
-    const today = day.toDateString() === new Date().toDateString();
+    $: today = day.toDateString() === new Date().toDateString();
 
     let top =
         ((new Date().getHours() + new Date().getMinutes() / 60) / 24) * 100;
@@ -15,15 +15,14 @@
     let interval: NodeJS.Timer;
 
     onMount(() => {
-        console.log(day.toDateString());
-        if (today) {
-            interval = setInterval(() => {
+        interval = setInterval(() => {
+            if (today) {
                 top =
                     ((new Date().getHours() + new Date().getMinutes() / 60) /
                         24) *
                     100;
-            }, 60000);
-        }
+            }
+        }, 60000);
     });
 
     onDestroy(() => {
@@ -41,7 +40,6 @@
             const blockNumber = Math.floor(e.offsetY / block);
             date.setMinutes(((e.offsetY - blockNumber * block) / block) * 60);
 
-            console.log(date);
             dispatch("addEvent", { date: date });
         }
     }
@@ -79,6 +77,7 @@
             transparent 1px,
             transparent calc(1 / 24 * 100%)
         );
+        cursor: crosshair;
     }
     #today {
         position: absolute;
@@ -86,6 +85,7 @@
         opacity: 0.5;
         height: 2px;
         background-color: var(--main-color);
+        cursor: auto;
     }
     #today::after {
         content: "";

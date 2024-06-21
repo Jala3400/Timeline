@@ -2,28 +2,32 @@
     import { lookDate } from "../../../../../lib/ManageEvents";
     import { eventsList } from "../../../../../store";
     import Day from "../../../../organisms/Day/Day.svelte";
+    import DaysOptions from "../../../../organisms/DaysOptions/DaysOptions.svelte";
 
     const dayInms = 24 * 60 * 60 * 1000;
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const todayTime = today.getTime();
+    let focusDay = new Date();
+    focusDay.setHours(0, 0, 0, 0);
+    $: focusTime = focusDay.getTime();
 
     let days = 3;
+    let offset = 0;
 </script>
 
-<!-- <div id="options"></div> -->
 <div id="days-container">
+    <DaysOptions bind:days bind:offset bind:focusDay />
     <div id="days-header">
         {#each Array(days) as _, index}
-            <div class="day-info">
+            {@const day = new Date(focusTime + dayInms * (index - offset))}
+            <div
+                class="day-info"
+                class:focus-day={new Date().toDateString() ===
+                    day.toDateString()}
+            >
                 <div>
-                    {new Date(todayTime + dayInms * index).toLocaleDateString()}
+                    {day.toLocaleDateString()}
                 </div>
                 <div>
-                    {new Date(todayTime + dayInms * index).toLocaleDateString(
-                        "en-US",
-                        { weekday: "long" }
-                    )}
+                    {day.toLocaleDateString("en-US", { weekday: "long" })}
                 </div>
                 <div class="border"></div>
             </div>
@@ -40,20 +44,23 @@
                 {@const eventos = $eventsList
                     .slice(
                         lookDate(
-                            new Date(todayTime + dayInms * (1 + index)),
+                            new Date(
+                                focusTime + dayInms * (1 + index - offset)
+                            ),
                             $eventsList
                         ),
                         lookDate(
-                            new Date(todayTime + dayInms * index),
+                            new Date(focusTime + dayInms * (index - offset)),
                             $eventsList
                         )
                     )
                     .filter((event) => {
                         if (event.calendar.selected) return event;
-                    })}
+                    })
+                    .reverse()}
                 <Day
                     {eventos}
-                    day={new Date(todayTime + dayInms * index)}
+                    day={new Date(focusTime + dayInms * (index - offset))}
                     on:addEvent
                 />
             {/each}
@@ -62,16 +69,8 @@
 </div>
 
 <style>
-    /* #options {
-        display: flex;
-        flex-direction: row;
-        gap: 1px;
-        width: 100%;
-        height: 2.5em;
-        background-color: var(--bg-lighter);
-        border-bottom: 1px solid var(--divider-color);
-    } */
     #days-container {
+        position: relative;
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -91,6 +90,10 @@
         width: 100%;
         position: relative;
         padding: 1em 0;
+        transition: 0s;
+    }
+    .day-info.focus-day {
+        color: var(--main-color);
     }
     .border {
         position: absolute;

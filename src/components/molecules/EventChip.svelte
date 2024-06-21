@@ -29,7 +29,7 @@
 --main-color-active:{color}{transparency.active};
 --top:{top}%;"
 >
-    <button class="time-bar" on:click={selectEvent}></button>
+    <button on:click={selectEvent} class="time-bar"></button>
     <button on:click={selectEvent} class="event-name">
         {event.name}
     </button>
