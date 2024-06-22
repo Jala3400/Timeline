@@ -9,7 +9,7 @@
 </script>
 
 <button
-    on:click={func()}
+    on:mousedown={func()}
     class="neonbtn"
     style="--main-color:{color}{transparency.main};
     --main-color-hover:{color}{transparency.hover};
@@ -18,7 +18,6 @@
 
 <style>
     .neonbtn {
-        /* border: 1px solid var(--main-color-hover); */
         padding: 1em;
         border-radius: 8px;
         background-color: var(--main-color);

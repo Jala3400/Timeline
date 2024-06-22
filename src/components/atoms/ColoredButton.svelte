@@ -9,7 +9,7 @@
 </script>
 
 <button
-    on:click={func}
+    on:mousedown={func}
     class="colored-btn"
     style="--main-color:{color}{transparency.main};
     --main-color-hover:{color}{transparency.hover};
@@ -27,7 +27,6 @@
         width: 100%;
     }
     .colored-btn:hover {
-        /* border: 1px solid var(--main-color-hover); */
         background-color: var(--main-color-hover);
     }
     .colored-btn:active {

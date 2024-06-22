@@ -8,7 +8,7 @@
     let collapsed = false;
 </script>
 
-<button id="collapse-options" on:click={() => (collapsed = !collapsed)}
+<button id="collapse-options" on:mousedown={() => (collapsed = !collapsed)}
     >C</button
 >
 <div id="options" class:collapsed>
@@ -28,7 +28,7 @@
         {#each Array(days) as _, index}
             <button
                 class="offset-button"
-                on:click={() => (offset = index)}
+                on:mousedown={() => (offset = index)}
                 class:offset-selected={index == offset}
             >
                 {index}
@@ -57,7 +57,7 @@
         width: 100%;
         height: 2.5em;
         padding-left: 10px;
-        padding-right: 3em;
+        padding-right: 2.75em;
         background-color: var(--bg-lighter);
         border-bottom: 1px solid var(--divider-color);
         overflow: hidden;

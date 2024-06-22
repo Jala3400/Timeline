@@ -24,13 +24,22 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
     on:click|stopPropagation
+    on:mousedown|stopPropagation
     style="--main-color:{color}{transparency.main};
 --main-color-hover:{color}{transparency.hover};
 --main-color-active:{color}{transparency.active};
 --top:{top}%;"
 >
-    <button on:click={selectEvent} class="time-bar"></button>
-    <button on:click={selectEvent} class="event-name">
+    <button on:click={selectEvent} class="time-bar" style="top: {top}%"
+    ></button>
+    <button
+        on:click={selectEvent}
+        class="event-name"
+        style="top: min(
+            {top}%,
+            calc(100% - 2em)
+        );"
+    >
         {event.name}
     </button>
 </div>
@@ -39,20 +48,14 @@
     .time-bar {
         transition: top 0s;
         position: absolute;
-        top: var(--top);
         width: 50%;
         left: 0;
         height: 2px;
         background-color: var(--main-color);
-        /* border-top: 2px solid var(--main-color); */
     }
     .event-name {
         transition: top 0s;
         position: absolute;
-        top: min(
-            var(--top),
-            calc(100% - 2em)
-        ); /* El máximo es 100% - 2em porque los eventos tardíos se salen de la pantalla*/
         background-color: var(--main-color);
         font-size: 16px;
         border-radius: 0 5px 5px 5px;
@@ -60,5 +63,8 @@
         margin-left: auto;
         width: 50%;
         height: 2em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 </style>

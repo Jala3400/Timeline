@@ -22,7 +22,7 @@
 </script>
 
 <button
-    on:click={selectEvent}
+    on:mousedown={selectEvent}
     class="event"
     style="--main-color:{color}{transparency.main};
 --main-color-hover:{color}{transparency.hover};
@@ -36,7 +36,6 @@
 
 <style>
     .event {
-        /* border: 1px solid var(--main-color-hover); */
         border-radius: 8px;
         background-color: var(--main-color);
         padding: 0.6em 1.2em;

@@ -29,7 +29,7 @@
         clearInterval(interval);
     });
 
-    function handleClick(e: MouseEvent) {
+    function getAproxDate(e: MouseEvent) {
         const target = e.currentTarget as HTMLElement;
         if (target) {
             const date = new Date(day);
@@ -38,26 +38,65 @@
             // De esta forma se consigue dónde se ha hecho click dentro del bloque
             const block = target.clientHeight / 24;
             const blockNumber = Math.floor(e.offsetY / block);
-            date.setMinutes(((e.offsetY - blockNumber * block) / block) * 60);
+            const roundedMinutes =
+                ((e.offsetY - blockNumber * block) / block) * 60;
+            date.setMinutes(Math.round(roundedMinutes / 5) * 5);
 
-            dispatch("addEvent", { date: date });
+            return date;
         }
+        return new Date();
     }
+
+    function getFormattedTime(e: MouseEvent) {
+        return getAproxDate(e).toLocaleTimeString();
+    }
+
+    function handleClick(e: MouseEvent) {
+        dispatch("addEvent", { date: getAproxDate(e) });
+    }
+    let followCursor: boolean = false;
+    let cursorTop: number = 0;
+    let cursorTime: string = "";
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 <div
     class="day"
     on:click={(e) => {
+        followCursor = false;
         handleClick(e);
     }}
+    on:mousedown={(e) => {
+        followCursor = true;
+    }}
+    on:mousemove={(e) => {
+        if (followCursor) {
+            cursorTop = (e.offsetY / e.currentTarget.clientHeight) * 100;
+            cursorTime = getFormattedTime(e);
+        }
+    }}
 >
+    <div
+        class="follow-cursor"
+        class:visible={followCursor}
+        style="top:{cursorTop}%"
+    >
+        <div class="popover" class:bottom={cursorTop < 2}>
+            {cursorTime}
+        </div>
+    </div>
     {#each eventos as evento}
         <EventChip event={evento} />
     {/each}
     {#if today}
-        <div id="today" style="top:{top}%" on:click|stopPropagation></div>
+        <div
+            id="today"
+            style="top:{top}%"
+            on:mousedown|stopPropagation
+            on:click|stopPropagation
+        ></div>
     {/if}
 </div>
 
@@ -66,7 +105,6 @@
         display: flex;
         flex-direction: column;
         position: relative;
-        gap: 1px;
         width: 100%;
         height: 100%;
         border-right: 1px solid var(--divider-color);
@@ -78,6 +116,29 @@
             transparent calc(1 / 24 * 100%)
         );
         cursor: crosshair;
+    }
+    .follow-cursor {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 2px;
+        background-color: var(--main-color);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0s;
+    }
+    .follow-cursor.visible {
+        opacity: 1;
+    }
+    .popover {
+        user-select: none;
+        position: absolute;
+        top: -1.5em;
+        color: var(--main-color);
+    }
+    .popover.bottom {
+        top: 0;
     }
     #today {
         position: absolute;

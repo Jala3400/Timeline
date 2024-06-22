@@ -14,7 +14,7 @@
     --bg-light:#ffffff{transparency.main};
     --bg-lighter:#ffffff{transparency.hover};    "
     class:selected
-    on:click={func()}
+    on:mousedown={func()}
     class="icon-btn"
     >{text}
 </button>
@@ -30,9 +30,6 @@
         opacity: 0.5;
     }
     .icon-btn.selected {
-        /* color: var(--main-color);
-        border: 1px solid var(--main-color); 
-        background-color: var(--bg-light); */
         opacity: 1;
     }
     .icon-btn:hover {

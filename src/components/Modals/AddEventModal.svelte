@@ -52,7 +52,7 @@
                 </select>
                 <button
                     type="button"
-                    on:click={() => {
+                    on:mousedown={() => {
                         // Muestra el modal de añadir calendario
                         addCalendarModal = true;
                     }}>+</button

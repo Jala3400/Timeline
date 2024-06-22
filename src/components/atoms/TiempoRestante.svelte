@@ -10,7 +10,7 @@
 </script>
 
 <button
-    on:click={func()}
+    on:mousedown={func()}
     class="tiempo-restante"
     style="--main-color:{color}{transparency.main};
     --main-color-hover:{color}{transparency.hover};
@@ -26,10 +26,8 @@
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
         width: 2.75em;
         aspect-ratio: 1/1;
-        /* border: 1px solid transparent; */
     }
     .tiempo-restante:hover {
-        /* border: 1px solid var(--main-color-hover); */
         background-color: var(--main-color-hover);
     }
     .tiempo-restante:active {

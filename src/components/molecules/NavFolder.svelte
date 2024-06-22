@@ -22,7 +22,7 @@
         style="--bg:{color}{transparency.none};
         --bg-light:{color}{transparency.light};
         --bg-hover:{color}{transparency.main}"
-        on:click={toggle}
+        on:mousedown={toggle}
     >
         <div class="collapse-icon" class:is-collapsed={!expanded}>
             <svg

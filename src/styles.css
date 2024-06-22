@@ -86,6 +86,7 @@ textarea {
 
 input[type="date"],
 input[type="datetime-local"],
+input[type="number"],
 select {
   padding: 4px;
 }
