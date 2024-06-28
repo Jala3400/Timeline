@@ -73,7 +73,7 @@
     }}
     on:mousemove={(e) => {
         if (followCursor) {
-            cursorTop = (e.offsetY / e.currentTarget.clientHeight) * 100;
+            cursorTop = e.offsetY;
             cursorTime = getFormattedTime(e);
         }
     }}
@@ -81,9 +81,9 @@
     <div
         class="follow-cursor"
         class:visible={followCursor}
-        style="top:{cursorTop}%"
+        style="top:{cursorTop}px"
     >
-        <div class="popover" class:bottom={cursorTop < 2}>
+        <div class="popover" class:bottom={cursorTop < 20}>
             {cursorTime}
         </div>
     </div>

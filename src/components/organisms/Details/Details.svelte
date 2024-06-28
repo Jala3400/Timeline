@@ -12,7 +12,7 @@
     };
 </script>
 
-<div>
+<div id="details-container">
     <div id="details-top">
         <IconButton
             text="A"
@@ -36,6 +36,9 @@
 </div>
 
 <style>
+    #details-container {
+        overflow: hidden;
+    }
     #current-details {
         background-color: var(--bg-light);
         padding: 1em;

@@ -1,0 +1,52 @@
+<script lang="ts">
+    import type { Evento } from "../../classes/Evento";
+    import { constants, currentDetails, currentEvent } from "../../store";
+
+    export let event: Evento;
+
+    const transparency = $constants.transparency;
+
+    $: color = event.calendar.color;
+    $: top =
+        ((new Date(event.date).getHours() +
+            new Date(event.date).getMinutes() / 60) /
+            24) *
+        100;
+
+    // Establece el evento actual y cambia la vista a la de detalles del evento.
+    function selectEvent() {
+        $currentEvent = event;
+        $currentDetails = "event";
+    }
+</script>
+
+<button
+    on:click={selectEvent}
+    style="--main-color:{color}{transparency.main};
+--main-color-hover:{color}{transparency.hover};
+--main-color-active:{color}{transparency.active};"
+    class="event-name"
+>
+    {event.name}
+</button>
+
+<style>
+    .event-name {
+        background-color: var(--main-color);
+        font-size: 16px;
+        border-radius: 5px;
+        padding: 5px;
+        margin-left: auto;
+        width: 100%;
+        min-height: 2em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .event-name:hover {
+        background-color: var(--main-color-hover);
+    }
+    .event-name:active {
+        background-color: var(--main-color-active);
+    }
+</style>

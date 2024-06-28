@@ -11,6 +11,9 @@
 </div>
 
 <style>
+    #side-bar {
+        overflow: hidden;
+    }
     #side-top {
         padding: 3px;
         display: flex;

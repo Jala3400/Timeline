@@ -126,12 +126,12 @@ export function lookDate(date: string | Date, events: Evento[]) {
     let i = 0;
     let found = false;
     date = new Date(date);
-    while (i < events.length && !found) {
+    while (i < events.length) {
         if (date > new Date(events[i].date)) {
-            found = true;
+            return i;
         } else { i++ };
     }
-    return i;
+    return -1;
 }
 
 // Todo: Ins event con binary search

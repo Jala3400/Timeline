@@ -101,6 +101,7 @@
         width: 100%;
         height: 2em;
         border-left: 1px solid var(--divider-color);
+        z-index: -1;
     }
     #calendar {
         display: flex;

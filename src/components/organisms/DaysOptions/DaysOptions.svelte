@@ -6,6 +6,12 @@
     export let offset: number;
 
     let collapsed = false;
+
+    function checkFocusDay() {
+        if (days < offset + 1) {
+            offset = days - 1;
+        }
+    }
 </script>
 
 <button id="collapse-options" on:mousedown={() => (collapsed = !collapsed)}
@@ -41,6 +47,7 @@
             id="num-days-input"
             type="number"
             bind:value={days}
+            on:input={checkFocusDay}
             max="7"
             min="1"
         />
