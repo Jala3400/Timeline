@@ -2,7 +2,7 @@
     import { lookDate } from "../../../../../lib/ManageEvents";
     import { eventsList } from "../../../../../store";
     import Day from "../../../../organisms/Day/Day.svelte";
-    import DaysOptions from "../../../../organisms/DaysOptions/DaysOptions.svelte";
+    import DaysOptions from "../../../../organisms/Options/DaysOptions.svelte";
 
     const dayInms = 24 * 60 * 60 * 1000;
     let focusDay = new Date();
@@ -75,7 +75,6 @@
         flex-direction: column;
         width: 100%;
         height: 100%;
-        overflow: hidden;
     }
     #days-header {
         display: flex;

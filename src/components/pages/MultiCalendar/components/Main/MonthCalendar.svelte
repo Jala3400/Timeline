@@ -1,5 +1,6 @@
 <script lang="ts">
     import DayCal from "../../../../organisms/DayCal/DayCal.svelte";
+    import CalendarOptions from "../../../../organisms/Options/CalendarOptions.svelte";
 
     let daysOfWeek = [
         "Monday",
@@ -11,57 +12,66 @@
         "Sunday",
     ];
 
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth();
-    const currentYear = currentDate.getFullYear();
-    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    let focusDate = new Date();
+    $: currentMonth = focusDate.getMonth();
+    $: currentYear = focusDate.getFullYear();
+    $: daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-    const prevMonth = new Date(currentYear, currentMonth, 0);
-    const daysInPrevMonth = prevMonth.getDate();
+    $: daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
 
-    const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
-    const firstOffset = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
+    $: firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+    $: firstOffset = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
 
-    const lastDayOfMonth = new Date(
+    $: lastDayOfMonth = new Date(
         currentYear,
         currentMonth,
         daysInMonth
     ).getDay();
-    const lastOffset = lastDayOfMonth === 0 ? 0 : 7 - lastDayOfMonth;
+    $: lastOffset = lastDayOfMonth === 0 ? 0 : 7 - lastDayOfMonth;
 </script>
 
-<div class="calendar">
-    {#each daysOfWeek as day}
-        <div class="day-header">{day}</div>
-    {/each}
+<div id="month-calendar">
+    <CalendarOptions bind:focusDate></CalendarOptions>
+    <div id="calendar">
+        {#each daysOfWeek as day}
+            <div class="day-header">{day}</div>
+        {/each}
 
-    {#each Array(firstOffset) as _, index}
-        <DayCal
-            disabled={true}
-            date={new Date(
-                currentYear,
-                currentMonth - 1,
-                daysInPrevMonth + index - firstOffset + 1
-            )}
-        />
-    {/each}
+        {#each Array(firstOffset) as _, index}
+            <DayCal
+                disabled={true}
+                date={new Date(
+                    currentYear,
+                    currentMonth - 1,
+                    daysInPrevMonth + index - firstOffset + 1
+                )}
+            />
+        {/each}
 
-    {#each Array(daysInMonth) as _, index}
-        <DayCal date={new Date(currentYear, currentMonth, index + 1)} />
-    {/each}
-    {#each Array(lastOffset) as _, index}
-        <DayCal date={new Date(currentYear, currentMonth + 1, index + 1)} />
-    {/each}
+        {#each Array(daysInMonth) as _, index}
+            <DayCal date={new Date(currentYear, currentMonth, index + 1)} />
+        {/each}
+        {#each Array(lastOffset) as _, index}
+            <DayCal date={new Date(currentYear, currentMonth + 1, index + 1)} />
+        {/each}
+    </div>
 </div>
 
 <style>
-    .calendar {
+    #month-calendar {
         position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
+    #calendar {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
         grid-template-rows: 2.5em repeat(5, 1fr);
         width: 100%;
         height: 100%;
+        overflow: auto;
     }
 
     .day-header {

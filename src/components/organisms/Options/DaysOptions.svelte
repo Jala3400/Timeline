@@ -1,11 +1,10 @@
 <script lang="ts">
     import { dateToString } from "../../../lib/ManageEvents";
+    import Options from "../../templates/Options/Options.svelte";
 
     export let focusDay: Date;
     export let days: number;
     export let offset: number;
-
-    let collapsed = false;
 
     function checkFocusDay() {
         if (days < offset + 1) {
@@ -14,10 +13,7 @@
     }
 </script>
 
-<button id="collapse-options" on:mousedown={() => (collapsed = !collapsed)}
-    >C</button
->
-<div id="options" class:collapsed>
+<Options>
     <label for="focus-day-input">
         Focus day:
         <input
@@ -52,39 +48,10 @@
             min="1"
         />
     </label>
-</div>
+</Options>
 
 <style>
-    #options {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-        width: 100%;
-        height: 2.5em;
-        padding-left: 10px;
-        padding-right: 2.75em;
-        background-color: var(--bg-lighter);
-        border-bottom: 1px solid var(--divider-color);
-        overflow: hidden;
-    }
-    #options.collapsed {
-        height: 0;
-    }
-    #collapse-options {
-        position: absolute;
-        right: 0;
-        width: 2.5em;
-        height: 2.5em;
-        background-color: var(--bg-lighter);
-        border: 1px solid var(--divider-color);
-        border-top: none;
-        border-radius: 0;
-        border-bottom-left-radius: 8px;
-        z-index: 1;
-    }
-    #options input {
+    input {
         width: 10em;
     }
     #offset {
