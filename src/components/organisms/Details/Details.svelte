@@ -4,11 +4,13 @@
     import EventDetails from "./DetailBlocks/EventDetails.svelte";
     import AllCalendarsDetails from "./DetailBlocks/AllCalendarsDetails.svelte";
     import IconButton from "../../atoms/IconButton.svelte";
+    import Tasks from "./DetailBlocks/Tasks.svelte";
 
     let details: { [key: string]: any } = {
         event: EventDetails,
         calendar: CalendarDetails,
         allCalendars: AllCalendarsDetails,
+        tasks: Tasks,
     };
 </script>
 
@@ -28,6 +30,11 @@
             text="E"
             selected={$currentDetails === "event"}
             func={() => ($currentDetails = "event")}
+        />
+        <IconButton
+            text="T"
+            selected={$currentDetails === "tasks"}
+            func={() => ($currentDetails = "tasks")}
         />
     </div>
     <div id="current-details">

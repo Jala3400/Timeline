@@ -89,6 +89,7 @@
         margin-top: 5px;
         border-left: 1px solid #808080;
         margin-left: 12px;
+        overflow: auto;
     }
     .collapse-icon {
         display: flex;

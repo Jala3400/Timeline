@@ -2,7 +2,7 @@ import { get } from 'svelte/store';
 import { Calendario } from '../classes/Calendario';
 import type { Evento } from '../classes/Evento';
 import { calendars, eventsList, currentCalendar, currentDetails } from '../store';
-import { stringify } from 'flatted';
+import { parse, stringify } from 'flatted';
 
 
 const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
@@ -115,6 +115,14 @@ export function deleteCalendar(calendar: Calendario) {
 
 export function saveCalendars() {
     localStorage.setItem("calendars", stringify(get(calendars)));
+}
+
+export function saveTasks(tasks: any) {
+    localStorage.setItem("tasks", stringify(tasks));
+}
+
+export function loadTasks() {
+    return parse(localStorage.getItem("tasks") || "[[],[]]");
 }
 
 /**
