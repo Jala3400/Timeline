@@ -11,6 +11,7 @@
 
 <button
     on:mousedown={func()}
+    on:click|stopPropagation
     class="tiempo-restante"
     style="--main-color:{color}{transparency.main};
     --main-color-hover:{color}{transparency.hover};
@@ -23,7 +24,6 @@
         border-radius: 8px;
         color: #ffffff;
         background-color: var(--main-color);
-        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
         width: 2.75em;
         aspect-ratio: 1/1;
     }

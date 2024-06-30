@@ -1,31 +1,40 @@
 <script lang="ts">
     import EventCard from "../../molecules/EventCard.svelte";
-    import TiempoRestante from "../../atoms/TiempoRestante.svelte";
-    import {
-        configuration,
-        currentCalendar,
-        currentDetails,
-    } from "../../../store";
-    import { dateDifference } from "../../../lib/ManageEvents";
     import type { Evento } from "../../../classes/Evento";
 
     export let eventsList: Evento[] = [];
 
-    $: diffColor = $configuration.mainColor;
+    function groupEventsByDay(eventsList: Evento[]) {
+        let eventsByDay: Evento[][] = [];
+        let j = 0;
+        for (let i = 0; i < eventsList.length; i++) {
+            eventsByDay[j] = [];
+            let currentDay = new Date(eventsList[i].date).getDate();
+            while (
+                i < eventsList.length &&
+                new Date(eventsList[i].date).getDate() === currentDay
+            ) {
+                eventsByDay[j].push(eventsList[i]);
+                i++;
+            }
+            j++;
+        }
+        return eventsByDay;
+    }
+
+    $: eventsByDay = groupEventsByDay(eventsList);
 </script>
 
 <div id="events-container">
-    {#each eventsList as event}
-        <EventCard {event}/>
-        <TiempoRestante
-            text={dateDifference(new Date(event.date))}
-            color={diffColor}
-            func={() => {
-                // Al hacer click en el tiempo restante, se cambian los detalles al calendario del evento.
-                $currentCalendar = event.calendar;
-                $currentDetails = "calendar";
-            }}
-        />
+    {#each eventsByDay as events}
+        <div class="new-day">
+            {new Date(events[0].date).toDateString()}
+        </div>
+        <div class="event-day">
+            {#each events as event}
+                <EventCard {event} />
+            {/each}
+        </div>
     {/each}
 </div>
 
@@ -37,5 +46,19 @@
         align-items: center;
         text-align: center;
         width: 100%;
+    }
+    .new-day {
+        font-size: 1.2em;
+    }
+    .event-day {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        border-radius: 12px;
+        overflow: hidden;
+        width: 100%;
+        max-width: 700px;
+        gap: 1px;
     }
 </style>

@@ -131,7 +131,11 @@ textarea {
   background-color: var(--main-color);
   border-radius: 8px;
 }
+/* 
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 255, 128, 0.7);
+}
 
-/* ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--main-color-light);
+::-webkit-scrollbar-thumb:active {
+  background-color: rgba(0, 255, 128, 0.86);
 } */

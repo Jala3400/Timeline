@@ -1,6 +1,13 @@
 <script lang="ts">
     import type { Evento } from "../../classes/Evento";
-    import { currentDetails, constants, currentEvent } from "../../store";
+    import { dateDifference } from "../../lib/ManageEvents";
+    import {
+        currentDetails,
+        constants,
+        currentEvent,
+        currentCalendar,
+    } from "../../store";
+    import TiempoRestante from "../atoms/TiempoRestante.svelte";
 
     export let event: Evento;
     $: color = event.calendar.color;
@@ -22,31 +29,43 @@
 </script>
 
 <button
-    on:mousedown={selectEvent}
-    class="event"
+    on:click={selectEvent}
+    class="event-card"
     style="--main-color:{color}{transparency.main};
 --main-color-hover:{color}{transparency.hover};
 --main-color-active:{color}{transparency.active}"
     draggable="true"
     on:dragstart={(e) => onDragStart(e, event)}
 >
-    <h2>{event.name}</h2>
+    <h3>{event.name}</h3>
     <!-- <p class="date">{new Date(event.date).toLocaleDateString()}</p> -->
+
+    <TiempoRestante
+        text={dateDifference(new Date(event.date))}
+        {color}
+        func={() => {
+            // Al hacer click en el tiempo restante, se cambian los detalles al calendario del evento.
+            $currentCalendar = event.calendar;
+            $currentDetails = "calendar";
+        }}
+    />
 </button>
 
 <style>
-    .event {
-        border-radius: 8px;
+    .event-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 0;
         background-color: var(--main-color);
-        padding: 0.6em 1.2em;
-        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+        padding: 0.2em 1.2em;
         width: 100%;
         max-width: 700px;
     }
-    .event:hover {
+    .event-card:hover {
         background-color: var(--main-color-hover);
     }
-    .event:active {
+    .event-card:active {
         background-color: var(--main-color-active);
     }
 </style>

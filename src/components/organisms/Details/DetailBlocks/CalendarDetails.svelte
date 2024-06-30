@@ -2,6 +2,7 @@
     import { constants, currentCalendar, eventsList } from "../../../../store";
     import { deleteCalendar } from "../../../../lib/ManageEvents";
     import CompInput from "../../../molecules/CompInput.svelte";
+    import EventsList from "../../EventsList/EventsList.svelte";
 
     const transparency = $constants.transparency;
 
@@ -41,6 +42,10 @@
     </div>
 </div>
 
+<div class="calendar-events">
+    <EventsList eventsList={$currentCalendar.events} />
+</div>
+
 <style>
     #calendar-details {
         padding: 1em;
@@ -73,6 +78,12 @@
     #buttons {
         display: flex;
         justify-content: flex-end;
+    }
+    .calendar-events {
+        margin-top: 1em;
+        padding: 1em; 
+        border-radius: 12px;
+        overflow: auto;
     }
     .comp-input {
         display: flex;
