@@ -2,7 +2,13 @@
     import IconsBar from "./components/organisms/IconsBar/IconsBar.svelte";
     import MultiCalendar from "./components/pages/MultiCalendar/MultiCalendars.svelte";
     import { loadEvents, saveCalendars } from "./lib/ManageEvents";
-    import { calendars, currentEvent, eventsList } from "./store";
+    import {
+        calendars,
+        configuration,
+        constants,
+        currentEvent,
+        eventsList,
+    } from "./store";
 
     // Main panel
     let currentMode: string = "multiCalendar";
@@ -48,9 +54,19 @@
     //         }
     //     }
     // });
+
+    const transparency = $constants.transparency;
 </script>
 
-<div id="main-container">
+<div
+    id="main-container"
+    style="
+    --main-color-pure: {$configuration.mainColor};
+--main-color: {$configuration.mainColor}{transparency.main};
+--main-color-hover: {$configuration.mainColor}{transparency.hover};
+--main-color-active: {$configuration.mainColor}{transparency.active};
+"
+>
     <IconsBar bind:currentMode />
     <svelte:component this={page[currentMode]} />
 </div>

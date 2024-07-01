@@ -51,9 +51,10 @@
         return getAproxDate(e).toLocaleTimeString();
     }
 
-    function handleClick(e: MouseEvent) {
+    function addEvent(e: MouseEvent) {
         dispatch("addEvent", { date: getAproxDate(e) });
     }
+
     let followCursor: boolean = false;
     let cursorTop: number = 0;
     let cursorTime: string = "";
@@ -66,7 +67,7 @@
     class="day"
     on:click={(e) => {
         followCursor = false;
-        handleClick(e);
+        addEvent(e);
     }}
     on:mousedown={(e) => {
         followCursor = true;

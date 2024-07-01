@@ -1,10 +1,16 @@
 <script lang="ts">
     import { lookDate } from "../../../lib/ManageEvents";
-    import { eventsList } from "../../../store";
+    import { currentEvent, eventsList } from "../../../store";
     import EventChipCal from "../../molecules/EventChipCal.svelte";
+    import { createEventDispatcher } from "svelte";
+
+    const dispatch = createEventDispatcher();
 
     export let date: Date;
     export let disabled = false;
+
+    $: today = date.toDateString() === new Date().toDateString();
+
     $: events = $eventsList
         .slice(
             lookDate(
@@ -17,9 +23,43 @@
             if (event.calendar.selected) return event;
         })
         .reverse();
+
+    function addEvent(e: MouseEvent) {
+        dispatch("addEvent", { date: date });
+    }
+
+    function onDragOver(e: DragEvent) {
+        e.preventDefault();
+    }
+
+    function onDrop(e: DragEvent) {
+        if (e.dataTransfer?.getData("type") === "event") {
+            e.preventDefault();
+            const prevDate = new Date($currentEvent.date);
+            $currentEvent.changeDate(
+                new Date(
+                    date.getFullYear(),
+                    date.getMonth(),
+                    date.getDate(),
+                    prevDate.getHours(),
+                    prevDate.getMinutes(),
+                    prevDate.getSeconds()
+                ).toISOString()
+            );
+        }
+    }
 </script>
 
-<div class="day" class:disabled>
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div
+    class="day"
+    class:disabled
+    class:today
+    on:mousedown={addEvent}
+    on:drop={(e) => onDrop(e)}
+    on:dragover={onDragOver}
+>
     {date.getDate()}
     <div class="events">
         {#each events as event}
@@ -40,6 +80,10 @@
     }
     .day.disabled {
         opacity: 0.5;
+    }
+    .day.today {
+        color: var(--main-color-pure);
+        border-color: var(--main-color-active);
     }
     .events {
         display: flex;

@@ -28,17 +28,24 @@
         daysInMonth
     ).getDay();
     $: lastOffset = lastDayOfMonth === 0 ? 0 : 7 - lastDayOfMonth;
+
+    $: weeksInMonth = Math.ceil((firstOffset + daysInMonth) / 7);
 </script>
 
 <div id="month-calendar">
     <CalendarOptions bind:focusDate></CalendarOptions>
-    <div id="calendar">
+    <div
+        id="calendar"
+        style="
+        grid-template-rows: 2.5em repeat({weeksInMonth}, 1fr);"
+    >
         {#each daysOfWeek as day}
             <div class="day-header">{day}</div>
         {/each}
 
         {#each Array(firstOffset) as _, index}
             <DayCal
+                on:addEvent
                 disabled={true}
                 date={new Date(
                     currentYear,
@@ -49,10 +56,17 @@
         {/each}
 
         {#each Array(daysInMonth) as _, index}
-            <DayCal date={new Date(currentYear, currentMonth, index + 1)} />
+            <DayCal
+                on:addEvent
+                date={new Date(currentYear, currentMonth, index + 1)}
+            />
         {/each}
         {#each Array(lastOffset) as _, index}
-            <DayCal date={new Date(currentYear, currentMonth + 1, index + 1)} />
+            <DayCal
+                on:addEvent
+                disabled={true}
+                date={new Date(currentYear, currentMonth + 1, index + 1)}
+            />
         {/each}
     </div>
 </div>
@@ -68,7 +82,6 @@
     #calendar {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
-        grid-template-rows: 2.5em repeat(5, 1fr);
         width: 100%;
         height: 100%;
         overflow: auto;

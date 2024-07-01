@@ -64,7 +64,7 @@
     }
     .new-day[data-today="true"] {
         font-weight: bold;
-        color: var(--main-color);
+        color: var(--main-color-pure);
     }
     .event-day {
         display: flex;

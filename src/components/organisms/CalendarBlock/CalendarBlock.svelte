@@ -23,7 +23,9 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
     class="complete-block"
-    style="--main-color:{calendar.color}{transparency.main};
+    style="
+    --main-color-pure: {calendar.color};
+    --main-color:{calendar.color}{transparency.main};
 --main-color-hover:{calendar.color}{transparency.hover};
 --main-color-active:{calendar.color}{transparency.active}"
     on:drop={(e) => onDrop(e)}

@@ -2,12 +2,13 @@
     export let collapsed = false;
 </script>
 
-<button id="collapse-options" on:mousedown={() => (collapsed = !collapsed)}
-    >C</button
->
 <div id="options" class:collapsed>
     <slot />
 </div>
+
+<button id="collapse-options" on:mousedown={() => (collapsed = !collapsed)}
+    >C</button
+>
 
 <style>
     #options {

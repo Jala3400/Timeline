@@ -3,56 +3,55 @@
 
     export let focusDate: Date;
 
-    let shortYear = focusDate.getFullYear().toString().slice(-2);
+    $: shortYear = focusDate.getFullYear().toString().slice(-2);
     let shortMonth = focusDate.toLocaleString("default", { month: "short" });
 </script>
 
 <Options>
-    <div class="special-input">
+    <div id="date-input">
+        <div class="special-input">
+            <button
+                class="special-button"
+                on:click={() => {
+                    focusDate.setMonth(focusDate.getMonth() - 1);
+                    focusDate = focusDate;
+                    shortMonth = focusDate.toLocaleString("default", {
+                        month: "short",
+                    });
+                }}>{"<"}</button
+            >
+            <input
+                type="number"
+                class="special-input-value"
+                value={shortYear}
+            />
+            <span class="special-input-value">{shortMonth}</span>
+            <button
+                class="special-button"
+                on:click={() => {
+                    focusDate.setMonth(focusDate.getMonth() + 1);
+                    focusDate = focusDate;
+                    shortMonth = focusDate.toLocaleString("default", {
+                        month: "short",
+                    });
+                }}>{">"}</button
+            >
+        </div>
         <button
-            class="special-button"
+            id="today-button"
             on:click={() => {
-                focusDate.setFullYear(focusDate.getFullYear() - 1);
-                focusDate = focusDate;
-                shortYear = focusDate.getFullYear().toString().slice(-2);
-            }}>{"<"}</button
-        >
-        <input type="number" class="special-input-value" value={shortYear} />
-        <button
-            class="special-button"
-            on:click={() => {
-                focusDate.setFullYear(focusDate.getFullYear() + 1);
-                focusDate = focusDate;
-                shortYear = focusDate.getFullYear().toString().slice(-2);
-            }}>{">"}</button
-        >
-    </div>
-    <div class="special-input">
-        <button
-            class="special-button"
-            on:click={() => {
-                focusDate.setMonth(focusDate.getMonth() - 1);
-                focusDate = focusDate;
-                shortMonth = focusDate.toLocaleString("default", {
-                    month: "short",
-                });
-            }}>{"<"}</button
-        >
-        <span class="special-input-value">{shortMonth}</span>
-        <button
-            class="special-button"
-            on:click={() => {
-                focusDate.setMonth(focusDate.getMonth() + 1);
-                focusDate = focusDate;
-                shortMonth = focusDate.toLocaleString("default", {
-                    month: "short",
-                });
-            }}>{">"}</button
+                focusDate = new Date();
+            }}>Today</button
         >
     </div>
 </Options>
 
 <style>
+    #date-input {
+        display: flex;
+        justify-content: center;
+        gap: 1em;
+    }
     .special-input {
         display: flex;
         background-color: var(--divider-color);
@@ -77,6 +76,11 @@
         height: 2em;
         background-color: var(--bg-light);
         border-radius: 0;
+    }
+    #today-button {
+        height: 2em;
+        background-color: var(--bg-light);
+        border-radius: 8px;
     }
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {

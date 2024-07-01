@@ -13,6 +13,13 @@
             24) *
         100;
 
+    function onDragStart(e: DragEvent, evento: any) {
+        if (e.dataTransfer) {
+            e.dataTransfer.setData("type", "event");
+        }
+        $currentEvent = evento;
+    }
+
     // Establece el evento actual y cambia la vista a la de detalles del evento.
     function selectEvent() {
         $currentEvent = event;
@@ -21,11 +28,14 @@
 </script>
 
 <button
-    on:click={selectEvent}
+    on:click|stopPropagation={selectEvent}
+    on:mousedown|stopPropagation
     style="--main-color:{color}{transparency.main};
 --main-color-hover:{color}{transparency.hover};
 --main-color-active:{color}{transparency.active};"
     class="event-name"
+    draggable="true"
+    on:dragstart={(e) => onDragStart(e, event)}
 >
     {event.name}
 </button>

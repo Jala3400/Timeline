@@ -11,7 +11,10 @@
 
 <div
     id="calendar-details"
-    style="--main-color:{color}{transparency.main};
+    style="
+    
+    --main-color-pure: {color};
+    --main-color:{color}{transparency.main};
     --main-color-hover:{color}{transparency.hover};
     --main-color-active:{color}{transparency.active}"
 >
@@ -40,10 +43,9 @@
             >
         </div>
     </div>
-</div>
-
-<div class="calendar-events">
-    <EventsList eventsList={$currentCalendar.events} />
+    <div class="calendar-events">
+        <EventsList eventsList={$currentCalendar.events} />
+    </div>
 </div>
 
 <style>
@@ -81,9 +83,10 @@
     }
     .calendar-events {
         margin-top: 1em;
-        padding: 1em; 
+        padding: 1em;
         border-radius: 12px;
         overflow: auto;
+        background-color: var(--bg);
     }
     .comp-input {
         display: flex;
