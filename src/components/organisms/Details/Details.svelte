@@ -7,9 +7,9 @@
     import Tasks from "./DetailBlocks/Tasks.svelte";
 
     let details: { [key: string]: any } = {
-        event: EventDetails,
-        calendar: CalendarDetails,
         allCalendars: AllCalendarsDetails,
+        calendar: CalendarDetails,
+        event: EventDetails,
         tasks: Tasks,
     };
 </script>

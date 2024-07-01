@@ -1,7 +1,6 @@
 <script lang="ts">
     import IconsBar from "./components/organisms/IconsBar/IconsBar.svelte";
     import MultiCalendar from "./components/pages/MultiCalendar/MultiCalendars.svelte";
-    import IndCalendar from "./components/pages/IndCalendar/IndCalendar.svelte";
     import { loadEvents, saveCalendars } from "./lib/ManageEvents";
     import { calendars, currentEvent, eventsList } from "./store";
 
@@ -9,7 +8,6 @@
     let currentMode: string = "multiCalendar";
     let page: { [key: string]: any } = {
         multiCalendar: MultiCalendar,
-        indCalendar: IndCalendar,
     };
     loadEvents();
     $currentEvent = $eventsList[0];

@@ -10,8 +10,6 @@
     import CompInput from "../../molecules/CompInput.svelte";
     import NavFolder from "../../molecules/NavFolder.svelte";
 
-    export let multi: boolean = true;
-
     let startDate = new Date($eventFilter.startDate)
         .toISOString()
         .substring(0, 16);
@@ -70,29 +68,16 @@
     </NavFolder>
 
     <NavFolder name="Calendars">
-        {#if multi}
-            <CheckGroup
-                list={$calendars}
-                click={() => ($currentDetails = "allCalendars")}
-                change={() => {
-                    $calendars = $calendars;
-                    $eventsList = $eventsList; // filtra los eventos
-                }}
-                onDrop={() => ($calendars = $calendars)}
-                focusObject={null}
-            />
-        {:else}
-            <CheckGroup
-                radio={true}
-                list={$calendars}
-                bind:focusObject={$currentCalendar}
-                click={(calendar) => {
-                    $currentCalendar = calendar;
-                    $currentDetails = "calendar";
-                }}
-                onDrop={() => ($calendars = $calendars)}
-            />
-        {/if}
+        <CheckGroup
+            list={$calendars}
+            click={() => ($currentDetails = "allCalendars")}
+            change={() => {
+                $calendars = $calendars;
+                $eventsList = $eventsList; // filtra los eventos
+            }}
+            onDrop={() => ($calendars = $calendars)}
+            focusObject={null}
+        />
     </NavFolder>
 </div>
 
