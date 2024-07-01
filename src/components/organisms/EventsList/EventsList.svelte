@@ -1,8 +1,18 @@
 <script lang="ts">
     import EventCard from "../../molecules/EventCard.svelte";
     import type { Evento } from "../../../classes/Evento";
+    import { onMount } from "svelte";
 
     export let eventsList: Evento[] = [];
+
+    onMount(() => {
+        const currentDayElement = document.querySelector(
+            `.new-day[data-today=true]`
+        );
+        if (currentDayElement) {
+            currentDayElement.scrollIntoView({ behavior: "smooth" });
+        }
+    });
 
     function groupEventsByDay(eventsList: Evento[]) {
         let eventsByDay: Evento[][] = [];
@@ -27,8 +37,9 @@
 
 <div id="events-container">
     {#each eventsByDay as events}
-        <div class="new-day">
-            {new Date(events[0].date).toDateString()}
+        {@const today = new Date(events[0].date).toDateString()}
+        <div class="new-day" data-today={today === new Date().toDateString()}>
+            {today}
         </div>
         <div class="event-day">
             {#each events as event}
@@ -48,7 +59,12 @@
         width: 100%;
     }
     .new-day {
+        padding-top: 8px;
         font-size: 1.2em;
+    }
+    .new-day[data-today="true"] {
+        font-weight: bold;
+        color: var(--main-color);
     }
     .event-day {
         display: flex;
@@ -59,6 +75,5 @@
         overflow: hidden;
         width: 100%;
         max-width: 700px;
-        gap: 1px;
     }
 </style>

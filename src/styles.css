@@ -6,6 +6,7 @@
   --bg: #202020;
   --bg-light: #282828;
   --bg-lighter: #303030;
+  --bg-lighter-er: #353535;
 
   --bg-secondary: #404040;
   --bg-secondary-light: #505050;
@@ -131,6 +132,7 @@ textarea {
   background-color: var(--main-color);
   border-radius: 8px;
 }
+
 /* 
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgba(0, 255, 128, 0.7);

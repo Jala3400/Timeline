@@ -7,12 +7,13 @@
         currentEvent,
         currentCalendar,
     } from "../../store";
-    import TiempoRestante from "../atoms/TiempoRestante.svelte";
+    import ColoredIcon from "../atoms/ColoredIcon.svelte";
 
     export let event: Evento;
     $: color = event.calendar.color;
 
     const transparency = $constants.transparency;
+    const dateColors = $constants.dateColors;
 
     // Establece el evento actual y cambia la vista a la de detalles del evento.
     function selectEvent() {
@@ -26,6 +27,22 @@
         }
         $currentEvent = evento;
     }
+
+    let dateDiff = dateDifference(new Date(event.date));
+
+    function dateColor(dateDiff: string) {
+        let color = "#000000";
+        if (dateDiff.charAt(0) === "-") {
+            color = dateColors.overdue;
+        } else if (dateDiff.charAt(dateDiff.length - 1) == "h") {
+            color = dateColors.urgent;
+        } else {
+            color = dateColors.good;
+        }
+        return color;
+    }
+
+    $: timeColor = dateColor(dateDiff);
 </script>
 
 <button
@@ -37,18 +54,22 @@
     draggable="true"
     on:dragstart={(e) => onDragStart(e, event)}
 >
-    <h3>{event.name}</h3>
-    <!-- <p class="date">{new Date(event.date).toLocaleDateString()}</p> -->
+    <div class="left">
+        <ColoredIcon
+            text={event.calendar.name.charAt(0).toUpperCase()}
+            {color}
+            func={() => {
+                // Al hacer click en el tiempo restante, se cambian los detalles al calendario del evento.
+                $currentCalendar = event.calendar;
+                $currentDetails = "calendar";
+            }}
+        />
+        <h3>{event.name}</h3>
+    </div>
 
-    <TiempoRestante
-        text={dateDifference(new Date(event.date))}
-        {color}
-        func={() => {
-            // Al hacer click en el tiempo restante, se cambian los detalles al calendario del evento.
-            $currentCalendar = event.calendar;
-            $currentDetails = "calendar";
-        }}
-    />
+    <div class="right">
+        <ColoredIcon text={dateDiff} color={timeColor} func={selectEvent} />
+    </div>
 </button>
 
 <style>
@@ -57,15 +78,21 @@
         justify-content: space-between;
         align-items: center;
         border-radius: 0;
-        background-color: var(--main-color);
+        background-color: var(--bg-light);
         padding: 0.2em 1.2em;
         width: 100%;
         max-width: 700px;
     }
+    .left {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+    }
     .event-card:hover {
-        background-color: var(--main-color-hover);
+        background-color: var(--bg-lighter);
     }
     .event-card:active {
-        background-color: var(--main-color-active);
+        background-color: var(--bg-lighter-er);
     }
 </style>
