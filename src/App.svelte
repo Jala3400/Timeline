@@ -31,6 +31,23 @@
             savedOn = false;
         }, 2000);
     }
+
+    // Keyboard shortcuts
+    // document.addEventListener("keydown", (event) => {
+    //     if (
+    //         event.ctrlKey &&
+    //         !event.altKey &&
+    //         !event.shiftKey &&
+    //         !event.metaKey
+    //     ) {
+    //         switch (event.key) {
+    //             case "m":
+    //                 event.preventDefault();
+    //                 currentMode = "multiCalendar";
+    //                 break;
+    //         }
+    //     }
+    // });
 </script>
 
 <div id="main-container">

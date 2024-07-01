@@ -12,6 +12,39 @@
         day: MultDays,
         monthCalendar: MonthCalendar,
     };
+
+    // Keyboard shortcuts
+    document.addEventListener("keydown", (event) => {
+        if (
+            event.ctrlKey &&
+            !event.altKey &&
+            !event.shiftKey &&
+            !event.metaKey
+        ) {
+            switch (event.key) {
+                case "1":
+                case "e":
+                    event.preventDefault();
+                    currentView = "eventsList";
+                    break;
+                case "2":
+                case "l":
+                    event.preventDefault();
+                    currentView = "calendarsList";
+                    break;
+                case "3":
+                case "d":
+                    event.preventDefault();
+                    currentView = "day";
+                    break;
+                case "4":
+                case "c":
+                    event.preventDefault();
+                    currentView = "monthCalendar";
+                    break;
+            }
+        }
+    });
 </script>
 
 <div id="main">

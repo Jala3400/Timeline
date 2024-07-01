@@ -12,6 +12,39 @@
         event: EventDetails,
         tasks: Tasks,
     };
+
+    // Keyboard shortcuts
+    document.addEventListener("keydown", (event) => {
+        if (
+            event.ctrlKey &&
+            event.altKey &&
+            !event.shiftKey &&
+            !event.metaKey
+        ) {
+            switch (event.key) {
+                case "|":
+                case "a":
+                    event.preventDefault();
+                    $currentDetails = "allCalendars";
+                    break;
+                case "@":
+                case "c":
+                    event.preventDefault();
+                    $currentDetails = "calendar";
+                    break;
+                case "#":
+                case "€":
+                    event.preventDefault();
+                    $currentDetails = "event";
+                    break;
+                case "4":
+                case "t":
+                    event.preventDefault();
+                    $currentDetails = "tasks";
+                    break;
+            }
+        }
+    });
 </script>
 
 <div id="details-container">

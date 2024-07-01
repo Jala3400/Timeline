@@ -17,6 +17,23 @@
         eventDate = dateToString(e.detail.date);
         addEventModal = true;
     }
+
+    // Keyboard shortcuts
+    document.addEventListener("keydown", (event) => {
+        if (
+            event.ctrlKey &&
+            !event.altKey &&
+            !event.shiftKey &&
+            !event.metaKey
+        ) {
+            switch (event.key) {
+                case "n":
+                    event.preventDefault();
+                    addEventModal = true;
+                    break;
+            }
+        }
+    });
 </script>
 
 <MainTemplate>
