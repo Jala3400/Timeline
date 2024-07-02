@@ -124,7 +124,7 @@
         justify-content: center;
         width: 100%;
         height: 2px;
-        background-color: var(--main-color);
+        background-color: var(--main-color-pure);
         opacity: 0;
         pointer-events: none;
         transition: 0s;
@@ -136,7 +136,7 @@
         user-select: none;
         position: absolute;
         top: -1.5em;
-        color: var(--main-color);
+        color: var(--main-color-pure);
     }
     .popover.bottom {
         top: 0;
@@ -146,7 +146,7 @@
         width: 100%;
         opacity: 0.5;
         height: 2px;
-        background-color: var(--main-color);
+        background-color: var(--main-color-pure);
         cursor: auto;
     }
     #today::after {
@@ -158,7 +158,7 @@
         width: 10px;
         height: 10px;
         border-radius: 50%;
-        background-color: var(--main-color);
+        background-color: var(--main-color-pure);
         color: var(--main-color);
     }
 </style>

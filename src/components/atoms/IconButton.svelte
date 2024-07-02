@@ -25,6 +25,7 @@
         border-radius: 8px;
         color: #ffffff;
         width: 2.5em;
+        min-width: 2.5em;
         aspect-ratio: 1/1;
         background-color: var(--bg);
         opacity: 0.5;

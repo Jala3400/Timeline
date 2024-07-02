@@ -122,7 +122,15 @@ export function saveTasks(tasks: any) {
 }
 
 export function loadTasks() {
-    return parse(localStorage.getItem("tasks") || "[[],[]]");
+    return parse(localStorage.getItem("tasks") ?? '[["1","2"],[],[]]');
+}
+
+export function save3daysOpt(conf: any) {
+    localStorage.setItem("3daysConf", stringify(conf));
+}
+
+export function load3daysOpt() {
+    return parse(localStorage.getItem("3daysConf") ?? '[{"days":3,"offset":0}]');
 }
 
 /**

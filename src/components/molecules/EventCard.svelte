@@ -88,6 +88,8 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        text-align: left;
+        width: 100%;
     }
     .event-card:hover {
         background-color: var(--bg-lighter);

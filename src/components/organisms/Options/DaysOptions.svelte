@@ -1,10 +1,25 @@
 <script lang="ts">
-    import { dateToString } from "../../../lib/ManageEvents";
+    import {
+        dateToString,
+        load3daysOpt,
+        save3daysOpt,
+    } from "../../../lib/ManageEvents";
     import Options from "../../templates/Options/Options.svelte";
 
     export let focusDay: Date;
     export let days: number;
     export let offset: number;
+
+    let conf = load3daysOpt();
+    days = conf.days;
+    offset = conf.offset;
+
+    $: sessionStorage.setItem("focusDay-3days", JSON.stringify(focusDay));
+    focusDay = new Date(
+        JSON.parse(
+            sessionStorage.getItem("focusDay-3days") || JSON.stringify(focusDay)
+        )
+    );
 
     function checkFocusDay() {
         if (days < offset + 1) {
@@ -30,7 +45,10 @@
         {#each Array(days) as _, index}
             <button
                 class="offset-button"
-                on:mousedown={() => (offset = index)}
+                on:mousedown={() => {
+                    offset = index;
+                    save3daysOpt({ days, offset });
+                }}
                 class:offset-selected={index == offset}
             >
                 {index}
@@ -43,7 +61,10 @@
             id="num-days-input"
             type="number"
             bind:value={days}
-            on:input={checkFocusDay}
+            on:input={() => {
+                checkFocusDay();
+                save3daysOpt({ days, offset });
+            }}
             max="7"
             min="1"
         />

@@ -6,7 +6,7 @@
 
 <div id="icons-bar">
     <div id="icons-top">
-        <IconButton text="H" />
+        <IconButton text="" />
     </div>
     <div id="icons-main">
         <IconButton

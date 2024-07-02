@@ -3,8 +3,31 @@
 
     export let focusDate: Date;
 
-    $: shortYear = focusDate.getFullYear().toString().slice(-2);
-    let shortMonth = focusDate.toLocaleString("default", { month: "short" });
+    $: sessionStorage.setItem("focusDate-calendar", JSON.stringify(focusDate));
+    focusDate = new Date(
+        JSON.parse(
+            sessionStorage.getItem("focusDate-calendar") ||
+                JSON.stringify(focusDate)
+        )
+    );
+
+    $: shortYear = focusDate.getFullYear().toString();
+    $: shortMonth = focusDate.toLocaleString("en-US", { month: "short" });
+
+    const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+    ];
 </script>
 
 <Options>
@@ -15,25 +38,36 @@
                 on:click={() => {
                     focusDate.setMonth(focusDate.getMonth() - 1);
                     focusDate = focusDate;
-                    shortMonth = focusDate.toLocaleString("default", {
-                        month: "short",
-                    });
                 }}>{"<"}</button
             >
             <input
+                id="year-input"
                 type="number"
                 class="special-input-value"
                 value={shortYear}
+                on:change={(e) => {
+                    focusDate.setFullYear(parseInt(e.target.value));
+                    focusDate = focusDate;
+                }}
             />
-            <span class="special-input-value">{shortMonth}</span>
+            <select
+                id="month-input"
+                class="special-input-value"
+                value={shortMonth}
+                on:change={(e) => {
+                    focusDate.setMonth(months.indexOf(e.target.value));
+                    focusDate = focusDate;
+                }}
+            >
+                {#each months as month}
+                    <option value={month}>{month}</option>
+                {/each}
+            </select>
             <button
                 class="special-button"
                 on:click={() => {
                     focusDate.setMonth(focusDate.getMonth() + 1);
                     focusDate = focusDate;
-                    shortMonth = focusDate.toLocaleString("default", {
-                        month: "short",
-                    });
                 }}>{">"}</button
             >
         </div>
@@ -71,6 +105,9 @@
         border: none;
         border-radius: 0;
     }
+    #year-input {
+        width: 3em;
+    }
     .special-button {
         width: 2em;
         height: 2em;
@@ -82,9 +119,16 @@
         background-color: var(--bg-light);
         border-radius: 8px;
     }
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
+    #year-input::-webkit-outer-spin-button,
+    #year-input::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
+    }
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        text-indent: 1px;
+        text-overflow: "";
     }
 </style>

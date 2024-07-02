@@ -20,8 +20,7 @@
             {@const day = new Date(focusTime + dayInms * (index - offset))}
             <div
                 class="day-info"
-                class:focus-day={new Date().toDateString() ===
-                    day.toDateString()}
+                class:focus-day={focusDay.toDateString() === day.toDateString()}
             >
                 <div>
                     {day.toLocaleDateString()}
@@ -108,6 +107,7 @@
         width: 100%;
         height: 100%;
         overflow-y: scroll;
+        overflow-x: hidden;
         --heigth: 150%;
     }
     #hours {
