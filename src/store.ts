@@ -3,6 +3,7 @@ import { Calendario } from './classes/Calendario';
 import { Evento } from './classes/Evento';
 import { EventoFiltro } from './classes/EventoFilltro';
 import { parse, stringify } from 'flatted';
+import { dateToString } from './lib/ManageEvents';
 
 //* Configuration
 
@@ -35,8 +36,8 @@ export const eventsList: Writable<Evento[]> = writable([])
 
 //* Existing calendars
 
-const defaultCalendar = new Calendario("#FF0000", [new Evento("Default", new Date().toISOString(), "def")], "default");
-const testCalendar = new Calendario("#FF00FF", [new Evento("Test", new Date(0).toISOString(), "asd",)], "test");
+const defaultCalendar = new Calendario("#FF0000", [new Evento("Default", dateToString(new Date()), "def")], "default");
+const testCalendar = new Calendario("#FF00FF", [new Evento("Test", dateToString(new Date(0)), "asd",)], "test");
 
 let existingCalendars: Calendario[] = parse(localStorage.getItem("calendars") ?? stringify([defaultCalendar, testCalendar]));
 
@@ -61,7 +62,7 @@ currentCalendar.subscribe((value) => {
 
 //* Filter
 
-const existingEventFilter = JSON.parse(localStorage.getItem("eventFilter") ?? JSON.stringify(new EventoFiltro("", false, new Date(0).toISOString(), new Date().toISOString())));
+const existingEventFilter = JSON.parse(localStorage.getItem("eventFilter") ?? JSON.stringify(new EventoFiltro("", false, dateToString(new Date(0)), dateToString(new Date()))));
 
 export const eventFilter: Writable<EventoFiltro> = writable(existingEventFilter);
 

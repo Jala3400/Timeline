@@ -14,7 +14,6 @@
 </div>
 
 <style>
-    
     #events-list-container {
         display: flex;
         gap: 1em;

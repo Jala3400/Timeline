@@ -64,8 +64,8 @@
                 $currentDetails = "calendar";
             }}
         />
-        <h3>{event.name}</h3>
     </div>
+    <h3 class="event-name">{event.name}</h3>
 
     <div class="right">
         <ColoredIcon text={dateDiff} color={timeColor} func={selectEvent} />
@@ -75,6 +75,7 @@
 <style>
     .event-card {
         display: flex;
+        gap: 10px;
         justify-content: space-between;
         align-items: center;
         border-radius: 0;
@@ -83,11 +84,10 @@
         width: 100%;
         max-width: 700px;
     }
-    .left {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        justify-content: center;
+    .event-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .event-card:hover {
         background-color: var(--bg-lighter);

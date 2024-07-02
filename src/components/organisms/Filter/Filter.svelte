@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { dateToString } from "../../../lib/ManageEvents";
     import {
         calendars,
         currentCalendar,
@@ -10,10 +11,8 @@
     import CompInput from "../../molecules/CompInput.svelte";
     import NavFolder from "../../molecules/NavFolder.svelte";
 
-    let startDate = new Date($eventFilter.startDate)
-        .toISOString()
-        .substring(0, 16);
-    let endDate = new Date($eventFilter.endDate).toISOString().substring(0, 16);
+    let startDate = dateToString(new Date($eventFilter.startDate));
+    let endDate = dateToString(new Date($eventFilter.endDate));
 
     function changeStartDate(date: string) {
         $eventFilter.startDate = date;

@@ -1,6 +1,6 @@
 import { calendars, currentEvent, eventsList } from '../store';
 import { Calendario } from './Calendario';
-import { lookDate } from '../lib/ManageEvents';
+import { dateToString, lookDate } from '../lib/ManageEvents';
 import type { EventoFiltro } from './EventoFilltro';
 
 /**
@@ -14,7 +14,7 @@ export class Evento {
 
     constructor(name: string = "new event", date: Date | string = new Date, description: string = "", calendar: Calendario = new Calendario("#FF0000", [], "default")) {
         this.name = name;
-        this.date = new Date(date).toISOString();
+        this.date = dateToString(new Date(date));
         this.description = description;
         this.calendar = calendar;
     }

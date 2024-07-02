@@ -11,7 +11,7 @@
     let addEventModal: boolean = false;
     let addCalendarModal: boolean = false;
     let calendarColor = "#FF0000";
-    let eventDate = new Date().toISOString().substring(0, 16);
+    let eventDate = dateToString(new Date());
 
     function handleAddEvent(e: { detail: { date: Date } }) {
         eventDate = dateToString(e.detail.date);

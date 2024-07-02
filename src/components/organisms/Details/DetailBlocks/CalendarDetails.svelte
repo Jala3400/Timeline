@@ -57,6 +57,7 @@
         display: flex;
         flex-direction: column;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+        height: 100%;
     }
     #calendar-name {
         margin-bottom: 15px;

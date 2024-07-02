@@ -13,7 +13,7 @@
     const transparency = $constants.transparency;
 
     let calendar = $currentEvent.calendar;
-    let date = new Date($currentEvent.date).toISOString().substring(0, 16);
+    let date = dateToString(new Date($currentEvent.date));
     let changeEvent = true;
 
     /// Cambia la fecha del evento actual.

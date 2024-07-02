@@ -92,7 +92,7 @@
         transition: 0s;
     }
     .day-info.focus-day {
-        color: var(--main-color);
+        color: var(--main-color-pure);
     }
     .border {
         position: absolute;

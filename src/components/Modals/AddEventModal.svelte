@@ -5,12 +5,12 @@
     import Modal from "../templates/Modal/Modal.svelte";
     import CompInput from "../molecules/CompInput.svelte";
     import { Calendario } from "../../classes/Calendario";
-    import { lookDate } from "../../lib/ManageEvents";
+    import { dateToString, lookDate } from "../../lib/ManageEvents";
 
     export let addEventModal: boolean = false;
     export let calendarColor: string;
     export let addCalendarModal: boolean;
-    export let date = new Date().toISOString().substring(0, 16);
+    export let date = dateToString(new Date());
 
     let calendar = $calendars[0];
     let name = "new event";
@@ -25,7 +25,7 @@
     function addEventCard(calendar: Calendario) {
         const evento = new Evento(
             name,
-            new Date(date).toISOString(),
+            dateToString(new Date(date)),
             description,
             calendar
         );

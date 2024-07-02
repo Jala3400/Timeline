@@ -17,17 +17,18 @@
     function groupEventsByDay(eventsList: Evento[]) {
         let eventsByDay: Evento[][] = [];
         let j = 0;
+        if (eventsList.length === 0) return eventsByDay;
+        eventsByDay.push([]);
+        let currentDay = new Date(eventsList[0].date).toDateString();
         for (let i = 0; i < eventsList.length; i++) {
-            eventsByDay[j] = [];
-            let currentDay = new Date(eventsList[i].date).getDate();
-            while (
-                i < eventsList.length &&
-                new Date(eventsList[i].date).getDate() === currentDay
-            ) {
-                eventsByDay[j].push(eventsList[i]);
-                i++;
+            const event = eventsList[i];
+            if (new Date(event.date).toDateString() === currentDay) {
+                eventsByDay[j].push(event);
+            } else {
+                j++;
+                eventsByDay[j] = [event];
+                currentDay = event.date;
             }
-            j++;
         }
         return eventsByDay;
     }
@@ -59,6 +60,7 @@
         width: 100%;
     }
     .new-day {
+        transition: none;
         padding-top: 8px;
         font-size: 1.2em;
     }

@@ -135,11 +135,11 @@ export function lookDate(date: string | Date, events: Evento[]) {
     let found = false;
     date = new Date(date);
     while (i < events.length) {
-        if (date > new Date(events[i].date)) {
+        if (dateToString(date) > dateToString(new Date(events[i].date))) {
             return i;
         } else { i++ };
     }
-    return -1;
+    return i;
 }
 
 // Todo: Ins event con binary search

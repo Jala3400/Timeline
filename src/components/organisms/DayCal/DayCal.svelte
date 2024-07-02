@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { lookDate } from "../../../lib/ManageEvents";
+    import { dateToString, lookDate } from "../../../lib/ManageEvents";
     import { currentEvent, eventsList } from "../../../store";
     import EventChipCal from "../../molecules/EventChipCal.svelte";
     import { createEventDispatcher } from "svelte";
@@ -37,14 +37,16 @@
             e.preventDefault();
             const prevDate = new Date($currentEvent.date);
             $currentEvent.changeDate(
-                new Date(
-                    date.getFullYear(),
-                    date.getMonth(),
-                    date.getDate(),
-                    prevDate.getHours(),
-                    prevDate.getMinutes(),
-                    prevDate.getSeconds()
-                ).toISOString()
+                dateToString(
+                    new Date(
+                        date.getFullYear(),
+                        date.getMonth(),
+                        date.getDate(),
+                        prevDate.getHours(),
+                        prevDate.getMinutes(),
+                        prevDate.getSeconds()
+                    )
+                )
             );
         }
     }
