@@ -1,12 +1,12 @@
 <script lang="ts">
     import IconButton from "../../../atoms/IconButton.svelte";
-    import CalendarsList from "./Main/CalendarsList.svelte";
-    import MultiEventsList from "./Main/MultiEventsList.svelte";
+    import MonthCalendar from "./Main/MonthCalendar.svelte";
+    import MultDays from "./Main/MultDays.svelte";
 
-    let currentView: string = "eventsList";
+    let currentView: string = "day";
     let view: { [key: string]: any } = {
-        eventsList: MultiEventsList,
-        calendarsList: CalendarsList,
+        day: MultDays,
+        monthCalendar: MonthCalendar,
     };
 
     // Keyboard shortcuts
@@ -19,14 +19,14 @@
         ) {
             switch (event.key) {
                 case "1":
-                case "e":
+                case "d":
                     event.preventDefault();
-                    currentView = "eventsList";
+                    currentView = "day";
                     break;
                 case "2":
-                case "l":
+                case "c":
                     event.preventDefault();
-                    currentView = "calendarsList";
+                    currentView = "monthCalendar";
                     break;
             }
         }
@@ -36,14 +36,14 @@
 <div id="main">
     <div id="main-top">
         <IconButton
-            text="E"
-            func={() => (currentView = "eventsList")}
-            selected={currentView === "eventsList"}
+            text="D"
+            func={() => (currentView = "day")}
+            selected={currentView === "day"}
         />
         <IconButton
-            text="L"
-            func={() => (currentView = "calendarsList")}
-            selected={currentView === "calendarsList"}
+            text="C"
+            func={() => (currentView = "monthCalendar")}
+            selected={currentView === "monthCalendar"}
         />
     </div>
     <div id="main-content">

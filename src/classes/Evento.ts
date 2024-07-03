@@ -145,4 +145,7 @@ export class Evento {
                 ))
         )
     }
+    pasaFiltroSuave(filtro: EventoFiltro) {
+        return this.name.includes(filtro.name) || filtro.name == ""
+    }
 }

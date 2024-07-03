@@ -2,10 +2,10 @@
     import AddCalendarModal from "../../Modals/AddCalendarModal.svelte";
     import AddEventModal from "../../Modals/AddEventModal.svelte";
     import Details from "../../organisms/Details/Details.svelte";
-    import SideBarMulti from "./components/SideBarMulti.svelte";
-    import MainMultCal from "./components/MainMulti.svelte";
     import MainTemplate from "../../templates/MainTemplate/MainTemplate.svelte";
     import { dateToString } from "../../../lib/ManageEvents";
+    import SideBarRt from "./components/SideBarRT.svelte";
+    import MainRt from "./components/MainRT.svelte";
 
     // Modals
     let addEventModal: boolean = false;
@@ -37,8 +37,8 @@
 </script>
 
 <MainTemplate>
-    <SideBarMulti on:addEvent={() => (addEventModal = true)} slot="sidebar" />
-    <MainMultCal on:addEvent={handleAddEvent} slot="main" />
+    <SideBarRt on:addEvent={() => (addEventModal = true)} slot="sidebar" />
+    <MainRt on:addEvent={handleAddEvent} slot="main" />
     <Details slot="details" />
 </MainTemplate>
 

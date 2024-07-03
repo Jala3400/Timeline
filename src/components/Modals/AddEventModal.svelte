@@ -31,6 +31,7 @@
         );
         calendar.addEvent(evento);
         $eventsList.splice(lookDate(evento.date, $eventsList), 0, evento);
+        $eventsList = $eventsList;
     }
 </script>
 

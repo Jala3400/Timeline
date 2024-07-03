@@ -13,8 +13,11 @@
     class="colored-btn"
     style="--main-color:{color}{transparency.main};
     --main-color-hover:{color}{transparency.hover};
-    --main-color-active:{color}{transparency.active}">{text}</button
->
+    --main-color-active:{color}{transparency.active}"
+    ><span class="text">
+        {text}
+    </span>
+</button>
 
 <style>
     .colored-btn {
@@ -25,6 +28,11 @@
         border-radius: 8px;
         font-size: 16px;
         width: 100%;
+    }
+    .text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     .colored-btn:hover {
         background-color: var(--main-color-hover);

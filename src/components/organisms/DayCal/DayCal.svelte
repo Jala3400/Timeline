@@ -1,6 +1,6 @@
 <script lang="ts">
     import { dateToString, lookDate } from "../../../lib/ManageEvents";
-    import { currentEvent, eventsList } from "../../../store";
+    import { currentEvent, eventFilter, eventsList } from "../../../store";
     import EventChipCal from "../../molecules/EventChipCal.svelte";
     import { createEventDispatcher } from "svelte";
 
@@ -20,7 +20,12 @@
             lookDate(date, $eventsList)
         )
         .filter((event) => {
-            if (event.calendar.selected) return event;
+            if (
+                event.calendar.selected &&
+                event.pasaFiltroSuave($eventFilter)
+            ) {
+                return event;
+            }
         })
         .reverse();
 

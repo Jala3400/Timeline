@@ -1,6 +1,6 @@
 <script lang="ts">
     import { lookDate } from "../../../../../lib/ManageEvents";
-    import { eventsList } from "../../../../../store";
+    import { eventFilter, eventsList } from "../../../../../store";
     import Day from "../../../../organisms/Day/Day.svelte";
     import DaysOptions from "../../../../organisms/Options/DaysOptions.svelte";
 
@@ -58,7 +58,14 @@
                     })
                     .reverse()}
                 <Day
-                    {eventos}
+                    events={eventos.filter((event) => {
+                        if (
+                            event.calendar.selected &&
+                            event.pasaFiltroSuave($eventFilter)
+                        ) {
+                            return event;
+                        }
+                    })}
                     day={new Date(focusTime + dayInms * (index - offset))}
                     on:addEvent
                 />

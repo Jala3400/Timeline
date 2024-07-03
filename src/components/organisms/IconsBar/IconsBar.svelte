@@ -17,6 +17,14 @@
             }}
             selected={currentMode === "multiCalendar"}
         />
+        <IconButton
+            text="R"
+            func={() => {
+                currentMode = "realTime";
+                $currentDetails = "allCalendars";
+            }}
+            selected={currentMode === "realTime"}
+        />
     </div>
 </div>
 

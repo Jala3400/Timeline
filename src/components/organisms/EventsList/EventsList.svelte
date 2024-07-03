@@ -16,8 +16,8 @@
 
     function groupEventsByDay(eventsList: Evento[]) {
         let eventsByDay: Evento[][] = [];
-        let j = 0;
         if (eventsList.length === 0) return eventsByDay;
+        let j = 0;
         eventsByDay.push([]);
         let currentDay = new Date(eventsList[0].date).toDateString();
         for (let i = 0; i < eventsList.length; i++) {
@@ -27,7 +27,7 @@
             } else {
                 j++;
                 eventsByDay[j] = [event];
-                currentDay = event.date;
+                currentDay = new Date(event.date).toDateString();
             }
         }
         return eventsByDay;

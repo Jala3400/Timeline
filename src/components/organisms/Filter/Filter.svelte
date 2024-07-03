@@ -2,7 +2,6 @@
     import { dateToString } from "../../../lib/ManageEvents";
     import {
         calendars,
-        currentCalendar,
         currentDetails,
         eventFilter,
         eventsList,
@@ -10,6 +9,8 @@
     import CheckGroup from "../../molecules/CheckGroup.svelte";
     import CompInput from "../../molecules/CompInput.svelte";
     import NavFolder from "../../molecules/NavFolder.svelte";
+
+    export let date = true;
 
     let startDate = dateToString(new Date($eventFilter.startDate));
     let endDate = dateToString(new Date($eventFilter.endDate));
@@ -38,33 +39,35 @@
         bind:value={$eventFilter.name}
     />
 
-    <NavFolder name="Dates">
-        <label for="filtByDate" class="side-checkbox">
-            <input
-                type="checkbox"
-                id="filtByDate"
-                class="checkbox"
-                bind:checked={$eventFilter.filtByDate}
+    {#if date}
+        <NavFolder name="Dates">
+            <label for="filtByDate" class="side-checkbox">
+                <input
+                    type="checkbox"
+                    id="filtByDate"
+                    class="checkbox"
+                    bind:checked={$eventFilter.filtByDate}
+                />
+                <span class="checkbox-label"> Filter by date </span>
+            </label>
+            <CompInput
+                type="datetime-local"
+                bind:value={startDate}
+                label="From"
+                change={() => {
+                    changeStartDate(startDate);
+                }}
             />
-            <span class="checkbox-label"> Filter by date </span>
-        </label>
-        <CompInput
-            type="datetime-local"
-            bind:value={startDate}
-            label="From"
-            change={() => {
-                changeStartDate(startDate);
-            }}
-        />
-        <CompInput
-            type="datetime-local"
-            bind:value={endDate}
-            label="To"
-            change={() => {
-                changeEndDate(endDate);
-            }}
-        />
-    </NavFolder>
+            <CompInput
+                type="datetime-local"
+                bind:value={endDate}
+                label="To"
+                change={() => {
+                    changeEndDate(endDate);
+                }}
+            />
+        </NavFolder>
+    {/if}
 
     <NavFolder name="Calendars">
         <CheckGroup

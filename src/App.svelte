@@ -1,6 +1,7 @@
 <script lang="ts">
     import IconsBar from "./components/organisms/IconsBar/IconsBar.svelte";
     import MultiCalendar from "./components/pages/MultiCalendar/MultiCalendars.svelte";
+    import RealTime from "./components/pages/RealTime/RealTime.svelte";
     import { loadEvents, saveCalendars } from "./lib/ManageEvents";
     import {
         calendars,
@@ -14,6 +15,7 @@
     let currentMode: string = "multiCalendar";
     let page: { [key: string]: any } = {
         multiCalendar: MultiCalendar,
+        realTime: RealTime,
     };
     loadEvents();
     $currentEvent = $eventsList[0];
@@ -39,21 +41,27 @@
     }
 
     // Keyboard shortcuts
-    // document.addEventListener("keydown", (event) => {
-    //     if (
-    //         event.ctrlKey &&
-    //         !event.altKey &&
-    //         !event.shiftKey &&
-    //         !event.metaKey
-    //     ) {
-    //         switch (event.key) {
-    //             case "m":
-    //                 event.preventDefault();
-    //                 currentMode = "multiCalendar";
-    //                 break;
-    //         }
-    //     }
-    // });
+    document.addEventListener("keydown", (event) => {
+        if (
+            !event.ctrlKey &&
+            event.altKey &&
+            !event.shiftKey &&
+            !event.metaKey
+        ) {
+            switch (event.key) {
+                case "1":
+                case "m":
+                    event.preventDefault();
+                    currentMode = "multiCalendar";
+                    break;
+                case "2":
+                case "r":
+                    event.preventDefault();
+                    currentMode = "realTime";
+                    break;
+            }
+        }
+    });
 
     const transparency = $constants.transparency;
 </script>
