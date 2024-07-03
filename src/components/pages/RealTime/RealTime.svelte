@@ -2,7 +2,6 @@
     import AddCalendarModal from "../../Modals/AddCalendarModal.svelte";
     import AddEventModal from "../../Modals/AddEventModal.svelte";
     import Details from "../../organisms/Details/Details.svelte";
-    import MainTemplate from "../../templates/MainTemplate/MainTemplate.svelte";
     import { dateToString } from "../../../lib/ManageEvents";
     import SideBarRt from "./components/SideBarRT.svelte";
     import MainRt from "./components/MainRT.svelte";
@@ -36,11 +35,9 @@
     });
 </script>
 
-<MainTemplate>
-    <SideBarRt on:addEvent={() => (addEventModal = true)} slot="sidebar" />
-    <MainRt on:addEvent={handleAddEvent} slot="main" />
-    <Details slot="details" />
-</MainTemplate>
+<SideBarRt on:addEvent={() => (addEventModal = true)} />
+<MainRt on:addEvent={handleAddEvent} />
+<Details />
 
 <AddEventModal
     bind:addEventModal

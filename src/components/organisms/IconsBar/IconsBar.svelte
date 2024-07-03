@@ -2,11 +2,13 @@
     import { currentDetails } from "../../../store";
     import IconButton from "../../atoms/IconButton.svelte";
     export let currentMode: string = "multiCalendar";
+
+    export let hideSidebar: boolean = false;
 </script>
 
 <div id="icons-bar">
     <div id="icons-top">
-        <IconButton text="" />
+        <IconButton text="H" func={() => (hideSidebar = !hideSidebar)} />
     </div>
     <div id="icons-main">
         <IconButton
