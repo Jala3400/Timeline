@@ -1,7 +1,7 @@
 <script lang="ts">
     import { currentDetails } from "../../../store";
     import IconButton from "../../atoms/IconButton.svelte";
-    export let currentMode: string = "multiCalendar";
+    export let currentMode: string = "absoluteList";
 
     export let hideSidebar: boolean = false;
 </script>
@@ -12,12 +12,12 @@
     </div>
     <div id="icons-main">
         <IconButton
-            text="M"
+            text="L"
             func={() => {
-                currentMode = "multiCalendar";
+                currentMode = "absoluteList";
                 $currentDetails = "allCalendars";
             }}
-            selected={currentMode === "multiCalendar"}
+            selected={currentMode === "absoluteList"}
         />
         <IconButton
             text="R"

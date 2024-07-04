@@ -1,7 +1,7 @@
 <script lang="ts">
     import IconButton from "../../../atoms/IconButton.svelte";
     import CalendarsList from "./Main/CalendarsList.svelte";
-    import MultiEventsList from "./Main/MultiEventsList.svelte";
+    import MultiEventsList from "./Main/AllEventsList.svelte";
 
     let currentView: string = "eventsList";
     let view: { [key: string]: any } = {

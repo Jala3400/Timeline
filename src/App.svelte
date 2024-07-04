@@ -1,7 +1,7 @@
 <script lang="ts">
     import IconButton from "./components/atoms/IconButton.svelte";
     import IconsBar from "./components/organisms/IconsBar/IconsBar.svelte";
-    import MultiCalendar from "./components/pages/MultiCalendar/MultiCalendars.svelte";
+    import AbsoluteList from "./components/pages/AbsoluteList/AbsoluteList.svelte";
     import RealTime from "./components/pages/RealTime/RealTime.svelte";
     import { loadEvents, saveCalendars } from "./lib/ManageEvents";
     import {
@@ -13,9 +13,9 @@
     } from "./store";
 
     // Main panel
-    let currentMode: string = "multiCalendar";
+    let currentMode: string = "absoluteList";
     let page: { [key: string]: any } = {
-        multiCalendar: MultiCalendar,
+        absoluteList: AbsoluteList,
         realTime: RealTime,
     };
     loadEvents();
@@ -53,7 +53,7 @@
                 case "1":
                 case "m":
                     event.preventDefault();
-                    currentMode = "multiCalendar";
+                    currentMode = "absoluteList";
                     break;
                 case "2":
                 case "r":

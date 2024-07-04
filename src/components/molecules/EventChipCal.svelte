@@ -7,11 +7,6 @@
     const transparency = $constants.transparency;
 
     $: color = event.calendar.color;
-    $: top =
-        ((new Date(event.date).getHours() +
-            new Date(event.date).getMinutes() / 60) /
-            24) *
-        100;
 
     function onDragStart(e: DragEvent, evento: any) {
         if (e.dataTransfer) {
@@ -46,7 +41,6 @@
         font-size: 16px;
         border-radius: 5px;
         padding: 5px;
-        margin-left: auto;
         width: 100%;
         min-height: 2em;
         overflow: hidden;

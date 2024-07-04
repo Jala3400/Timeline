@@ -28,7 +28,7 @@
         $currentEvent = evento;
     }
 
-    let dateDiff = dateDifference(new Date(event.date));
+    $: dateDiff = dateDifference(new Date(event.date));
 
     function dateColor(dateDiff: string) {
         let color = "#000000";

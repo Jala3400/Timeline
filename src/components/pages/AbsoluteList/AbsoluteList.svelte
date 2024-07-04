@@ -2,8 +2,8 @@
     import AddCalendarModal from "../../Modals/AddCalendarModal.svelte";
     import AddEventModal from "../../Modals/AddEventModal.svelte";
     import Details from "../../organisms/Details/Details.svelte";
-    import SideBarMulti from "./components/SideBarMulti.svelte";
-    import MainMultCal from "./components/MainMulti.svelte";
+    import SideBarMulti from "./components/SideBarAbs.svelte";
+    import MainMultCal from "./components/MainAbs.svelte";
     import { dateToString } from "../../../lib/ManageEvents";
 
     // Modals

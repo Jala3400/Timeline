@@ -68,7 +68,7 @@
     on:dragover={onDragOver}
 >
     {date.getDate()}
-    <div class="events">
+    <div class="events" on:mousedown|stopPropagation>
         {#each events as event}
             <EventChipCal {event} />
         {/each}
@@ -77,7 +77,7 @@
 
 <style>
     .day {
-        padding: 12px;
+        padding: 8px;
         border: 1px solid var(--divider-color-strong);
         text-align: center;
         display: flex;
