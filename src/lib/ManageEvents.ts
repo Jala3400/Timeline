@@ -36,6 +36,8 @@ export function dateDifference(date1: Date, date2 = new Date()) {
     let result = Math.round(diff) + "d";
     if (Math.abs(diff) > 365) {
         result = Math.round(diff / 365) + "y";
+    } else if (Math.abs(diff) < 1 / 24) {
+        result = Math.round(diff * 24 * 60) + "m";
     } else if (Math.abs(diff) < 1) {
         result = Math.round(diff * 24) + "h";
     }

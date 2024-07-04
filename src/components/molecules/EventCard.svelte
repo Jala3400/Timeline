@@ -32,10 +32,13 @@
 
     function dateColor(dateDiff: string) {
         let color = "#000000";
+        const lastChar = dateDiff.charAt(dateDiff.length - 1);
         if (dateDiff.charAt(0) === "-") {
             color = dateColors.overdue;
-        } else if (dateDiff.charAt(dateDiff.length - 1) == "h") {
+        } else if (lastChar == "h" || lastChar == "m") {
             color = dateColors.urgent;
+        } else if (dateDiff.length == 2) {
+            color = dateColors.close;
         } else {
             color = dateColors.good;
         }
