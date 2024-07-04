@@ -12,6 +12,14 @@
     </div>
     <div id="icons-main">
         <IconButton
+            text="M"
+            func={() => {
+                currentMode = "mainPage";
+                $currentDetails = "allCalendars";
+            }}
+            selected={currentMode === "mainPage"}
+        />
+        <IconButton
             text="L"
             func={() => {
                 currentMode = "absoluteList";

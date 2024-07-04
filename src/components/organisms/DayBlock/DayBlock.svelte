@@ -64,7 +64,6 @@
     }
     .day-date {
         transition: none;
-        padding-top: 8px;
         font-size: 1.2em;
     }
     .day-date[data-today="true"] {

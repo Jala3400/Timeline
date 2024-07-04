@@ -2,7 +2,7 @@
     import { constants } from "../../store";
 
     export let func: Function = () => {};
-    export let text: string = "+";
+    export let text: string = "~";
     export let selected: boolean = false;
 
     const transparency = $constants.transparencyApp;
@@ -12,7 +12,7 @@
     style="
     --bg:#ffffff{transparency.none};
     --bg-light:#ffffff{transparency.main};
-    --bg-lighter:#ffffff{transparency.hover};    "
+    --bg-lighter:#ffffff{transparency.hover};"
     class:selected
     on:mousedown={func()}
     class="icon-btn"
