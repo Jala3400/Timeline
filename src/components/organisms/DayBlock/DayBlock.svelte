@@ -79,5 +79,6 @@
         overflow: hidden;
         width: 100%;
         max-width: 700px;
+        overflow: auto;
     }
 </style>

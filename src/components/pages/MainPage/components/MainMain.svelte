@@ -79,11 +79,12 @@
         background-color: var(--bg-light);
     }
     #events-list-today {
+        display: flex;
         width: max(25em, 75%);
         height: 100%;
         padding: 1em;
-        border-radius: 12px;
+        border-radius: 16px;
         background-color: var(--bg);
-        overflow: auto;
+        overflow: hidden;
     }
 </style>
