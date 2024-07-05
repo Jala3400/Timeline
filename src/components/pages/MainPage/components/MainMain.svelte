@@ -1,9 +1,8 @@
 <script>
     import { lookDate } from "../../../../lib/ManageEvents";
-    import { eventsList } from "../../../../store";
+    import { eventFilter, eventsList } from "../../../../store";
     import IconButton from "../../../atoms/IconButton.svelte";
     import DayBlock from "../../../organisms/DayBlock/DayBlock.svelte";
-    import Tasks from "../../../organisms/Details/DetailBlocks/Tasks.svelte";
 
     let currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
@@ -18,7 +17,8 @@
             )
         )
         .filter((event) => {
-            if (event.calendar.selected) return event;
+            if (event.calendar.selected && event.pasaFiltroSuave($eventFilter))
+                return event;
         });
 </script>
 
@@ -35,7 +35,7 @@
                 {#if events.length !== 0}
                     <DayBlock {events} />
                 {:else}
-                    <h1 style="margin-bottom: 0;">Día libre</h1>
+                    <h1 style="margin-bottom: 0;">Sin eventos</h1>
                     <p>Ve a hacer tus tareas</p>
                 {/if}
             </div>

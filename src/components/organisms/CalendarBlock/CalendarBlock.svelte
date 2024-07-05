@@ -62,7 +62,6 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 1em;
         width: 100%;
         height: 100%;
     }
@@ -73,7 +72,7 @@
         align-items: center;
         border-radius: 12px;
         background-color: var(--main-color);
-        padding: 1rem;
+        padding: 1em;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
         min-width: 700px;
         max-width: 700px;

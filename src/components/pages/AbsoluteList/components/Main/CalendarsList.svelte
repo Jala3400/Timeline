@@ -1,6 +1,11 @@
 <script lang="ts">
     import { calendars } from "../../../../../store";
     import CalendarBlock from "../../../../organisms/CalendarBlock/CalendarBlock.svelte";
+    import { onMount } from 'svelte';
+
+    onMount(() => {
+        document.getElementById('calendars-container').scrollLeft = 0;
+    });
 </script>
 
 <div id="calendars-container">

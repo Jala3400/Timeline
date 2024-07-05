@@ -162,6 +162,5 @@
         height: 10px;
         border-radius: 50%;
         background-color: var(--main-color-pure);
-        color: var(--main-color);
     }
 </style>
