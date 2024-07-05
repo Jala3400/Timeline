@@ -51,7 +51,8 @@
 <button
     on:click={selectEvent}
     class="event-card"
-    style="--main-color:{color}{transparency.main};
+    style="--main-color-pure:{color};
+    --main-color:{color}{transparency.main};
 --main-color-hover:{color}{transparency.hover};
 --main-color-active:{color}{transparency.active}"
     draggable="true"
@@ -69,6 +70,8 @@
         />
     </div>
     <h3 class="event-name">{event.name}</h3>
+
+    <p class="event-date">{new Date(event.date).toDateString()}</p>
 
     <div class="right">
         <ColoredIcon text={dateDiff} color={timeColor} func={selectEvent} />
@@ -99,5 +102,13 @@
     }
     .event-card:active {
         background-color: var(--bg-lighter-er);
+    }
+
+    .event-date {
+        width: 100%;
+        text-wrap: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: right;
     }
 </style>

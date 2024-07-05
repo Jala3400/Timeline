@@ -21,7 +21,8 @@
 
 <div
     id="all-calendars-details"
-    style="--main-color:{color}{transparency.main};
+    style="--main-color-pure:{color};
+    --main-color:{color}{transparency.main};
     --main-color-hover:{color}{transparency.hover};
     --main-color-active:{color}{transparency.active}"
 >
@@ -50,10 +51,14 @@
         display: flex;
         flex-direction: column;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
     }
     #title {
         margin-top: 10px;
         margin-left: 5px;
+        text-wrap: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     #calendars {
         display: flex;

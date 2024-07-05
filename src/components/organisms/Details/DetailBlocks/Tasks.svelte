@@ -48,52 +48,61 @@
     }
 </script>
 
-<h1>Todo List</h1>
+<div id="tasks-container">
+    <h1>Todo List</h1>
 
-<div id="todo-input">
-    <input
-        type="text"
-        bind:value={newTodo}
-        placeholder="Enter a new todo"
-        bind:this={todoInput}
-        on:keydown={handleKeyDown}
-    />
-    <button on:click={addTodo}>+</button>
-</div>
+    <div id="todo-input">
+        <input
+            type="text"
+            bind:value={newTodo}
+            placeholder="Enter a new todo"
+            bind:this={todoInput}
+            on:keydown={handleKeyDown}
+        />
+        <button on:click={addTodo}>+</button>
+    </div>
 
-<div id="tasks">
-    <ul id="todo-list">
-        {#each todos as todo, index}
-            <li>
-                <div class="left">
-                    <button class="check-button" on:click={() => check(index)}
-                    ></button>
-                    {todo}
-                </div>
-                <button on:click={() => removeTodo(index)}>X</button>
-            </li>
-        {/each}
-    </ul>
-
-    <NavFolder name="Done">
-        <ul id="done-list">
-            {#each dones as done, index}
+    <div id="tasks">
+        <ul id="todo-list">
+            {#each todos as todo, index}
                 <li>
                     <div class="left">
                         <button
-                            class="uncheck-button"
-                            on:click={() => unCheck(index)}
+                            class="check-button"
+                            on:click={() => check(index)}
                         ></button>
-                        {done}
+                        {todo}
                     </div>
-                    <button on:click={() => removeDone(index)}>X</button>
+                    <button on:click={() => removeTodo(index)}>X</button>
                 </li>
             {/each}
         </ul>
-    </NavFolder>
+
+        <NavFolder name="Done">
+            <ul id="done-list">
+                {#each dones as done, index}
+                    <li>
+                        <div class="left">
+                            <button
+                                class="uncheck-button"
+                                on:click={() => unCheck(index)}
+                            ></button>
+                            {done}
+                        </div>
+                        <button on:click={() => removeDone(index)}>X</button>
+                    </li>
+                {/each}
+            </ul>
+        </NavFolder>
+    </div>
 </div>
 
 <style>
+    #tasks-container {
+        width: 100%;
+        height: 100%;
+        max-width: 25em;
+    }
     #todo-input {
         display: flex;
         gap: 5px;

@@ -16,7 +16,8 @@
     bind:this={dialog}
     on:close={() => (showModal = false)}
     on:mousedown|self={() => dialog.close()}
-    style="--main-color:{color}{transparency.main};
+    style="--main-color-pure:{color};
+    --main-color:{color}{transparency.main};
     --main-color-hover:{color}{transparency.hover};
     --main-color-active:{color}{transparency.active};
     --main-color-full:{color}{transparency.full}"

@@ -12,7 +12,6 @@
 <div
     id="calendar-details"
     style="
-    
     --main-color-pure: {color};
     --main-color:{color}{transparency.main};
     --main-color-hover:{color}{transparency.hover};
