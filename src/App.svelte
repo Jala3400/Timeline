@@ -1,6 +1,9 @@
 <script lang="ts">
+    import IconButton from "./components/atoms/IconButton.svelte";
     import IconsBar from "./components/organisms/IconsBar/IconsBar.svelte";
-    import MultiCalendar from "./components/pages/MultiCalendar/MultiCalendars.svelte";
+    import AbsoluteList from "./components/pages/AbsoluteList/AbsoluteList.svelte";
+    import MainPage from "./components/pages/MainPage/MainPage.svelte";
+    import RealTime from "./components/pages/RealTime/RealTime.svelte";
     import { loadEvents, saveCalendars } from "./lib/ManageEvents";
     import {
         calendars,
@@ -11,9 +14,11 @@
     } from "./store";
 
     // Main panel
-    let currentMode: string = "multiCalendar";
+    let currentMode: string = "mainPage";
     let page: { [key: string]: any } = {
-        multiCalendar: MultiCalendar,
+        mainPage: MainPage,
+        absoluteList: AbsoluteList,
+        realTime: RealTime,
     };
     loadEvents();
     $currentEvent = $eventsList[0];
@@ -39,27 +44,42 @@
     }
 
     // Keyboard shortcuts
-    // document.addEventListener("keydown", (event) => {
-    //     if (
-    //         event.ctrlKey &&
-    //         !event.altKey &&
-    //         !event.shiftKey &&
-    //         !event.metaKey
-    //     ) {
-    //         switch (event.key) {
-    //             case "m":
-    //                 event.preventDefault();
-    //                 currentMode = "multiCalendar";
-    //                 break;
-    //         }
-    //     }
-    // });
+    document.addEventListener("keydown", (event) => {
+        if (
+            !event.ctrlKey &&
+            event.altKey &&
+            !event.shiftKey &&
+            !event.metaKey
+        ) {
+            switch (event.key) {
+                case "1":
+                case "m":
+                    event.preventDefault();
+                    currentMode = "mainPage";
+                    break;
+                case "2":
+                case "l":
+                    event.preventDefault();
+                    currentMode = "absoluteList";
+                    break;
+                case "3":
+                case "r":
+                    event.preventDefault();
+                    currentMode = "realTime";
+                    break;
+            }
+        }
+    });
 
     const transparency = $constants.transparency;
+    let hideSidebar: boolean = false;
+    let hideDetails: boolean = false;
 </script>
 
 <div
     id="main-container"
+    class:hideSidebar
+    class:hideDetails
     style="
     --main-color-pure: {$configuration.mainColor};
 --main-color: {$configuration.mainColor}{transparency.main};
@@ -67,15 +87,38 @@
 --main-color-active: {$configuration.mainColor}{transparency.active};
 "
 >
-    <IconsBar bind:currentMode />
+    <IconsBar bind:currentMode bind:hideSidebar />
     <svelte:component this={page[currentMode]} />
+    <div id="hide-details">
+        <IconButton text="H" func={() => (hideDetails = !hideDetails)} />
+    </div>
 </div>
 <div id="saved" class:savedOn>Saved</div>
 
 <style>
     #main-container {
-        display: flex;
+        display: grid;
+        grid-template: 100% / 2.5rem 1fr 3fr 1.2fr;
+        width: 100%;
         height: 100%;
+    }
+    #main-container.hideSidebar {
+        grid-template: 100% / 2.5rem 0fr 4fr 1.2fr;
+    }
+    #main-container.hideDetails {
+        grid-template: 100% / 2.5rem 1fr 4.2fr 0fr;
+    }
+    #main-container.hideDetails.hideSidebar {
+        grid-template: 100% / 2.5rem 0fr 1fr 0fr;
+    }
+    #hide-details {
+        position: absolute;
+        right: 2px;
+        padding: 3px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: var(--bg-lighter);
     }
     #saved {
         position: fixed;

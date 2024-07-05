@@ -90,6 +90,9 @@
         border-radius: 0;
         opacity: 0.5;
     }
+    .offset-button:hover {
+        opacity: 1;
+    }
     .offset-button.offset-selected {
         opacity: 1;
     }

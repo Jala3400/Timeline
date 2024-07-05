@@ -7,11 +7,6 @@
     const transparency = $constants.transparency;
 
     $: color = event.calendar.color;
-    $: top =
-        ((new Date(event.date).getHours() +
-            new Date(event.date).getMinutes() / 60) /
-            24) *
-        100;
 
     function onDragStart(e: DragEvent, evento: any) {
         if (e.dataTransfer) {
@@ -30,9 +25,10 @@
 <button
     on:click|stopPropagation={selectEvent}
     on:mousedown|stopPropagation
-    style="--main-color:{color}{transparency.main};
---main-color-hover:{color}{transparency.hover};
---main-color-active:{color}{transparency.active};"
+    style="--main-color-pure:{color};
+    --main-color:{color}{transparency.main};
+    --main-color-hover:{color}{transparency.hover};
+    --main-color-active:{color}{transparency.active};"
     class="event-name"
     draggable="true"
     on:dragstart={(e) => onDragStart(e, event)}
@@ -46,7 +42,6 @@
         font-size: 16px;
         border-radius: 5px;
         padding: 5px;
-        margin-left: auto;
         width: 100%;
         min-height: 2em;
         overflow: hidden;

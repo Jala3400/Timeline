@@ -13,7 +13,8 @@
     on:mousedown={func()}
     on:click|stopPropagation
     class="colored-icon"
-    style="--main-color:{color}{transparency.main};
+    style="--main-color-pure:{color};
+    --main-color:{color}{transparency.main};
     --main-color-hover:{color}{transparency.hover};
     --main-color-active:{color}{transparency.active}">{text}</button
 >
@@ -22,6 +23,7 @@
     .colored-icon {
         border: none;
         border-radius: 8px;
+        padding: 0;
         color: #ffffff;
         background-color: var(--main-color);
         width: 2.75em;

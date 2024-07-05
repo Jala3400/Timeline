@@ -1,6 +1,12 @@
 <script lang="ts">
     import type { Calendario } from "../../../classes/Calendario";
-    import { calendars, constants, currentCalendar, currentEvent } from "../../../store";
+    import {
+        calendars,
+        constants,
+        currentCalendar,
+        currentEvent,
+        eventFilter,
+    } from "../../../store";
     import EventsList from "../EventsList/EventsList.svelte";
 
     export let calendar: Calendario;
@@ -40,7 +46,13 @@
         />
     </div>
     <div class="calendar-events">
-        <EventsList eventsList={calendar.events} />
+        <EventsList
+            eventsList={calendar.events.filter((event) => {
+                if (event.calendar.selected && event.pasaFiltro($eventFilter)) {
+                    return event;
+                }
+            })}
+        />
     </div>
 </div>
 
@@ -48,7 +60,8 @@
     .complete-block {
         display: flex;
         flex-direction: column;
-        gap: 1em;
+        justify-content: center;
+        align-items: center;
         width: 100%;
         height: 100%;
     }
@@ -59,7 +72,7 @@
         align-items: center;
         border-radius: 12px;
         background-color: var(--main-color);
-        padding: 1rem;
+        padding: 1em;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
         min-width: 700px;
         max-width: 700px;

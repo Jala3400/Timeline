@@ -21,7 +21,7 @@ configuration.subscribe((value) => {
 const existingConstants = JSON.parse(
     //Todo: Uncomment bellow
     // localStorage.getItem("constants") ?? 
-    JSON.stringify({ transparency: { low: "40", main: "60", hover: "90", active: "AA", full: "FF" }, transparencyApp: { none: "00", light: "0A", main: "1C", hover: "2d", active: "36" }, discreteColor: "#FFFFFF", dateColors: { good: "#00FF80", urgent: "#FF8000", overdue: "#FF0000" } })
+    JSON.stringify({ transparency: { low: "40", main: "60", hover: "90", active: "AA", full: "FF" }, transparencyApp: { none: "00", light: "0A", main: "1C", hover: "2d", active: "36" }, discreteColor: "#FFFFFF", dateColors: { good: "#00FF80", close: "#FFFF00", urgent: "#ff00FF", overdue: "#FF0000" } })
 )
 
 export const constants = readable(existingConstants);

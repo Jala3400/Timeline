@@ -1,7 +1,9 @@
 <script lang="ts">
-    import NeonButton from "../../../../atoms/NeonButton.svelte";
+    import NeonButton from "../../../atoms/NeonButton.svelte";
     import { createEventDispatcher } from "svelte";
-    import Filter from "../../../../organisms/Filter/Filter.svelte";
+    import Filter from "../../Filter/Filter.svelte";
+
+    export let date = true;
 
     const dispatch = createEventDispatcher();
 
@@ -13,7 +15,7 @@
 
 <div id="calendars-side">
     <div id="side-main">
-        <Filter />
+        <Filter {date} />
     </div>
     <div id="side-bottom">
         <NeonButton text={"Add Event"} func={addEventEvent} />

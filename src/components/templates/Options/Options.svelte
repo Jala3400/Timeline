@@ -6,7 +6,7 @@
     <slot />
 </div>
 
-<button id="collapse-options" on:mousedown={() => (collapsed = !collapsed)}
+<button id="collapse-options-btn" on:mousedown={() => (collapsed = !collapsed)}
     >C</button
 >
 
@@ -18,8 +18,8 @@
         align-items: center;
         gap: 10px;
         width: 100%;
-        min-height: 2.25em;
-        max-height: 2.25em;
+        min-height: 2.5em;
+        max-height: 2.5em;
         padding-left: 10px;
         padding-right: 2.75em;
         background-color: var(--bg-lighter);
@@ -30,14 +30,16 @@
         min-height: 0;
         height: 0;
     }
-    #collapse-options {
+    #collapse-options-btn {
+        padding: 5px;
         position: absolute;
         right: 0;
-        width: 2.5em;
-        height: 2.5em;
+        width: calc(2.5em + 5px);
+        aspect-ratio: 1/1;
         background-color: var(--bg-lighter);
         border: 1px solid var(--divider-color);
         border-top: none;
+        border-right: none;
         border-radius: 0;
         border-bottom-left-radius: 8px;
         z-index: 1;

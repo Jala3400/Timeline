@@ -25,9 +25,10 @@
 <div
     on:click|stopPropagation
     on:mousedown|stopPropagation
-    style="--main-color:{color}{transparency.main};
---main-color-hover:{color}{transparency.hover};
---main-color-active:{color}{transparency.active};
+    style="--main-color-pure:{color};
+    --main-color:{color}{transparency.main};
+    --main-color-hover:{color}{transparency.hover};
+    --main-color-active:{color}{transparency.active};
 --top:{top}%;"
 >
     <button on:click={selectEvent} class="time-bar" style="top: {top}%"

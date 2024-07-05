@@ -36,7 +36,8 @@
     {#each list as value, index}
         <label
             class="side-checkbox"
-            style="--main-color:{value.color}{transparency.low};
+            style="--main-color-pure:{value.color};
+    --main-color:{value.color}{transparency.low};
         --main-color-hover:{value.color}{transparency.hover};
         --main-color-active:{value.color}{transparency.active};
         --main-color-full:{value.color}{transparency.full}"

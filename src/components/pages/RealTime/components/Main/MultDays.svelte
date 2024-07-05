@@ -1,6 +1,6 @@
 <script lang="ts">
     import { lookDate } from "../../../../../lib/ManageEvents";
-    import { eventsList } from "../../../../../store";
+    import { eventFilter, eventsList } from "../../../../../store";
     import Day from "../../../../organisms/Day/Day.svelte";
     import DaysOptions from "../../../../organisms/Options/DaysOptions.svelte";
 
@@ -43,22 +43,28 @@
                 {@const eventos = $eventsList
                     .slice(
                         lookDate(
-                            new Date(
-                                focusTime + dayInms * (1 + index - offset)
-                            ),
+                            new Date(focusTime + dayInms * (index - offset)),
                             $eventsList
                         ),
                         lookDate(
-                            new Date(focusTime + dayInms * (index - offset)),
+                            new Date(
+                                focusTime + dayInms * (1 + index - offset)
+                            ),
                             $eventsList
                         )
                     )
                     .filter((event) => {
                         if (event.calendar.selected) return event;
-                    })
-                    .reverse()}
+                    })}
                 <Day
-                    {eventos}
+                    events={eventos.filter((event) => {
+                        if (
+                            event.calendar.selected &&
+                            event.pasaFiltroSuave($eventFilter)
+                        ) {
+                            return event;
+                        }
+                    })}
                     day={new Date(focusTime + dayInms * (index - offset))}
                     on:addEvent
                 />

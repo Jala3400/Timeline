@@ -4,7 +4,7 @@
     import { createEventDispatcher, onDestroy, onMount } from "svelte";
 
     const dispatch = createEventDispatcher();
-    export let eventos: Evento[] = [];
+    export let events: Evento[] = [];
     export let day: Date;
 
     $: today = day.toDateString() === new Date().toDateString();
@@ -71,6 +71,8 @@
     }}
     on:mousedown={(e) => {
         followCursor = true;
+        cursorTop = e.offsetY;
+        cursorTime = getFormattedTime(e);
     }}
     on:mousemove={(e) => {
         if (followCursor) {
@@ -88,7 +90,8 @@
             {cursorTime}
         </div>
     </div>
-    {#each eventos as evento}
+
+    {#each events as evento}
         <EventChip event={evento} />
     {/each}
     {#if today}
@@ -159,6 +162,5 @@
         height: 10px;
         border-radius: 50%;
         background-color: var(--main-color-pure);
-        color: var(--main-color);
     }
 </style>

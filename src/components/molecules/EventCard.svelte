@@ -28,14 +28,17 @@
         $currentEvent = evento;
     }
 
-    let dateDiff = dateDifference(new Date(event.date));
+    $: dateDiff = dateDifference(new Date(event.date));
 
     function dateColor(dateDiff: string) {
         let color = "#000000";
+        const lastChar = dateDiff.charAt(dateDiff.length - 1);
         if (dateDiff.charAt(0) === "-") {
             color = dateColors.overdue;
-        } else if (dateDiff.charAt(dateDiff.length - 1) == "h") {
+        } else if (lastChar == "h" || lastChar == "m") {
             color = dateColors.urgent;
+        } else if (dateDiff.length == 2) {
+            color = dateColors.close;
         } else {
             color = dateColors.good;
         }
@@ -48,7 +51,8 @@
 <button
     on:click={selectEvent}
     class="event-card"
-    style="--main-color:{color}{transparency.main};
+    style="--main-color-pure:{color};
+    --main-color:{color}{transparency.main};
 --main-color-hover:{color}{transparency.hover};
 --main-color-active:{color}{transparency.active}"
     draggable="true"
@@ -66,6 +70,13 @@
         />
     </div>
     <h3 class="event-name">{event.name}</h3>
+
+    <p class="event-date">
+        {new Date(event.date).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+        })}
+    </p>
 
     <div class="right">
         <ColoredIcon text={dateDiff} color={timeColor} func={selectEvent} />
@@ -96,5 +107,9 @@
     }
     .event-card:active {
         background-color: var(--bg-lighter-er);
+    }
+
+    .event-date {
+        min-width: fit-content;
     }
 </style>

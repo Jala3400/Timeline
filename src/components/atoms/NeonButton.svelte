@@ -11,7 +11,8 @@
 <button
     on:mousedown={func()}
     class="neonbtn"
-    style="--main-color:{color}{transparency.main};
+    style="--main-color-pure:{color};
+    --main-color:{color}{transparency.main};
     --main-color-hover:{color}{transparency.hover};
     --main-color-active:{color}{transparency.active}">{text}</button
 >

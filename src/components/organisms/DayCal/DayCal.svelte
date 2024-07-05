@@ -1,6 +1,6 @@
 <script lang="ts">
     import { dateToString, lookDate } from "../../../lib/ManageEvents";
-    import { currentEvent, eventsList } from "../../../store";
+    import { currentEvent, eventFilter, eventsList } from "../../../store";
     import EventChipCal from "../../molecules/EventChipCal.svelte";
     import { createEventDispatcher } from "svelte";
 
@@ -13,16 +13,20 @@
 
     $: events = $eventsList
         .slice(
+            lookDate(date, $eventsList),
             lookDate(
                 new Date(date.getTime() + 24 * 60 * 60 * 1000),
                 $eventsList
-            ),
-            lookDate(date, $eventsList)
+            )
         )
         .filter((event) => {
-            if (event.calendar.selected) return event;
-        })
-        .reverse();
+            if (
+                event.calendar.selected &&
+                event.pasaFiltroSuave($eventFilter)
+            ) {
+                return event;
+            }
+        });
 
     function addEvent(e: MouseEvent) {
         dispatch("addEvent", { date: date });
@@ -58,12 +62,12 @@
     class="day"
     class:disabled
     class:today
-    on:mousedown={addEvent}
+    on:click={addEvent}
     on:drop={(e) => onDrop(e)}
     on:dragover={onDragOver}
 >
     {date.getDate()}
-    <div class="events">
+    <div class="events" on:mousedown|stopPropagation>
         {#each events as event}
             <EventChipCal {event} />
         {/each}
@@ -72,7 +76,7 @@
 
 <style>
     .day {
-        padding: 12px;
+        padding: 8px;
         border: 1px solid var(--divider-color-strong);
         text-align: center;
         display: flex;

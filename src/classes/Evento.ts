@@ -125,6 +125,9 @@ export class Evento {
             value.splice(lookDate(this.date, value), 0, this);
             return value;
         });
+        currentEvent.update((value) => {
+            return value;
+        });
     }
 
     /**
@@ -144,5 +147,8 @@ export class Evento {
                     && new Date(this.date) <= new Date(filtro.endDate)
                 ))
         )
+    }
+    pasaFiltroSuave(filtro: EventoFiltro) {
+        return this.name.includes(filtro.name) || filtro.name == ""
     }
 }
