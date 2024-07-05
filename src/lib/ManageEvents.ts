@@ -65,7 +65,7 @@ function mergeEvents(existing: Evento[], newEvents: Evento[]) {
     let j = 0;
 
     while (i < existing.length && j < newEvents.length) {
-        if (new Date(existing[i].date) > new Date(newEvents[j].date)) {
+        if (new Date(existing[i].date) < new Date(newEvents[j].date)) {
             arr.push(existing[i]);
             i++;
         } else {
@@ -142,10 +142,9 @@ export function load3daysOpt() {
  */
 export function lookDate(date: string | Date, events: Evento[]) {
     let i = 0;
-    let found = false;
     date = new Date(date);
     while (i < events.length) {
-        if (dateToString(date) > dateToString(new Date(events[i].date))) {
+        if (dateToString(date) < dateToString(new Date(events[i].date))) {
             return i;
         } else { i++ };
     }

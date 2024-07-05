@@ -71,6 +71,8 @@
     }}
     on:mousedown={(e) => {
         followCursor = true;
+        cursorTop = e.offsetY;
+        cursorTime = getFormattedTime(e);
     }}
     on:mousemove={(e) => {
         if (followCursor) {

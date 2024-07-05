@@ -35,7 +35,7 @@
 <style>
     #events-container {
         display: flex;
-        gap: 1em;
+        gap: 0.25em;
         flex-direction: column;
         align-items: center;
         text-align: center;

@@ -43,20 +43,19 @@
                 {@const eventos = $eventsList
                     .slice(
                         lookDate(
-                            new Date(
-                                focusTime + dayInms * (1 + index - offset)
-                            ),
+                            new Date(focusTime + dayInms * (index - offset)),
                             $eventsList
                         ),
                         lookDate(
-                            new Date(focusTime + dayInms * (index - offset)),
+                            new Date(
+                                focusTime + dayInms * (1 + index - offset)
+                            ),
                             $eventsList
                         )
                     )
                     .filter((event) => {
                         if (event.calendar.selected) return event;
-                    })
-                    .reverse()}
+                    })}
                 <Day
                     events={eventos.filter((event) => {
                         if (

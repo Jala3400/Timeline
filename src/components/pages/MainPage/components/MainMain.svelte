@@ -9,23 +9,22 @@
     currentDate.setHours(0, 0, 0, 0);
     let formattedDate = currentDate.toLocaleDateString();
 
-    const events = $eventsList
+    $: events = $eventsList
         .slice(
+            lookDate(currentDate, $eventsList),
             lookDate(
                 new Date(currentDate.getTime() + 24 * 60 * 60 * 1000),
                 $eventsList
-            ),
-            lookDate(currentDate, $eventsList)
+            )
         )
         .filter((event) => {
             if (event.calendar.selected) return event;
-        })
-        .reverse();
+        });
 </script>
 
 <div id="main">
     <div id="main-top">
-        <IconButton />
+        <IconButton selected={true} />
     </div>
     <div id="main-content">
         <div id="top-content">

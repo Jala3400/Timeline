@@ -23,6 +23,7 @@
     .colored-icon {
         border: none;
         border-radius: 8px;
+        padding: 0;
         color: #ffffff;
         background-color: var(--main-color);
         width: 2.75em;

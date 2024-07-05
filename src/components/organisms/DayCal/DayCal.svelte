@@ -13,11 +13,11 @@
 
     $: events = $eventsList
         .slice(
+            lookDate(date, $eventsList),
             lookDate(
                 new Date(date.getTime() + 24 * 60 * 60 * 1000),
                 $eventsList
-            ),
-            lookDate(date, $eventsList)
+            )
         )
         .filter((event) => {
             if (
@@ -26,8 +26,7 @@
             ) {
                 return event;
             }
-        })
-        .reverse();
+        });
 
     function addEvent(e: MouseEvent) {
         dispatch("addEvent", { date: date });
@@ -63,7 +62,7 @@
     class="day"
     class:disabled
     class:today
-    on:mousedown={addEvent}
+    on:click={addEvent}
     on:drop={(e) => onDrop(e)}
     on:dragover={onDragOver}
 >

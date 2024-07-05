@@ -71,7 +71,12 @@
     </div>
     <h3 class="event-name">{event.name}</h3>
 
-    <p class="event-date">{new Date(event.date).toDateString()}</p>
+    <p class="event-date">
+        {new Date(event.date).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+        })}
+    </p>
 
     <div class="right">
         <ColoredIcon text={dateDiff} color={timeColor} func={selectEvent} />
@@ -105,10 +110,6 @@
     }
 
     .event-date {
-        width: 100%;
-        text-wrap: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        text-align: right;
+        min-width: fit-content;
     }
 </style>

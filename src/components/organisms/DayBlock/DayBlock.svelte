@@ -55,6 +55,7 @@
 
 <style>
     .day-container {
+        padding-top: 0.75em;
         display: flex;
         gap: 0.5em;
         flex-direction: column;
