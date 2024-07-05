@@ -30,7 +30,6 @@
             newDate.setMonth(targetDate.getMonth());
             newDate.setDate(targetDate.getDate());
             $currentEvent.changeDate(dateToString(newDate));
-            $currentEvent = $currentEvent;
             $currentCalendar = $currentCalendar;
         }
     }

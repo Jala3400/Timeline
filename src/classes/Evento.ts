@@ -125,6 +125,9 @@ export class Evento {
             value.splice(lookDate(this.date, value), 0, this);
             return value;
         });
+        currentEvent.update((value) => {
+            return value;
+        });
     }
 
     /**
