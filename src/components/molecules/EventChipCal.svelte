@@ -6,7 +6,7 @@
 
     const transparency = $constants.transparency;
 
-    $: color = event.calendar.color;
+    $: color = event.getCalendar.color;
 
     function onDragStart(e: DragEvent, evento: any) {
         if (e.dataTransfer) {

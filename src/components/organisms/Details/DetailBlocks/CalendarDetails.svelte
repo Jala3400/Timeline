@@ -7,6 +7,7 @@
     const transparency = $constants.transparency;
 
     $: color = $currentCalendar.color;
+    $:events = $currentCalendar.getDatedEvents();
 </script>
 
 <div
@@ -43,7 +44,11 @@
         </div>
     </div>
     <div class="calendar-events">
-        <EventsList eventsList={$currentCalendar.events} />
+        {#if events.length !== 0}
+            <EventsList eventsList={events} />
+        {:else}
+            <h1>Sin eventos</h1>
+        {/if}
     </div>
 </div>
 
@@ -87,6 +92,8 @@
         border-radius: 12px;
         overflow: auto;
         background-color: var(--bg);
+        display: flex;
+        justify-content: center;
     }
     .comp-input {
         display: flex;

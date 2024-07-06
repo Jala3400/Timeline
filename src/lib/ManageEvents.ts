@@ -50,7 +50,7 @@ export function dateDifference(date1: Date, date2 = new Date()) {
 export function loadEvents() {
     let newEventsList: Evento[] = [];
     for (let calendar of get(calendars)) {
-        newEventsList = mergeEvents(newEventsList, calendar.events);
+        newEventsList = mergeEvents(newEventsList, calendar.getDatedEvents());
     }
     eventsList.set(newEventsList);
 }
@@ -65,7 +65,7 @@ function mergeEvents(existing: Evento[], newEvents: Evento[]) {
     let j = 0;
 
     while (i < existing.length && j < newEvents.length) {
-        if (new Date(existing[i].date) < new Date(newEvents[j].date)) {
+        if (new Date(existing[i].date!) < new Date(newEvents[j].date!)) {
             arr.push(existing[i]);
             i++;
         } else {
@@ -144,7 +144,7 @@ export function lookDate(date: string | Date, events: Evento[]) {
     let i = 0;
     date = new Date(date);
     while (i < events.length) {
-        if (dateToString(date) <= dateToString(new Date(events[i].date))) {
+        if (dateToString(date) <= dateToString(new Date(events[i].date!))) {
             return i;
         } else { i++ };
     }

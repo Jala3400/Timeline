@@ -3,11 +3,13 @@
     import CompInput from "../molecules/CompInput.svelte";
     import { addNewCalendar } from "../../lib/ManageEvents";
     import { Calendario } from "../../classes/Calendario";
+    import { KanbanList } from "../../classes/KanbanList";
 
     export let addCalendarModal: boolean = false;
     export let calendarColor: string;
 
     let calendarName = "new calendar";
+    let defaultList = "Inbox";
 </script>
 
 <Modal bind:showModal={addCalendarModal} color={calendarColor}>
@@ -15,10 +17,14 @@
     <div slot="content" id="content">
         <CompInput label="Name" type="text" bind:value={calendarName} />
         <CompInput label="Color" type="color" bind:value={calendarColor} />
+        <CompInput label="Default list" type="text" bind:value={defaultList} />
     </div>
     <button
         on:click={() => {
-            addNewCalendar(new Calendario(calendarColor, [], calendarName));
+            const calendar = new Calendario(calendarColor, [], calendarName);
+            const kanbanList = new KanbanList([], defaultList, calendar);
+            calendar.setKanbanLists = [kanbanList];
+            addNewCalendar(calendar);
         }}
         slot="buttons">Save</button
     >

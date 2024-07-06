@@ -4,6 +4,7 @@ import { Evento } from './classes/Evento';
 import { EventoFiltro } from './classes/EventoFilltro';
 import { parse, stringify } from 'flatted';
 import { dateToString } from './lib/ManageEvents';
+import { KanbanList } from './classes/KanbanList';
 
 //* Configuration
 
@@ -36,8 +37,17 @@ export const eventsList: Writable<Evento[]> = writable([])
 
 //* Existing calendars
 
-const defaultCalendar = new Calendario("#FF0000", [new Evento("Default", dateToString(new Date()), "def")], "default");
-const testCalendar = new Calendario("#FF00FF", [new Evento("Test", dateToString(new Date(0)), "asd",)], "test");
+const defaultCalendar = new Calendario("#FF0000", [], "default");
+const testCalendar = new Calendario("#FF00FF", [], "test");
+
+const defaultKanbanList = new KanbanList([], "default", defaultCalendar);
+const testKanbanList = new KanbanList([], "test", testCalendar);
+
+defaultCalendar.setKanbanLists = [defaultKanbanList];
+testCalendar.setKanbanLists = [testKanbanList];
+
+defaultKanbanList.tempAddEvent(new Evento("Default", dateToString(new Date()), "def", defaultKanbanList));
+testKanbanList.tempAddEvent(new Evento("Test", dateToString(new Date(0)), "asd", testKanbanList));
 
 let existingCalendars: Calendario[] = parse(localStorage.getItem("calendars") ?? stringify([defaultCalendar, testCalendar]));
 
@@ -46,7 +56,7 @@ existingCalendars = existingCalendars.map((calendar) => {
     return calendar;
 })
 
-export const calendars: Writable<Calendario[]> = writable([...existingCalendars]);
+export const calendars: Writable<Calendario[]> = writable(existingCalendars);
 
 //* Current details
 

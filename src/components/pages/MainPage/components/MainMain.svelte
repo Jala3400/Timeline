@@ -17,8 +17,7 @@
             )
         )
         .filter((event) => {
-            if (event.calendar.selected && event.pasaFiltroSuave($eventFilter))
-                return event;
+            if (event.pasaFiltroSuave($eventFilter)) return event;
         });
 </script>
 
@@ -33,10 +32,9 @@
         <div id="bottom-content">
             <div id="events-list-today">
                 {#if events.length !== 0}
-                    <DayBlock {events} />
+                    <DayBlock events={events} />
                 {:else}
-                    <h1 style="margin-bottom: 0;">Sin eventos</h1>
-                    <p>Ve a hacer tus tareas</p>
+                    <h1>Sin eventos</h1>
                 {/if}
             </div>
         </div>

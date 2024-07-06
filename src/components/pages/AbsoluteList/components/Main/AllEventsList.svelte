@@ -3,7 +3,7 @@
     import EventsList from "../../../../organisms/EventsList/EventsList.svelte";
 
     $: visibleEvents = $eventsList.filter((event) => {
-        if (event.calendar.selected && event.pasaFiltro($eventFilter)) {
+        if (event.pasaFiltro($eventFilter)) {
             return event;
         }
     });

@@ -20,10 +20,7 @@
             )
         )
         .filter((event) => {
-            if (
-                event.calendar.selected &&
-                event.pasaFiltroSuave($eventFilter)
-            ) {
+            if (event.pasaFiltroSuave($eventFilter)) {
                 return event;
             }
         });
@@ -39,7 +36,7 @@
     function onDrop(e: DragEvent) {
         if (e.dataTransfer?.getData("type") === "event") {
             e.preventDefault();
-            const prevDate = new Date($currentEvent.date);
+            const prevDate = new Date($currentEvent.date ?? new Date());
             $currentEvent.changeDate(
                 dateToString(
                     new Date(

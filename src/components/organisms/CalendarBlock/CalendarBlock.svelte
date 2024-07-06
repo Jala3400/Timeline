@@ -47,8 +47,8 @@
     </div>
     <div class="calendar-events">
         <EventsList
-            eventsList={calendar.events.filter((event) => {
-                if (event.calendar.selected && event.pasaFiltro($eventFilter)) {
+            eventsList={calendar.getDatedEvents().filter((event) => {
+                if (event.pasaFiltro($eventFilter)) {
                     return event;
                 }
             })}
