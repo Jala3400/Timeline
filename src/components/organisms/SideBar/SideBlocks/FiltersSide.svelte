@@ -11,7 +11,7 @@
     }
 </script>
 
-<div id="calendars-side">
+<div id="filters-side">
     <div id="side-main">
         <Filter />
     </div>
@@ -21,7 +21,7 @@
 </div>
 
 <style>
-    #calendars-side {
+    #filters-side {
         display: flex;
         flex-direction: column;
         align-items: flex-start;

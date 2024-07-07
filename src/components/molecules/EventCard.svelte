@@ -92,7 +92,7 @@
         align-items: center;
         border-radius: 0;
         background-color: var(--bg-light);
-        padding: 0.2em 1.2em;
+        padding: 0.2em 0.75em;
         width: 100%;
         max-width: 700px;
     }
@@ -107,7 +107,7 @@
         background-color: var(--bg-lighter);
     }
     .event-card:active {
-        background-color: var(--bg-lighter-er);
+        background-color: var(--bg-lightest);
     }
 
     .event-date {

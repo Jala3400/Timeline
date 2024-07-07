@@ -2,7 +2,7 @@ import { calendars, currentCalendar, currentEvent, eventsList } from '../store';
 import { Calendario } from './Calendario';
 import { dateToString, lookDate } from '../lib/ManageEvents';
 import type { EventoFiltro } from './EventoFilltro';
-import type { KanbanList } from './KanbanList';
+import type { ListaKanban } from './ListaKanban';
 
 /**
  * Clase que representa un evento.
@@ -11,9 +11,9 @@ export class Evento {
     name: string;
     date?: string;
     description: string;
-    kanbanList: KanbanList;
+    kanbanList: ListaKanban;
 
-    constructor(name: string = "new event", description: string = "", kanbanList: KanbanList, date?: Date | string) {
+    constructor(name: string = "new event", description: string = "", kanbanList: ListaKanban, date?: Date | string) {
         this.name = name;
         if (date) {
             this.date = dateToString(new Date(date));
@@ -73,7 +73,7 @@ export class Evento {
      * Método getter para la propiedad kanbanList.
      * @returns La lista kanban del evento.
      */
-    get getKanbanList(): KanbanList {
+    get getKanbanList(): ListaKanban {
         return this.kanbanList;
     }
 
@@ -81,7 +81,7 @@ export class Evento {
      * Método setter para la propiedad kanbanList.
      * @param kanbanList La nueva lista kanban del evento.
      */
-    set setKanbanList(kanbanList: KanbanList) {
+    set setKanbanList(kanbanList: ListaKanban) {
         this.kanbanList = kanbanList;
     }
 
@@ -94,7 +94,7 @@ export class Evento {
      * @param json Objeto JSON que representa un evento.
      * @returns Objeto de la clase Evento.
      */
-    static fromJSON(json: any, kanbanList: KanbanList): Evento {
+    static fromJSON(json: any, kanbanList: ListaKanban): Evento {
         let evento = Object.create(Evento.prototype);
         Object.assign(evento, json);
         evento.kanbanList = kanbanList;
@@ -105,8 +105,8 @@ export class Evento {
      * Método que cambia el calendario de un evento y actualiza los calendarios.
      * @param targList 
      */
-    changeList(targList: KanbanList) {
-        calendars.update((value) => {
+    changeKanbanist(targList: ListaKanban) {
+        currentCalendar.update((value) => {
             this.kanbanList.tempDeleteEvent(this);
             targList.tempAddEvent(this);
             return value;
@@ -163,6 +163,7 @@ export class Evento {
         this.kanbanList.tempDeleteEvent(this);
         currentEvent.update((value) => { return this.kanbanList.events[0] });
         eventsList.update((value) => value.filter((event) => event !== this));
+        currentCalendar.update((value) => { return value });
     }
 
     pasaFiltro(filtro: EventoFiltro) {

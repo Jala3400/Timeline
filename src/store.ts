@@ -4,7 +4,7 @@ import { Evento } from './classes/Evento';
 import { EventoFiltro } from './classes/EventoFilltro';
 import { parse, stringify } from 'flatted';
 import { dateToString } from './lib/ManageEvents';
-import { KanbanList } from './classes/KanbanList';
+import { ListaKanban } from './classes/ListaKanban';
 
 //* Configuration
 
@@ -40,8 +40,8 @@ export const eventsList: Writable<Evento[]> = writable([])
 const defaultCalendar = new Calendario("#FF0000", [], "default");
 const testCalendar = new Calendario("#FF00FF", [], "test");
 
-const defaultKanbanList = new KanbanList([], "default", defaultCalendar);
-const testKanbanList = new KanbanList([], "test", testCalendar);
+const defaultKanbanList = new ListaKanban([], "default", defaultCalendar);
+const testKanbanList = new ListaKanban([], "test", testCalendar);
 
 defaultCalendar.setKanbanLists = [defaultKanbanList];
 testCalendar.setKanbanLists = [testKanbanList];

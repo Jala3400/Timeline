@@ -4,7 +4,7 @@ import { Evento } from "./Evento";
 /* 
     Clase que representa una lista de un diagrama kanban 
 */
-export class KanbanList {
+export class ListaKanban {
     name: string;
     events: Evento[];
     calendar: Calendario;
@@ -24,13 +24,17 @@ export class KanbanList {
         this.events = this.events.filter(e => e !== event);
     }
 
+    delete() {
+        this.calendar.deleteKanbanList(this);
+    }
+
     /**
      * Método que convierte un objeto JSON en un objeto de la clase KanbanList.
      * @param json Objeto JSON que representa una KanbanList.
      * @returns Objeto de la clase KanbanList.
      */
-    static fromJSON(json: any, calendar: Calendario): KanbanList {
-        let kanbanList = Object.create(KanbanList.prototype);
+    static fromJSON(json: any, calendar: Calendario): ListaKanban {
+        let kanbanList = Object.create(ListaKanban.prototype);
         kanbanList = Object.assign(kanbanList, json, {
             events: json.events.map((event: any) => Evento.fromJSON(event, kanbanList))
         });

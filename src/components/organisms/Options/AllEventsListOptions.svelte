@@ -61,6 +61,7 @@
             type="date"
             value={dateToString(startDate).split("T")[0]}
             on:change={(e) => {
+                // @ts-ignore 'e.target' is possibly 'null'.
                 startDate = new Date(e.target.value);
                 startDate.setHours(0, 0, 0, 0);
                 checkEndDate();
@@ -74,6 +75,7 @@
             type="date"
             value={dateToString(endDate).split("T")[0]}
             on:change={(e) => {
+                // @ts-ignore 'e.target' is possibly 'null'.
                 endDate = new Date(e.target.value);
                 endDate.setHours(0, 0, 0, 0);
                 checkStartDate();

@@ -3,7 +3,7 @@
     import CompInput from "../molecules/CompInput.svelte";
     import { addNewCalendar } from "../../lib/ManageEvents";
     import { Calendario } from "../../classes/Calendario";
-    import { KanbanList } from "../../classes/KanbanList";
+    import { ListaKanban } from "../../classes/ListaKanban";
 
     export let addCalendarModal: boolean = false;
     export let calendarColor: string;
@@ -22,7 +22,7 @@
     <button
         on:click={() => {
             const calendar = new Calendario(calendarColor, [], calendarName);
-            const kanbanList = new KanbanList([], defaultList, calendar);
+            const kanbanList = new ListaKanban([], defaultList, calendar);
             calendar.setKanbanLists = [kanbanList];
             addNewCalendar(calendar);
         }}

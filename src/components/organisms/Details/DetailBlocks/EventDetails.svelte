@@ -65,7 +65,13 @@
         <div class="comp-input">
             <label for="kanban-list">Kanban List</label>
             <div id="kanban-list-input">
-                <select id="kanban-list" bind:value={kanbanList}>
+                <select
+                    id="kanban-list"
+                    bind:value={kanbanList}
+                    on:change={() => {
+                        $currentEvent.changeKanbanist(kanbanList);
+                    }}
+                >
                     {#each calendar.kanbanLists as list}
                         <option value={list}>
                             {list.name}

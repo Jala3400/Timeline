@@ -25,7 +25,7 @@
                 currentMode = "organization";
                 $currentDetails = "allCalendars";
             }}
-            selected={currentMode === "oragnization"}
+            selected={currentMode === "organization"}
         />
         <IconButton
             text="L"

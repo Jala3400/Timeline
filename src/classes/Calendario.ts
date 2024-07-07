@@ -1,7 +1,7 @@
 import { get } from 'svelte/store';
-import { calendars, currentDetails, currentEvent, eventsList } from '../store';
+import { calendars, currentCalendar, currentDetails, currentEvent, eventsList } from '../store';
 import { Evento } from "./Evento";
-import { KanbanList } from './KanbanList';
+import { ListaKanban } from './ListaKanban';
 
 /**
  * Clase que representa un calendario.
@@ -9,12 +9,12 @@ import { KanbanList } from './KanbanList';
 export class Calendario {
     name: string;
     color: string;
-    kanbanLists: KanbanList[];
-    defaultList: KanbanList;
+    kanbanLists: ListaKanban[];
+    defaultList: ListaKanban;
     description: string;
     selected: boolean = true;
 
-    constructor(color: string = "#FF0000", kanbanLists: KanbanList[] = [], name: string, description: string = "") {
+    constructor(color: string = "#FF0000", kanbanLists: ListaKanban[] = [], name: string, description: string = "") {
         this.color = color;
         this.kanbanLists = kanbanLists;
         this.defaultList = kanbanLists[0];
@@ -60,7 +60,7 @@ export class Calendario {
      * Método getter para la propiedad kanbanLists.
      * @returns Las listas kanban en el calendario.
      */
-    get getKanbanLists(): KanbanList[] {
+    get getKanbanLists(): ListaKanban[] {
         return this.kanbanLists;
     }
 
@@ -68,7 +68,7 @@ export class Calendario {
      * Método setter para la propiedad kanbanLists.
      * @param kanbanLists Las nuevas listas kanban para el calendario.
      */
-    set setKanbanLists(kanbanLists: KanbanList[]) {
+    set setKanbanLists(kanbanLists: ListaKanban[]) {
         this.kanbanLists = kanbanLists;
         this.defaultList = kanbanLists[0];
     }
@@ -77,7 +77,7 @@ export class Calendario {
      * Método getter para la propiedad defaultList.
      * @returns La lista kanban por defecto del calendario.
      */
-    get getDefaultList(): KanbanList {
+    get getDefaultList(): ListaKanban {
         return this.defaultList;
     }
 
@@ -85,7 +85,7 @@ export class Calendario {
      * Método setter para la propiedad defaultList.
      * @param defaultList La nueva lista kanban por defecto para el calendario.
      */
-    set setDefaultList(defaultList: KanbanList) {
+    set setDefaultList(defaultList: ListaKanban) {
         this.defaultList = defaultList;
     }
 
@@ -136,7 +136,7 @@ export class Calendario {
     static fromJSON(json: any): Calendario {
         let calendar = Object.create(Calendario.prototype);
         calendar = Object.assign(calendar, json, {
-            kanbanLists: json.kanbanLists.map((list: any) => KanbanList.fromJSON(list, calendar))
+            kanbanLists: json.kanbanLists.map((list: any) => ListaKanban.fromJSON(list, calendar))
         });
         calendar.defaultList = calendar.kanbanLists[0];
         return calendar;
@@ -158,6 +158,7 @@ export class Calendario {
         this.tempAddEvent(event);
         currentDetails.set("event");
         currentEvent.set(event);
+        currentCalendar.set(this);
     }
 
     /**
@@ -166,6 +167,43 @@ export class Calendario {
     */
     tempDeleteEvent(event: Evento) {
         event.kanbanList.tempDeleteEvent(event);
+    }
+
+    /**
+ * Método que añade una lista kanban al calendario sin actualizar nada.
+ * @param kanbanList Lista kanban a añadir.
+ */
+    tempAddKanbanList(kanbanList: ListaKanban) {
+        this.kanbanLists.push(kanbanList);
+    }
+
+    /**
+     * Método que añade una lista kanban al calendario.
+     * @param kanbanList Lista kanban a añadir.
+     */
+    addKanbanList(kanbanList: ListaKanban) {
+        this.tempAddKanbanList(kanbanList);
+        currentCalendar.update((value) => { return value });
+    }
+
+    /**
+ * Método que elimina una lista kanban del calendario sin actualizar nada.
+ * @param kanbanList Lista kanban a eliminar.
+ */
+    tempDeleteKanbanList(kanbanList: ListaKanban) {
+        const index = this.kanbanLists.indexOf(kanbanList);
+        if (index !== -1) {
+            this.kanbanLists.splice(index, 1);
+        }
+    }
+
+    /**
+     * Método que elimina una lista kanban del calendario y actualiza los eventos.
+     * @param kanbanList Lista kanban a eliminar.
+     */
+    deleteKanbanList(kanbanList: ListaKanban) {
+        this.tempDeleteKanbanList(kanbanList);
+        currentCalendar.set(this);
     }
 
     /**
