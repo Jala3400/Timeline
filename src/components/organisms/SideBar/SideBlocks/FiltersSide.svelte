@@ -3,8 +3,6 @@
     import { createEventDispatcher } from "svelte";
     import Filter from "../../Filter/Filter.svelte";
 
-    export let date = true;
-
     const dispatch = createEventDispatcher();
 
     // Lanza el evento para añadir un evento
@@ -15,7 +13,7 @@
 
 <div id="calendars-side">
     <div id="side-main">
-        <Filter {date} />
+        <Filter />
     </div>
     <div id="side-bottom">
         <NeonButton text={"Add Event"} func={addEventEvent} />

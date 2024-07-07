@@ -142,9 +142,9 @@ export function load3daysOpt() {
  */
 export function lookDate(date: string | Date, events: Evento[]) {
     let i = 0;
-    date = new Date(date);
+    date = dateToString(new Date(date));
     while (i < events.length) {
-        if (dateToString(date) <= dateToString(new Date(events[i].date!))) {
+        if (date <= dateToString(new Date(events[i].date!))) {
             return i;
         } else { i++ };
     }

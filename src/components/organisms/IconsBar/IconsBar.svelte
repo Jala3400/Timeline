@@ -20,6 +20,14 @@
             selected={currentMode === "mainPage"}
         />
         <IconButton
+            text="O"
+            func={() => {
+                currentMode = "organization";
+                $currentDetails = "allCalendars";
+            }}
+            selected={currentMode === "oragnization"}
+        />
+        <IconButton
             text="L"
             func={() => {
                 currentMode = "absoluteList";

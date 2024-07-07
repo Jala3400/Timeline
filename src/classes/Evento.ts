@@ -13,7 +13,7 @@ export class Evento {
     description: string;
     kanbanList: KanbanList;
 
-    constructor(name: string = "new event", date: Date | string = new Date, description: string = "", kanbanList: KanbanList) {
+    constructor(name: string = "new event", description: string = "", kanbanList: KanbanList, date?: Date | string) {
         this.name = name;
         if (date) {
             this.date = dateToString(new Date(date));

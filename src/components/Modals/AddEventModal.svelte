@@ -25,17 +25,21 @@
 
     // Añade un evento al calendario seleccionado
     function addEventCard(calendar: Calendario) {
-        const evento = new Evento(
-            name,
-            dateToString(new Date(date)),
-            description,
-            kanbanList
-        );
-        calendar.addEvent(evento);
-        if (evento.date) {
-            $eventsList.splice(lookDate(evento.date, $eventsList), 0, evento);
+        let evento: Evento;
+        if (date !== "") {
+            evento = new Evento(
+                name,
+                description,
+                kanbanList,
+                dateToString(new Date(date))
+            );
+            $eventsList.splice(lookDate(evento.date!, $eventsList), 0, evento);
             $eventsList = $eventsList;
+        } else {
+            evento = new Evento(name, description, kanbanList);
         }
+        calendar.addEvent(evento);
+        console.log("Event added to calendar: ", calendar);
     }
 
     function updateKanbanList(calendar: Calendario) {

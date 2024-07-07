@@ -46,8 +46,8 @@ const testKanbanList = new KanbanList([], "test", testCalendar);
 defaultCalendar.setKanbanLists = [defaultKanbanList];
 testCalendar.setKanbanLists = [testKanbanList];
 
-defaultKanbanList.tempAddEvent(new Evento("Default", dateToString(new Date()), "def", defaultKanbanList));
-testKanbanList.tempAddEvent(new Evento("Test", dateToString(new Date(0)), "asd", testKanbanList));
+defaultKanbanList.tempAddEvent(new Evento("Default", "def", defaultKanbanList, dateToString(new Date())));
+testKanbanList.tempAddEvent(new Evento("Test", "asd", testKanbanList, dateToString(new Date(0))));
 
 let existingCalendars: Calendario[] = parse(localStorage.getItem("calendars") ?? stringify([defaultCalendar, testCalendar]));
 

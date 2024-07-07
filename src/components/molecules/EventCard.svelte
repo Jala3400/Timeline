@@ -18,6 +18,7 @@
     // Establece el evento actual y cambia la vista a la de detalles del evento.
     function selectEvent() {
         $currentEvent = event;
+        $currentCalendar = event.getCalendar;
         $currentDetails = "event";
     }
 
