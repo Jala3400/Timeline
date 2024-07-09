@@ -55,7 +55,7 @@
         $currentDetails = "event";
     }}
     draggable="true"
-    on:dragstart={(e) => onDragStart(e, event, index)}
+    on:dragstart|stopPropagation={(e) => onDragStart(e, event, index)}
     on:dragover={onDragOver}
     on:drop|stopPropagation={(e) => onDrop(e, event, index)}
 >
@@ -66,10 +66,14 @@
     .kanban-card {
         padding: 10px;
         border-radius: 8px;
+        background-color: color-mix(
+            in srgb,
+            #0f0f0f 82.75%,
+            var(--main-color-pure) 17.25%
+        );
     }
     .kanban-card-title {
         font-size: 1.1em;
-        font-weight: bold;
         text-align: left;
         overflow: hidden;
         text-overflow: ellipsis;
