@@ -14,8 +14,8 @@
 
     function onDragStart(e: DragEvent, index: number) {
         if (e.dataTransfer) {
-            e.dataTransfer.setData("index", JSON.stringify(index));
             e.dataTransfer.setData("type", "calendar");
+            e.dataTransfer.setData("index", JSON.stringify(index));
         }
     }
 
@@ -23,7 +23,7 @@
         e.preventDefault();
     }
 
-    function onDrop_(e: DragEvent, index: number) {
+    function onDropLocal(e: DragEvent, index: number) {
         if (e.dataTransfer && e.dataTransfer.getData("type") === "calendar") {
             e.preventDefault();
             const indexDragged = JSON.parse(e.dataTransfer.getData("index"));
@@ -45,7 +45,7 @@
             on:dragstart={(e) => onDragStart(e, index)}
             on:dragover={onDragOver}
             on:drop={(e) => {
-                onDrop_(e, index);
+                onDropLocal(e, index);
                 onDrop(value);
             }}
         >

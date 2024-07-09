@@ -34,7 +34,7 @@
     --main-color:{calendar.color}{transparency.main};
 --main-color-hover:{calendar.color}{transparency.hover};
 --main-color-active:{calendar.color}{transparency.active}"
-    on:drop={(e) => onDrop(e)}
+    on:drop={onDrop}
     on:dragover={onDragOver}
 >
     <div class="calendar-block">

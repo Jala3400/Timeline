@@ -12,7 +12,7 @@
     export let addCalendarModal: boolean;
     export let date = dateToString(new Date());
     export let calendar = $calendars[0];
-    export let kanbanList = calendar.kanbanLists[0];
+    export let kanbanList = calendar.defaultList;
     let name = "new event";
     let description = "";
 
@@ -38,7 +38,6 @@
             evento = new Evento(name, description, kanbanList);
         }
         calendar.addEvent(evento);
-        console.log("Event added to calendar: ", calendar);
     }
 
     function updateKanbanList(calendar: Calendario) {
@@ -80,7 +79,7 @@
             </div>
         </div>
         <div class="comp-input">
-            <label for="kanban-list">Calendar</label>
+            <label for="kanban-list">Kanban List</label>
             <div id="kanban-list-input">
                 <select id="kanban-list" bind:value={kanbanList}>
                     {#each calendar.kanbanLists as list}

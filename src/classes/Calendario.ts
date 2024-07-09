@@ -138,7 +138,7 @@ export class Calendario {
         calendar = Object.assign(calendar, json, {
             kanbanLists: json.kanbanLists.map((list: any) => ListaKanban.fromJSON(list, calendar))
         });
-        calendar.defaultList = calendar.kanbanLists[0];
+        calendar.defaultList = calendar.kanbanLists.find((list: any) => list.name === json.defaultList.name);
         return calendar;
     }
 
@@ -147,7 +147,7 @@ export class Calendario {
      * @param event Evento a añadir.
     */
     tempAddEvent(event: Evento) {
-        this.defaultList.tempAddEvent(event);
+        event.kanbanList.tempAddEvent(event);
     }
 
     /** 

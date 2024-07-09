@@ -60,7 +60,7 @@
     class:disabled
     class:today
     on:click={addEvent}
-    on:drop={(e) => onDrop(e)}
+    on:drop={onDrop}
     on:dragover={onDragOver}
 >
     {date.getDate()}

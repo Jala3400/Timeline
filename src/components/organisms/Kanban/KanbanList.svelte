@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { ListaKanban } from "../../../classes/ListaKanban";
-    import { currentCalendar, eventFilter } from "../../../store";
+    import { currentCalendar, currentEvent, eventFilter } from "../../../store";
     import KanbanCard from "./KanbanCard.svelte";
     import { onMount } from "svelte";
     import { createEventDispatcher } from "svelte";
@@ -21,9 +21,26 @@
             nameInput.focus();
         }
     });
+
+    function onDragOver(e: DragEvent) {
+        e.preventDefault();
+    }
+
+    function onDrop(e: DragEvent) {
+        if (e.dataTransfer && e.dataTransfer.getData("type") === "event") {
+            e.preventDefault();
+            $currentEvent.changeKanbanlist(kanbanList);
+        }
+    }
 </script>
 
-<div class="kanban-list">
+<div
+    class="kanban-list"
+    draggable="true"
+    on:dragover={onDragOver}
+    on:drop={onDrop}
+    role="presentation"
+>
     <input
         class="kanban-list-name"
         type="text"
@@ -37,8 +54,8 @@
         }}
     />
     <div class="card-list">
-        {#each kanbanList.events.filter( (event) => event.pasaFiltroSuave($eventFilter) ) as event}
-            <KanbanCard {event} />
+        {#each kanbanList.events.filter( (event) => event.pasaFiltroSuave($eventFilter) ) as event, index}
+            <KanbanCard {event} {index} />
         {/each}
     </div>
     <div class="bottom-buttons">
