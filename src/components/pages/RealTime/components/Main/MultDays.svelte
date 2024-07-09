@@ -54,17 +54,10 @@
                         )
                     )
                     .filter((event) => {
-                        if (event.calendar.selected) return event;
+                        if (event.pasaFiltroSuave($eventFilter)) return event;
                     })}
                 <Day
-                    events={eventos.filter((event) => {
-                        if (
-                            event.calendar.selected &&
-                            event.pasaFiltroSuave($eventFilter)
-                        ) {
-                            return event;
-                        }
-                    })}
+                    events={eventos}
                     day={new Date(focusTime + dayInms * (index - offset))}
                     on:addEvent
                 />

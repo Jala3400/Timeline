@@ -6,14 +6,16 @@
         currentEvent,
         constants,
         eventsList,
+        currentCalendar,
     } from "../../../../store";
     import CompInput from "../../../molecules/CompInput.svelte";
 
     $: color = calendar.color;
     const transparency = $constants.transparency;
 
-    let calendar = $currentEvent.calendar;
-    let date = dateToString(new Date($currentEvent.date));
+    let calendar = $currentEvent.getCalendar;
+    let kanbanList = $currentEvent.kanbanList;
+    let date = dateToString(new Date($currentEvent.date!));
     let changeEvent = true;
 
     /// Cambia la fecha del evento actual.
@@ -21,7 +23,6 @@
         // Al cambiar la fecha del evento, no se debe actualizar el currentEvent, porque entonces se forma un búcle
         changeEvent = false;
         $currentEvent.changeDate(date);
-        $calendars = $calendars; // Actualiza el store para que se actualice la vista indivual de calendarios (CalendarsList).
         changeEvent = true;
     }
 
@@ -29,9 +30,10 @@
     currentEvent.subscribe((value) => {
         if ($currentDetails == "event" && changeEvent) {
             $eventsList = $eventsList;
-            $calendars = $calendars;
-            date = dateToString(new Date(value.date));
-            calendar = value.calendar;
+            $currentCalendar = value.getCalendar;
+            date = dateToString(new Date(value.date!));
+            calendar = value.getCalendar;
+            kanbanList = value.kanbanList;
         }
     });
 </script>
@@ -61,16 +63,36 @@
                 {/each}
             </select>
         </div>
-        <CompInput
-            label="Date"
-            type="datetime-local"
-            bind:value={date}
-            change={() => {
-                changeDate(date);
-            }}
-        />
+        <div class="comp-input">
+            <label for="kanban-list">Kanban List</label>
+            <div id="kanban-list-input">
+                <select
+                    id="kanban-list"
+                    bind:value={kanbanList}
+                    on:change={() => {
+                        $currentEvent.changeKanbanlist(kanbanList);
+                    }}
+                >
+                    {#each $currentCalendar.kanbanLists as list}
+                        <option value={list}>
+                            {list.name}
+                        </option>
+                    {/each}
+                </select>
+            </div>
+        </div>
+        <div class="two-span">
+            <CompInput
+                label="Date"
+                type="datetime-local"
+                bind:value={date}
+                change={() => {
+                    changeDate(date);
+                }}
+            />
+        </div>
 
-        <div class="comp-input" style="grid-area:Description">
+        <div class="comp-input two-span">
             <div>Description</div>
             <textarea
                 name="description"
@@ -79,7 +101,7 @@
             />
         </div>
 
-        <div id="buttons" style="grid-area: Buttons;">
+        <div id="buttons" class="two-span">
             <button
                 on:click={() => {
                     $currentEvent.delete();
@@ -111,10 +133,6 @@
     }
     #event-data {
         display: grid;
-        grid-template-areas:
-            "Calendar Date"
-            "Description Description"
-            "Footer Buttons";
         grid-template-columns: 1fr 1fr;
         gap: 20px;
     }
@@ -127,6 +145,9 @@
         flex-direction: column;
         gap: 5px;
         width: 100%;
+    }
+    .two-span {
+        grid-column: span 2;
     }
     @media (max-width: 1200px) {
         #event-name {

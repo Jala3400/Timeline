@@ -10,7 +10,7 @@
     import ColoredIcon from "../atoms/ColoredIcon.svelte";
 
     export let event: Evento;
-    $: color = event.calendar.color;
+    $: color = event.getCalendar.color;
 
     const transparency = $constants.transparency;
     const dateColors = $constants.dateColors;
@@ -18,6 +18,7 @@
     // Establece el evento actual y cambia la vista a la de detalles del evento.
     function selectEvent() {
         $currentEvent = event;
+        $currentCalendar = event.getCalendar;
         $currentDetails = "event";
     }
 
@@ -28,7 +29,7 @@
         $currentEvent = evento;
     }
 
-    $: dateDiff = dateDifference(new Date(event.date));
+    $: dateDiff = dateDifference(new Date(event.date!));
 
     function dateColor(dateDiff: string) {
         let color = "#000000";
@@ -60,11 +61,12 @@
 >
     <div class="left">
         <ColoredIcon
-            text={event.calendar.name.charAt(0).toUpperCase()}
+            text={event.kanbanList.name.charAt(0).toUpperCase()}
             {color}
             func={() => {
                 // Al hacer click en el tiempo restante, se cambian los detalles al calendario del evento.
-                $currentCalendar = event.calendar;
+                $currentCalendar = event.getCalendar;
+                $currentEvent = event;
                 $currentDetails = "calendar";
             }}
         />
@@ -72,7 +74,7 @@
     <h3 class="event-name">{event.name}</h3>
 
     <p class="event-date">
-        {new Date(event.date).toLocaleTimeString([], {
+        {new Date(event.date ?? 0).toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
         })}
@@ -91,7 +93,7 @@
         align-items: center;
         border-radius: 0;
         background-color: var(--bg-light);
-        padding: 0.2em 1.2em;
+        padding: 0.2em 0.75em;
         width: 100%;
         max-width: 700px;
     }
@@ -106,7 +108,7 @@
         background-color: var(--bg-lighter);
     }
     .event-card:active {
-        background-color: var(--bg-lighter-er);
+        background-color: var(--bg-lightest);
     }
 
     .event-date {

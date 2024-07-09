@@ -46,6 +46,7 @@
                 class="special-input-value"
                 value={shortYear}
                 on:change={(e) => {
+                // @ts-ignore 'e.target' is possibly 'null'.
                     focusDate.setFullYear(parseInt(e.target.value));
                     focusDate = focusDate;
                 }}
@@ -55,6 +56,7 @@
                 class="special-input-value"
                 value={shortMonth}
                 on:change={(e) => {
+                // @ts-ignore 'e.target' is possibly 'null'.
                     focusDate.setMonth(months.indexOf(e.target.value));
                     focusDate = focusDate;
                 }}

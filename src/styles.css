@@ -1,10 +1,13 @@
 :root {
   --color: #f6f6f6;
 
+  --color-black: #000000;
+  --bg-white: #FFFFFF;
+
   --bg: #202020;
   --bg-light: #282828;
   --bg-lighter: #303030;
-  --bg-lighter-er: #353535;
+  --bg-lightest: #353535;
 
   --bg-secondary: #404040;
   --bg-secondary-light: #505050;
@@ -96,6 +99,23 @@ label {
 
 textarea {
   resize: none;
+}
+
+/* Little tricks */
+
+.horizontal-scroller {
+
+  position: absolute;
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transform: rotate(-90deg) translateY(-100%);
+  transform-origin: right top;
+}
+
+.horizontal-scroller>div {
+  transform: rotate(90deg);
+  transform-origin: right top;
 }
 
 ::-moz-selection {

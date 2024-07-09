@@ -1,14 +1,16 @@
 <script lang="ts">
     import { calendars } from "../../../../../store";
     import CalendarBlock from "../../../../organisms/CalendarBlock/CalendarBlock.svelte";
-    import { onMount } from 'svelte';
+    import { onMount } from "svelte";
+
+    let thisContainer: HTMLDivElement;
 
     onMount(() => {
-        document.getElementById('calendars-container').scrollLeft = 0;
+        thisContainer.scrollLeft = 0;
     });
 </script>
 
-<div id="calendars-container">
+<div id="calendars-container" bind:this={thisContainer}>
     {#each $calendars as calendar}
         {#if calendar.selected}
             <CalendarBlock {calendar} />

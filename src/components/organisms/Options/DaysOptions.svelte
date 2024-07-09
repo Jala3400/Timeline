@@ -36,6 +36,7 @@
             type="date"
             value={dateToString(focusDay).split("T")[0]}
             on:change={(e) => {
+                // @ts-ignore 'e.target' is possibly 'null'.
                 focusDay = new Date(e.target.value);
                 focusDay.setHours(0, 0, 0, 0);
             }}

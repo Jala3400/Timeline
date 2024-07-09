@@ -1,7 +1,7 @@
 import { get } from 'svelte/store';
-import { lookDate } from '../lib/ManageEvents';
-import { calendars, currentDetails, currentEvent, eventsList } from '../store';
+import { calendars, currentCalendar, currentDetails, currentEvent, eventsList } from '../store';
 import { Evento } from "./Evento";
+import { ListaKanban } from './ListaKanban';
 
 /**
  * Clase que representa un calendario.
@@ -9,15 +9,35 @@ import { Evento } from "./Evento";
 export class Calendario {
     name: string;
     color: string;
-    events: Evento[];
+    kanbanLists: ListaKanban[];
+    defaultList: ListaKanban;
     description: string;
     selected: boolean = true;
 
-    constructor(color: string = "#FF0000", events: Evento[] = [], name: string, description: string = "") {
+    constructor(color: string = "#FF0000", kanbanLists: ListaKanban[] = [], name: string, description: string = "") {
         this.color = color;
-        this.events = events;
+        this.kanbanLists = kanbanLists;
+        this.defaultList = kanbanLists[0];
         this.name = name;
         this.description = description;
+    }
+
+    /**
+     * Método que devuelve todos los eventos del calendario ordenados por fecha.
+     * @returns Un array de eventos ordenados por fecha.
+     */
+    getDatedEvents(): Evento[] {
+        let events: Evento[] = this.kanbanLists.reduce((acc: Evento[], list) =>
+            acc.concat(list.events.filter(
+                event => event.date
+            ))
+            , []);
+        events.sort((a, b) => {
+            const dateA = new Date(a.date!);
+            const dateB = new Date(b.date!);
+            return dateA.getTime() - dateB.getTime();
+        });
+        return events;
     }
 
     /**
@@ -37,27 +57,36 @@ export class Calendario {
     }
 
     /**
-     * Método getter para la propiedad events.
-     * @returns Los eventos en el calendario.
+     * Método getter para la propiedad kanbanLists.
+     * @returns Las listas kanban en el calendario.
      */
-    get getEvents(): Evento[] {
-        return this.events;
+    get getKanbanLists(): ListaKanban[] {
+        return this.kanbanLists;
     }
 
     /**
-     * Método setter para la propiedad events.
-     * @param events Los nuevos eventos para el calendario.
+     * Método setter para la propiedad kanbanLists.
+     * @param kanbanLists Las nuevas listas kanban para el calendario.
      */
-    set setEvents(events: Evento[]) {
-        this.events = events;
+    set setKanbanLists(kanbanLists: ListaKanban[]) {
+        this.kanbanLists = kanbanLists;
+        this.defaultList = kanbanLists[0];
     }
 
     /**
-     * Método getter para la propiedad name.
-     * @returns El nombre del calendario.
+     * Método getter para la propiedad defaultList.
+     * @returns La lista kanban por defecto del calendario.
      */
-    get getName(): string {
-        return this.name;
+    get getDefaultList(): ListaKanban {
+        return this.defaultList;
+    }
+
+    /**
+     * Método setter para la propiedad defaultList.
+     * @param defaultList La nueva lista kanban por defecto para el calendario.
+     */
+    set setDefaultList(defaultList: ListaKanban) {
+        this.defaultList = defaultList;
     }
 
     /**
@@ -100,15 +129,17 @@ export class Calendario {
     }
 
     /**
-     * Método que convierte un objeto JSON en un objeto de la clase Calendar.
+     * Método que convierte un objeto JSON en un objeto de la clase Calendario.
      * @param json Objeto JSON que representa un calendario.
-     * @returns Objeto de la clase Calendar.
+     * @returns Objeto de la clase Calendario.
      */
     static fromJSON(json: any): Calendario {
         let calendar = Object.create(Calendario.prototype);
-        return Object.assign(calendar, json, {
-            events: json.events.map((event: any) => Evento.fromJSON(event, calendar))
+        calendar = Object.assign(calendar, json, {
+            kanbanLists: json.kanbanLists.map((list: any) => ListaKanban.fromJSON(list, calendar))
         });
+        calendar.defaultList = calendar.kanbanLists.find((list: any) => list.name === json.defaultList.name);
+        return calendar;
     }
 
     /**
@@ -116,11 +147,7 @@ export class Calendario {
      * @param event Evento a añadir.
     */
     tempAddEvent(event: Evento) {
-        this.events.splice(
-            lookDate(event.date, this.events),
-            0,
-            event
-        );
+        event.kanbanList.tempAddEvent(event);
     }
 
     /** 
@@ -131,6 +158,7 @@ export class Calendario {
         this.tempAddEvent(event);
         currentDetails.set("event");
         currentEvent.set(event);
+        currentCalendar.set(this);
     }
 
     /**
@@ -138,8 +166,44 @@ export class Calendario {
      * @param event Evento a eliminar.
     */
     tempDeleteEvent(event: Evento) {
-        const index = this.events.indexOf(event);
-        this.events.splice(index, 1);
+        event.kanbanList.tempDeleteEvent(event);
+    }
+
+    /**
+ * Método que añade una lista kanban al calendario sin actualizar nada.
+ * @param kanbanList Lista kanban a añadir.
+ */
+    tempAddKanbanList(kanbanList: ListaKanban) {
+        this.kanbanLists.push(kanbanList);
+    }
+
+    /**
+     * Método que añade una lista kanban al calendario.
+     * @param kanbanList Lista kanban a añadir.
+     */
+    addKanbanList(kanbanList: ListaKanban) {
+        this.tempAddKanbanList(kanbanList);
+        currentCalendar.update((value) => { return value });
+    }
+
+    /**
+ * Método que elimina una lista kanban del calendario sin actualizar nada.
+ * @param kanbanList Lista kanban a eliminar.
+ */
+    tempDeleteKanbanList(kanbanList: ListaKanban) {
+        const index = this.kanbanLists.indexOf(kanbanList);
+        if (index !== -1) {
+            this.kanbanLists.splice(index, 1);
+        }
+    }
+
+    /**
+     * Método que elimina una lista kanban del calendario y actualiza los eventos.
+     * @param kanbanList Lista kanban a eliminar.
+     */
+    deleteKanbanList(kanbanList: ListaKanban) {
+        this.tempDeleteKanbanList(kanbanList);
+        currentCalendar.set(this);
     }
 
     /**
