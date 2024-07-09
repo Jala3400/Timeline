@@ -26,5 +26,8 @@
         font-size: 1.1em;
         font-weight: bold;
         text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 </style>

@@ -27,9 +27,9 @@
 --main-color-active:{$currentCalendar.color}{transparency.active}"
 >
     {#each kanbanLists as kanbanList}
-        <KanbanList {kanbanList} />
+        <KanbanList {kanbanList} on:addEvent />
     {/each}
-    <button id="add-list-btn" on:click={addList}> Add List </button>
+    <button id="add-list-btn" on:click={addList}>+ Add List</button>
 </div>
 
 <style>
@@ -51,7 +51,8 @@
         border: none;
         border-radius: 12px;
         padding: 10px;
-        width: min(17.5em, 25%);
+        min-width: min(17.5em, 25%);
+        max-width: min(17.5em, 25%);
         cursor: pointer;
     }
     #add-list-btn:hover {

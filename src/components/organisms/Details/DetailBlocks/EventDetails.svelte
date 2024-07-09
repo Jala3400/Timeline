@@ -6,6 +6,7 @@
         currentEvent,
         constants,
         eventsList,
+        currentCalendar,
     } from "../../../../store";
     import CompInput from "../../../molecules/CompInput.svelte";
 
@@ -29,7 +30,7 @@
     currentEvent.subscribe((value) => {
         if ($currentDetails == "event" && changeEvent) {
             $eventsList = $eventsList;
-            $calendars = $calendars;
+            $currentCalendar = value.getCalendar;
             date = dateToString(new Date(value.date!));
             calendar = value.getCalendar;
             kanbanList = value.kanbanList;
@@ -69,10 +70,10 @@
                     id="kanban-list"
                     bind:value={kanbanList}
                     on:change={() => {
-                        $currentEvent.changeKanbanist(kanbanList);
+                        $currentEvent.changeKanbanlist(kanbanList);
                     }}
                 >
-                    {#each calendar.kanbanLists as list}
+                    {#each $currentCalendar.kanbanLists as list}
                         <option value={list}>
                             {list.name}
                         </option>

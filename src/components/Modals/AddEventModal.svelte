@@ -11,9 +11,8 @@
     export let calendarColor: string;
     export let addCalendarModal: boolean;
     export let date = dateToString(new Date());
-
-    let calendar = $calendars[0];
-    let kanbanList = calendar.kanbanLists[0];
+    export let calendar = $calendars[0];
+    export let kanbanList = calendar.kanbanLists[0];
     let name = "new event";
     let description = "";
 

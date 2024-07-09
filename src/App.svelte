@@ -60,11 +60,16 @@
                     currentMode = "mainPage";
                     break;
                 case "2":
+                case "o":
+                    event.preventDefault();
+                    currentMode = "organization";
+                    break;
+                case "3":
                 case "l":
                     event.preventDefault();
                     currentMode = "absoluteList";
                     break;
-                case "3":
+                case "4":
                 case "r":
                     event.preventDefault();
                     currentMode = "realTime";

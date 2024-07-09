@@ -105,7 +105,7 @@ export class Evento {
      * Método que cambia el calendario de un evento y actualiza los calendarios.
      * @param targList 
      */
-    changeKanbanist(targList: ListaKanban) {
+    changeKanbanlist(targList: ListaKanban) {
         currentCalendar.update((value) => {
             this.kanbanList.tempDeleteEvent(this);
             targList.tempAddEvent(this);
@@ -124,11 +124,13 @@ export class Evento {
      */
     changeCalendar(calendar: Calendario) {
         const index = calendar.kanbanLists.findIndex((list) => list.name === this.kanbanList.name);
+        this.kanbanList.tempDeleteEvent(this);
         if (index !== -1) {
             this.kanbanList = calendar.kanbanLists[index];
         } else {
             this.kanbanList = calendar.defaultList;
         }
+        this.kanbanList.tempAddEvent(this);
         calendars.update((value) => {
             return value;
         });

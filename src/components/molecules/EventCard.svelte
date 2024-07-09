@@ -66,6 +66,7 @@
             func={() => {
                 // Al hacer click en el tiempo restante, se cambian los detalles al calendario del evento.
                 $currentCalendar = event.getCalendar;
+                $currentEvent = event;
                 $currentDetails = "calendar";
             }}
         />

@@ -2,6 +2,7 @@
     import {
         calendars,
         currentCalendar,
+        currentEvent,
         currentDetails,
         eventFilter,
     } from "../../../../store";
@@ -15,7 +16,7 @@
     const dispatch = createEventDispatcher();
 
     // Lanza el evento para añadir un evento
-    function addEventEvent() {
+    function addEvent() {
         dispatch("addEvent");
     }
 </script>
@@ -39,13 +40,14 @@
                     bind:focusObject={$currentCalendar}
                     click={(calendar) => {
                         $currentCalendar = calendar;
+                        $currentEvent = $currentCalendar.defaultList.events[0];
                         $currentDetails = "calendar";
                     }}
                 />
             </NavFolder>
         </div>
         <div id="side-bottom">
-            <NeonButton text={"Add Event"} func={addEventEvent} />
+            <NeonButton text={"Add Event"} func={addEvent} />
         </div>
     </div>
 </SideBar>
