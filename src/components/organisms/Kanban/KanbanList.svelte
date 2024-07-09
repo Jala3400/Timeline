@@ -104,7 +104,9 @@
             {/each}
         </div>
         <div class="bottom-buttons">
-            <button id="add-card" on:click={addEvent}>+ Add a card</button>
+            <button id="add-card" on:click={addEvent} class="bottom-button"
+                >Add event</button
+            >
             <button
                 on:click={() => {
                     kanbanList.delete();
@@ -120,8 +122,9 @@
         flex-direction: column;
         padding: 10px;
         border-radius: 12px;
-        min-width: min(17.5em, 25%);
-        max-width: min(17.5em, 25%);
+        --width: clamp(max(10%, 12.5em), 15%, 20em);
+        min-width: var(--width);
+        max-width: var(--width);
         background-color: var(--main-color);
         overflow: hidden;
         max-height: 100%;
@@ -130,7 +133,8 @@
     }
     .kanban-list.collapsed {
         width: fit-content;
-        min-width: 0 !important;
+        min-width: 0;
+        min-width: 2.2em;
         text-orientation: sideways;
         writing-mode: vertical-lr;
         -webkit-writing-mode: vertical-lr;
