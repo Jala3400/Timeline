@@ -32,7 +32,7 @@
         <div id="bottom-content">
             <div id="events-list-today">
                 {#if events.length !== 0}
-                    <DayBlock events={events} />
+                    <DayBlock {events} />
                 {:else}
                     <h1>Sin eventos</h1>
                 {/if}
@@ -89,6 +89,6 @@
         padding: 1em;
         border-radius: 16px;
         background-color: var(--bg);
-        overflow: hidden;
+        overflow: auto;
     }
 </style>
