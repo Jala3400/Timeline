@@ -3,6 +3,8 @@
     import { constants, currentCalendar } from "../../../../../store";
     import KanbanList from "../../../../organisms/Kanban/KanbanList.svelte";
 
+    const transparency = $constants.transparency;
+
     let kanbanLists = $currentCalendar.kanbanLists;
 
     currentCalendar.subscribe((value) => {
@@ -14,16 +16,15 @@
             new ListaKanban([], "", $currentCalendar)
         );
     }
-
-    $: colorId = $currentCalendar.id;
 </script>
 
 <div
     id="kanban-container"
-    style="--main-color-pure: var(--{colorId}-color-pure);
-    --main-color: var(--{colorId}-color);
-    --main-color-hover: var(--{colorId}-color-hover);
-    --main-color-active: var(--{colorId}-color-active);"
+    style="
+--main-color-pure: {$currentCalendar.color};
+--main-color:{$currentCalendar.color}{transparency.main};
+--main-color-hover:{$currentCalendar.color}{transparency.hover};
+--main-color-active:{$currentCalendar.color}{transparency.active}"
 >
     {#each kanbanLists as kanbanList, index}
         <KanbanList {kanbanList} {index} on:addEvent />

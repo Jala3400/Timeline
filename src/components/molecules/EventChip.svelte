@@ -1,10 +1,12 @@
 <script lang="ts">
     import type { Evento } from "../../classes/Evento";
-    import { currentDetails, currentEvent } from "../../store";
+    import { constants, currentDetails, currentEvent } from "../../store";
 
     export let event: Evento;
 
-    $: colorId = event.getCalendar.id;
+    const transparency = $constants.transparency;
+
+    $: color = event.getCalendar.color;
     $: top =
         ((new Date(event.date!).getHours() +
             new Date(event.date!).getMinutes() / 60) /
@@ -23,10 +25,10 @@
 <div
     on:click|stopPropagation
     on:mousedown|stopPropagation
-    style="--main-color-pure: var(--{colorId}-color-pure);
-    --main-color: var(--{colorId}-color);
-    --main-color-hover: var(--{colorId}-color-hover);
-    --main-color-active: var(--{colorId}-color-active);
+    style="--main-color-pure:{color};
+    --main-color:{color}{transparency.main};
+    --main-color-hover:{color}{transparency.hover};
+    --main-color-active:{color}{transparency.active};
 --top:{top}%;"
 >
     <button on:click={selectEvent} class="time-bar" style="top: {top}%"

@@ -13,7 +13,6 @@ export class Calendario {
     defaultList: ListaKanban;
     description: string;
     selected: boolean = true;
-    id: string = new Date().getTime().toString() + Math.floor(Math.random() * 1000).toString();
 
     constructor(color: string = "#FF0000", kanbanLists: ListaKanban[] = [], name: string, description: string = "") {
         this.color = color;

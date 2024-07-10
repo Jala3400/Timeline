@@ -24,16 +24,16 @@
             $currentCalendar = $currentCalendar;
         }
     }
-    let colorId = calendar.id;
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
     class="complete-block"
-    style="--main-color-pure: var(--{colorId}-color-pure);
-    --main-color: var(--{colorId}-color);
-    --main-color-hover: var(--{colorId}-color-hover);
-    --main-color-active: var(--{colorId}-color-active);"
+    style="
+    --main-color-pure: {calendar.color};
+    --main-color:{calendar.color}{transparency.main};
+--main-color-hover:{calendar.color}{transparency.hover};
+--main-color-active:{calendar.color}{transparency.active}"
     on:drop={onDrop}
     on:dragover={onDragOver}
 >

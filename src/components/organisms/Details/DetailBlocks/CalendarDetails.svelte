@@ -1,19 +1,22 @@
 <script lang="ts">
-    import { currentCalendar, eventsList } from "../../../../store";
+    import { constants, currentCalendar, eventsList } from "../../../../store";
     import { deleteCalendar } from "../../../../lib/ManageEvents";
     import CompInput from "../../../molecules/CompInput.svelte";
     import EventsList from "../../EventsList/EventsList.svelte";
 
-    $: colorId = $currentCalendar.id;
-    $: events = $currentCalendar.getDatedEvents();
+    const transparency = $constants.transparency;
+
+    $: color = $currentCalendar.color;
+    $:events = $currentCalendar.getDatedEvents();
 </script>
 
 <div
     id="calendar-details"
-    style="--main-color-pure: var(--{colorId}-color-pure);
-    --main-color: var(--{colorId}-color);
-    --main-color-hover: var(--{colorId}-color-hover);
-    --main-color-active: var(--{colorId}-color-active);"
+    style="
+    --main-color-pure: {color};
+    --main-color:{color}{transparency.main};
+    --main-color-hover:{color}{transparency.hover};
+    --main-color-active:{color}{transparency.active}"
 >
     <input id="calendar-name" type="text" bind:value={$currentCalendar.name} />
     <div id="calendar-data">

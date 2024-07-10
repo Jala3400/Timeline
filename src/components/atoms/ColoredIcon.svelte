@@ -3,41 +3,20 @@
 
     export let func: Function = (...ags: any) => {};
     export let text: string;
-    export let colorId = "main_";
-    export let customColor = "";
+
+    export let color = "#FF0000";
 
     const transparency = $constants.transparency;
-
-    let style = customColor
-        ? `--main-color-pure: ${customColor};
---main-color: color-mix(
-            in srgb,
-            ${customColor} ${transparency.main},
-            var(--bg)
-        );
---main-color-hover: color-mix(
-            in srgb,
-            ${customColor} ${transparency.hover};
-            var(--bg)
-        );
---main-color-active: color-mix(
-            in srgb,
-            ${customColor} ${transparency.active};
-            var(--bg)
-        );
-        {styleColors}
-`
-        : `--main-color-pure: var(--${colorId}-color-pure);
-        --main-color: var(--${colorId}-color);
-        --main-color-hover: var(--${colorId}-color-hover);
-        --main-color-active: var(--${colorId}-color-active);`;
 </script>
 
 <button
     on:mousedown={func()}
     on:click|stopPropagation
     class="colored-icon"
-    {style}>{text}</button
+    style="--main-color-pure:{color};
+    --main-color:{color}{transparency.main};
+    --main-color-hover:{color}{transparency.hover};
+    --main-color-active:{color}{transparency.active}">{text}</button
 >
 
 <style>

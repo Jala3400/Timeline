@@ -81,28 +81,6 @@
     const transparency = $constants.transparency;
     let hideSidebar: boolean = false;
     let hideDetails: boolean = false;
-
-    let mainColor = $configuration.mainColor;
-
-    $: styleColors = $calendars.reduce((style, calendar) => {
-        style += `--${calendar.id}-color-pure: ${calendar.color};
-        --${calendar.id}-color: color-mix(
-            in srgb,
-            ${calendar.color} ${transparency.main},
-            var(--bg)
-        );
-        --${calendar.id}-color-hover: color-mix(
-            in srgb,
-            ${calendar.color} ${transparency.hover},
-            var(--bg)
-        );
-        --${calendar.id}-color-active: color-mix(
-            in srgb,
-            ${calendar.color} ${transparency.active},
-            var(--bg)
-        );`;
-        return style;
-    }, "");
 </script>
 
 <div
@@ -110,23 +88,10 @@
     class:hideSidebar
     class:hideDetails
     style="
-    --main_-color-pure: {$configuration.mainColor};
---main_-color: color-mix(
-            in srgb,
-            {mainColor} {transparency.main},
-            var(--bg)
-        );
---main_-color-hover: color-mix(
-            in srgb,
-            {mainColor} {transparency.hover};
-            var(--bg)
-        );
---main_-color-active: color-mix(
-            in srgb,
-            {mainColor} {transparency.active};
-            var(--bg)
-        );
-        {styleColors}
+    --main-color-pure: {$configuration.mainColor};
+--main-color: {$configuration.mainColor}{transparency.main};
+--main-color-hover: {$configuration.mainColor}{transparency.hover};
+--main-color-active: {$configuration.mainColor}{transparency.active};
 "
 >
     <IconsBar bind:currentMode bind:hideSidebar />

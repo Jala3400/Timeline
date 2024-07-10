@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { constants } from "../../store";
+
     export let list: any[];
     export let radio: boolean = false;
     export let focusObject: any;
@@ -7,6 +9,8 @@
     export let change = (key: string) => {};
     export let click = (key: any) => {};
     export let onDrop = (key: any) => {};
+
+    const transparency = $constants.transparency;
 
     function onDragStart(e: DragEvent, index: number) {
         if (e.dataTransfer) {
@@ -32,10 +36,11 @@
     {#each list as value, index}
         <label
             class="side-checkbox"
-            style="--main-color-pure: var(--{value.id}-color-pure);
-    --main-color: var(--{value.id}-color);
-    --main-color-hover: var(--{value.id}-color-hover);
-    --main-color-active: var(--{value.id}-color-active);"
+            style="--main-color-pure:{value.color};
+    --main-color:{value.color}{transparency.low};
+        --main-color-hover:{value.color}{transparency.hover};
+        --main-color-active:{value.color}{transparency.active};
+        --main-color-full:{value.color}{transparency.full}"
             draggable="true"
             on:dragstart={(e) => onDragStart(e, index)}
             on:dragover={onDragOver}
@@ -110,7 +115,7 @@
     }
     .checkbox:checked::before {
         content: "";
-        background-color: var(--main-color-pure);
+        background-color: var(--main-color-full);
         border-radius: 100%;
     }
 </style>
