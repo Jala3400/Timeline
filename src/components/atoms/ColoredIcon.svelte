@@ -10,23 +10,10 @@
 
     let style = customColor
         ? `--main-color-pure: ${customColor};
---main-color: color-mix(
-            in srgb,
-            ${customColor} ${transparency.main},
-            var(--bg)
-        );
---main-color-hover: color-mix(
-            in srgb,
-            ${customColor} ${transparency.hover};
-            var(--bg)
-        );
---main-color-active: color-mix(
-            in srgb,
-            ${customColor} ${transparency.active};
-            var(--bg)
-        );
-        {styleColors}
-`
+        --main-color: ${customColor}${transparency.main};
+        --main-color-hover: ${customColor}${transparency.hover};
+        --main-color-active: ${customColor}${transparency.active};
+        `
         : `--main-color-pure: var(--${colorId}-color-pure);
         --main-color: var(--${colorId}-color);
         --main-color-hover: var(--${colorId}-color-hover);

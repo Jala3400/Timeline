@@ -22,9 +22,9 @@ configuration.subscribe((value) => {
 const existingConstants = JSON.parse(
     //Todo: Uncomment bellow
     // localStorage.getItem("constants") ?? 
-    JSON.stringify({ transparency: { low: "25%", main: "37.5%", hover: "56.25%", active: "66.4%", full: "100%" }, transparencyApp: { none: "0%", light: "6.25%", main: "11.4%", hover: "17.6%", active: "21.1%" }, discreteColor: "#FFFFFF", dateColors: { good: "#00FF80", close: "#FFFF00", urgent: "#ff00FF", overdue: "#FF0000" } })
+    // JSON.stringify({ transparency: { low: "25%", main: "37.5%", hover: "56.25%", active: "66.4%", full: "100%" }, transparencyApp: { none: "0%", light: "6.25%", main: "11.4%", hover: "17.6%", active: "21.1%" }, discreteColor: "#FFFFFF", dateColors: { good: "#00FF80", close: "#FFFF00", urgent: "#ff00FF", overdue: "#FF0000" } })
     // En hexadecimal
-    // JSON.stringify({ transparency: { low: "40", main: "60", hover: "90", active: "AA", full: "FF" }, transparencyApp: { none: "00", light: "0A", main: "1C", hover: "2d", active: "36" }, discreteColor: "#FFFFFF", dateColors: { good: "#00FF80", close: "#FFFF00", urgent: "#ff00FF", overdue: "#FF0000" } })
+    JSON.stringify({ transparency: { low: "40", main: "60", hover: "90", active: "AA", full: "FF" }, transparencyApp: { none: "00", light: "0A", main: "1C", hover: "2d", active: "36" }, discreteColor: "#FFFFFF", dateColors: { good: "#00FF80", close: "#FFFF00", urgent: "#ff00FF", overdue: "#FF0000" } })
 )
 
 export const constants = readable(existingConstants);
