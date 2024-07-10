@@ -10,9 +10,8 @@
     import ColoredIcon from "../atoms/ColoredIcon.svelte";
 
     export let event: Evento;
-    $: color = event.getCalendar.color;
+    $: colorId = event.getCalendar.id;
 
-    const transparency = $constants.transparency;
     const dateColors = $constants.dateColors;
 
     // Establece el evento actual y cambia la vista a la de detalles del evento.
@@ -52,17 +51,17 @@
 <button
     on:click={selectEvent}
     class="event-card"
-    style="--main-color-pure:{color};
-    --main-color:{color}{transparency.main};
---main-color-hover:{color}{transparency.hover};
---main-color-active:{color}{transparency.active}"
+    style="--main-color-pure: var(--{colorId}-color-pure);
+    --main-color: var(--{colorId}-color);
+    --main-color-hover: var(--{colorId}-color-hover);
+    --main-color-active: var(--{colorId}-color-active);"
     draggable="true"
     on:dragstart={(e) => onDragStart(e, event)}
 >
     <div class="left">
         <ColoredIcon
             text={event.kanbanList.name.charAt(0).toUpperCase()}
-            {color}
+            {colorId}
             func={() => {
                 // Al hacer click en el tiempo restante, se cambian los detalles al calendario del evento.
                 $currentCalendar = event.getCalendar;
@@ -81,7 +80,7 @@
     </p>
 
     <div class="right">
-        <ColoredIcon text={dateDiff} color={timeColor} func={selectEvent} />
+        <ColoredIcon text={dateDiff} customColor={timeColor} func={selectEvent} />
     </div>
 </button>
 

@@ -10,8 +10,7 @@
     } from "../../../../store";
     import ColoredButton from "../../../atoms/ColoredButton.svelte";
 
-    const transparency = $constants.transparency;
-    let color = $configuration.mainColor;
+    let colorId = $configuration.mainColor;
 
     /// Establece el calendario actual y cambia la vista a la de detalles del calendario.
     function selectCalendar(calendar: Calendario) {
@@ -23,10 +22,10 @@
 
 <div
     id="all-calendars-details"
-    style="--main-color-pure:{color};
-    --main-color:{color}{transparency.main};
-    --main-color-hover:{color}{transparency.hover};
-    --main-color-active:{color}{transparency.active}"
+    style="--main-color-pure: var(--{colorId}-color-pure);
+    --main-color: var(--{colorId}-color);
+    --main-color-hover: var(--{colorId}-color-hover);
+    --main-color-active: var(--{colorId}-color-active);"
 >
     <h1 id="title">Calendars</h1>
     <div id="calendars">
@@ -34,7 +33,7 @@
             <div class="calendar-details">
                 <ColoredButton
                     text={calendar.name}
-                    color={calendar.color}
+                    colorId={calendar.id}
                     func={() => {
                         selectCalendar(calendar);
                     }}
@@ -66,6 +65,7 @@
         display: flex;
         flex-direction: column;
         gap: 5px;
+        filter: brightness(1.2);
     }
     @media (max-width: 1200px) {
         #title {
