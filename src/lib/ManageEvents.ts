@@ -1,7 +1,7 @@
 import { get } from 'svelte/store';
 import { Calendario } from '../classes/Calendario';
 import type { Evento } from '../classes/Evento';
-import { calendars, eventsList, currentCalendar, currentDetails } from '../store';
+import { calendars, eventsList, currentCalendar, currentDetails, currentEvent } from '../store';
 import { parse, stringify } from 'flatted';
 
 
@@ -101,18 +101,23 @@ export function addNewCalendar(calendar: Calendario) {
  * @param calendar el nombre del calendario
  */
 export function deleteCalendar(calendar: Calendario) {
-    calendars.update((calendars) => {
-        // Borra el calendario de los calendarios seleccionados
-        const index = calendars.indexOf(calendar);
-        if (index != -1) {
-            calendars.splice(index, 1);
-        }
-        return calendars
-    });
+    if (get(calendars).length == 1) {
+        return false
+    } else {
+        calendars.update((calendars) => {
+            // Borra el calendario de los calendarios seleccionados
+            const index = calendars.indexOf(calendar);
+            if (index != -1) {
+                calendars.splice(index, 1);
+            }
+            return calendars
+        });
+    }
 
     currentCalendar.set(get(calendars)[0]);
+    currentEvent.set(get(currentCalendar).getFirstEvent());
     currentDetails.set("allCalendars")
-
+    return true;
 }
 
 export function saveCalendars() {

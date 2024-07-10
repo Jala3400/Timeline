@@ -163,7 +163,7 @@ export class Evento {
      */
     delete() {
         this.kanbanList.tempDeleteEvent(this);
-        currentEvent.update((value) => { return this.kanbanList.events[0] });
+        currentEvent.update((value) => { return this.kanbanList.events[0] ?? this.kanbanList.calendar.getFirstEvent() });
         eventsList.update((value) => value.filter((event) => event !== this));
         currentCalendar.update((value) => { return value });
     }

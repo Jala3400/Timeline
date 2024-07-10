@@ -75,7 +75,6 @@
         align-items: center;
         text-align: center;
         border-radius: 12px;
-        overflow: hidden;
         width: 100%;
         max-width: 700px;
         overflow: auto;

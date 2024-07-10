@@ -1,7 +1,7 @@
 # Timeline
 
 Una aplicación simple para organización.
-Está en desarrolloy, no se recomienda su uso en producción, aún le faltan funciones y se van a romper cosas.
+Una excusa para aprender Svelte. Se ha hehco un poco sobre la marcha, asique no espereis gran cosa.
 
 ---
 
@@ -33,6 +33,10 @@ La parte principal consta de 3 secciones en las que cambia el contenido libremen
 ## 4. Calendario
 
 ![Calendario](./images/Calendar.png)
+
+## 5. Kanban
+
+![Kanban](./images/Kanban.png)
 
 ---
 

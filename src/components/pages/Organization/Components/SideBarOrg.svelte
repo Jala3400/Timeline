@@ -40,7 +40,7 @@
                     bind:focusObject={$currentCalendar}
                     click={(calendar) => {
                         $currentCalendar = calendar;
-                        $currentEvent = $currentCalendar.defaultList.events[0];
+                        $currentEvent = $currentCalendar.getFirstEvent();
                         $currentDetails = "calendar";
                     }}
                 />

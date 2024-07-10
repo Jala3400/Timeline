@@ -195,6 +195,7 @@ export class Calendario {
         if (index !== -1) {
             this.kanbanLists.splice(index, 1);
         }
+        this.defaultList = this.kanbanLists[0];
     }
 
     /**
@@ -202,8 +203,12 @@ export class Calendario {
      * @param kanbanList Lista kanban a eliminar.
      */
     deleteKanbanList(kanbanList: ListaKanban) {
+        if (this.kanbanLists.length == 1) {
+            return false;
+        }
         this.tempDeleteKanbanList(kanbanList);
         currentCalendar.set(this);
+        return true;
     }
 
     /**
@@ -217,5 +222,15 @@ export class Calendario {
             this.tempDeleteEvent(event);
             return value
         })
+    }
+
+    /**
+     * Método que devuelve el primer evento del calendario, tenga o no fecha.
+     * @returns El primer evento del calendario.
+     */
+    getFirstEvent(): Evento {
+        const events = this.kanbanLists.reduce((acc: Evento[], list) =>
+            acc.concat(list.events), []);
+        return events[0] ?? new Evento("new event", "", this.defaultList);
     }
 }

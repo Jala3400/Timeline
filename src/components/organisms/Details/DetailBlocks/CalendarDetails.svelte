@@ -7,7 +7,13 @@
     const transparency = $constants.transparency;
 
     $: color = $currentCalendar.color;
-    $:events = $currentCalendar.getDatedEvents();
+    $: events = $currentCalendar.getDatedEvents();
+
+    let deleteButtonText = "Delete";
+
+    currentCalendar.subscribe((value) => {
+        deleteButtonText = "Delete";
+    });
 </script>
 
 <div
@@ -38,8 +44,10 @@
         <div id="buttons" style="grid-area: Buttons;">
             <button
                 on:click={() => {
-                    deleteCalendar($currentCalendar);
-                }}>Delete</button
+                    if (!deleteCalendar($currentCalendar)) {
+                        deleteButtonText = "No";
+                    }
+                }}>{deleteButtonText}</button
             >
         </div>
     </div>

@@ -54,6 +54,7 @@
         }
     }
     let draggable = true;
+    let deleteButtonText = "Delete";
 </script>
 
 <div
@@ -110,7 +111,9 @@
             <button
                 on:click={() => {
                     kanbanList.delete();
-                }}>Delete</button
+                    deleteButtonText =
+                        deleteButtonText === "Delete" ? "No" : "Delete";
+                }}>{deleteButtonText}</button
             >
         </div>
     </div>
