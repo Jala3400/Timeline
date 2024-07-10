@@ -8,5 +8,5 @@
     <div slot="top">
         <IconButton text="B" selected={true} />
     </div>
-    <FiltersSide on:addEvent slot="main" date={false} />
+    <FiltersSide on:addEvent slot="main" />
 </SideBar>

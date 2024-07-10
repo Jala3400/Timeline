@@ -11,27 +11,37 @@
     export let calendarColor: string;
     export let addCalendarModal: boolean;
     export let date = dateToString(new Date());
-
-    let calendar = $calendars[0];
+    export let calendar = $calendars[0];
+    export let kanbanList = calendar.defaultList;
     let name = "new event";
     let description = "";
 
     // Al cambiar el calendario actual, se actualiza el calendario al que se añade el evento
     currentCalendar.subscribe((value) => {
         calendar = value;
+        kanbanList = value.defaultList;
     });
 
     // Añade un evento al calendario seleccionado
     function addEventCard(calendar: Calendario) {
-        const evento = new Evento(
-            name,
-            dateToString(new Date(date)),
-            description,
-            calendar
-        );
+        let evento: Evento;
+        if (date !== "") {
+            evento = new Evento(
+                name,
+                description,
+                kanbanList,
+                dateToString(new Date(date))
+            );
+            $eventsList.splice(lookDate(evento.date!, $eventsList), 0, evento);
+            $eventsList = $eventsList;
+        } else {
+            evento = new Evento(name, description, kanbanList);
+        }
         calendar.addEvent(evento);
-        $eventsList.splice(lookDate(evento.date, $eventsList), 0, evento);
-        $eventsList = $eventsList;
+    }
+
+    function updateKanbanList(calendar: Calendario) {
+        kanbanList = calendar.defaultList;
     }
 </script>
 
@@ -41,10 +51,18 @@
 >
     <h2 slot="header">Add Event</h2>
     <div slot="content" id="content">
+        <CompInput label="Name" type="text" bind:value={name} />
+        <CompInput label="Date" type="datetime-local" bind:value={date} />
         <div class="comp-input">
             <label for="calendar">Calendar</label>
             <div id="calendar-input">
-                <select id="calendar" bind:value={calendar}>
+                <select
+                    id="calendar"
+                    bind:value={calendar}
+                    on:change={() => {
+                        updateKanbanList(calendar);
+                    }}
+                >
                     {#each $calendars as calendar}
                         <option value={calendar}>
                             {calendar.name}
@@ -60,9 +78,19 @@
                 >
             </div>
         </div>
-        <CompInput label="Name" type="text" bind:value={name} />
-        <CompInput label="Date" type="datetime-local" bind:value={date} />
         <div class="comp-input">
+            <label for="kanban-list">Kanban List</label>
+            <div id="kanban-list-input">
+                <select id="kanban-list" bind:value={kanbanList}>
+                    {#each calendar.kanbanLists as list}
+                        <option value={list}>
+                            {list.name}
+                        </option>
+                    {/each}
+                </select>
+            </div>
+        </div>
+        <div class="comp-input two-span">
             <label for="description">Description</label>
             <textarea id="description" bind:value={description} />
         </div>
@@ -88,5 +116,8 @@
     }
     #calendar {
         width: 100%;
+    }
+    .two-span {
+        grid-column: span 2;
     }
 </style>

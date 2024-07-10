@@ -1,7 +1,7 @@
 import { get } from 'svelte/store';
 import { Calendario } from '../classes/Calendario';
 import type { Evento } from '../classes/Evento';
-import { calendars, eventsList, currentCalendar, currentDetails } from '../store';
+import { calendars, eventsList, currentCalendar, currentDetails, currentEvent } from '../store';
 import { parse, stringify } from 'flatted';
 
 
@@ -50,7 +50,7 @@ export function dateDifference(date1: Date, date2 = new Date()) {
 export function loadEvents() {
     let newEventsList: Evento[] = [];
     for (let calendar of get(calendars)) {
-        newEventsList = mergeEvents(newEventsList, calendar.events);
+        newEventsList = mergeEvents(newEventsList, calendar.getDatedEvents());
     }
     eventsList.set(newEventsList);
 }
@@ -65,7 +65,7 @@ function mergeEvents(existing: Evento[], newEvents: Evento[]) {
     let j = 0;
 
     while (i < existing.length && j < newEvents.length) {
-        if (new Date(existing[i].date) < new Date(newEvents[j].date)) {
+        if (new Date(existing[i].date!) < new Date(newEvents[j].date!)) {
             arr.push(existing[i]);
             i++;
         } else {
@@ -101,18 +101,23 @@ export function addNewCalendar(calendar: Calendario) {
  * @param calendar el nombre del calendario
  */
 export function deleteCalendar(calendar: Calendario) {
-    calendars.update((calendars) => {
-        // Borra el calendario de los calendarios seleccionados
-        const index = calendars.indexOf(calendar);
-        if (index != -1) {
-            calendars.splice(index, 1);
-        }
-        return calendars
-    });
+    if (get(calendars).length == 1) {
+        return false
+    } else {
+        calendars.update((calendars) => {
+            // Borra el calendario de los calendarios seleccionados
+            const index = calendars.indexOf(calendar);
+            if (index != -1) {
+                calendars.splice(index, 1);
+            }
+            return calendars
+        });
+    }
 
     currentCalendar.set(get(calendars)[0]);
+    currentEvent.set(get(currentCalendar).getFirstEvent());
     currentDetails.set("allCalendars")
-
+    return true;
 }
 
 export function saveCalendars() {
@@ -142,9 +147,9 @@ export function load3daysOpt() {
  */
 export function lookDate(date: string | Date, events: Evento[]) {
     let i = 0;
-    date = new Date(date);
+    date = dateToString(new Date(date));
     while (i < events.length) {
-        if (dateToString(date) <= dateToString(new Date(events[i].date))) {
+        if (date <= dateToString(new Date(events[i].date!))) {
             return i;
         } else { i++ };
     }

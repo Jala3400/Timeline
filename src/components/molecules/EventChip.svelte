@@ -6,10 +6,10 @@
 
     const transparency = $constants.transparency;
 
-    $: color = event.calendar.color;
+    $: color = event.getCalendar.color;
     $: top =
-        ((new Date(event.date).getHours() +
-            new Date(event.date).getMinutes() / 60) /
+        ((new Date(event.date!).getHours() +
+            new Date(event.date!).getMinutes() / 60) /
             24) *
         100;
 

@@ -1,22 +1,24 @@
-import { calendars, currentEvent, eventsList } from '../store';
+import { calendars, currentCalendar, currentEvent, eventsList } from '../store';
 import { Calendario } from './Calendario';
 import { dateToString, lookDate } from '../lib/ManageEvents';
 import type { EventoFiltro } from './EventoFilltro';
+import type { ListaKanban } from './ListaKanban';
 
 /**
  * Clase que representa un evento.
  */
 export class Evento {
     name: string;
-    date: string;
+    date?: string;
     description: string;
-    calendar: Calendario;
+    kanbanList: ListaKanban;
 
-    constructor(name: string = "new event", date: Date | string = new Date, description: string = "", calendar: Calendario = new Calendario("#FF0000", [], "default")) {
+    constructor(name: string = "new event", description: string = "", kanbanList: ListaKanban, date?: Date | string) {
         this.name = name;
-        this.date = dateToString(new Date(date));
-        this.description = description;
-        this.calendar = calendar;
+        if (date) {
+            this.date = dateToString(new Date(date));
+        } this.description = description;
+        this.kanbanList = kanbanList;
     }
 
     /**
@@ -39,7 +41,7 @@ export class Evento {
      * Método getter para la propiedad date.
      * @returns La fecha del evento.
      */
-    get getDate(): string {
+    get getDate(): string | undefined {
         return this.date;
     }
 
@@ -68,19 +70,23 @@ export class Evento {
     }
 
     /**
-     * Método getter para la propiedad calendar.
-     * @returns El calendario del evento.
+     * Método getter para la propiedad kanbanList.
+     * @returns La lista kanban del evento.
      */
-    get getCalendar(): Calendario {
-        return this.calendar;
+    get getKanbanList(): ListaKanban {
+        return this.kanbanList;
     }
 
     /**
-     * Método setter para la propiedad calendar.
-     * @param calendar El nuevo calendario del evento.
+     * Método setter para la propiedad kanbanList.
+     * @param kanbanList La nueva lista kanban del evento.
      */
-    set setCalendar(calendar: Calendario) {
-        this.calendar = calendar;
+    set setKanbanList(kanbanList: ListaKanban) {
+        this.kanbanList = kanbanList;
+    }
+
+    get getCalendar(): Calendario {
+        return this.kanbanList.calendar;
     }
 
     /**
@@ -88,41 +94,44 @@ export class Evento {
      * @param json Objeto JSON que representa un evento.
      * @returns Objeto de la clase Evento.
      */
-    static fromJSON(json: any, calendar: Calendario): Evento {
+    static fromJSON(json: any, kanbanList: ListaKanban): Evento {
         let evento = Object.create(Evento.prototype);
         Object.assign(evento, json);
-        evento.calendar = calendar;
+        evento.kanbanList = kanbanList;
         return evento;
     }
 
     /**
      * Método que cambia el calendario de un evento y actualiza los calendarios.
-     * @param targCalendar 
+     * @param targList 
      */
-    changeCalendar(targCalendar: Calendario) {
-        calendars.update((value) => {
-            this.calendar.tempDeleteEvent(this);
-            targCalendar.tempAddEvent(this);
+    changeKanbanlist(targList: ListaKanban) {
+        currentCalendar.update((value) => {
+            this.kanbanList.tempDeleteEvent(this);
+            targList.tempAddEvent(this);
             return value;
         })
         currentEvent.update((value => {
-            value.calendar = targCalendar;
+            value.kanbanList = targList;
             return value
         }))
-        this.calendar = targCalendar;
+        this.kanbanList = targList;
     }
 
     /**
-     * Método que cambia la fecha de un evento y actualiza los calendarios.
-     * @param date 
+     * Método que cambia el calendario de un evento y actualiza los calendarios.
+     * @param calendar 
      */
-    changeDate(date: string) {
-        this.calendar.tempDeleteEvent(this);
-        this.date = date;
-        this.calendar.tempAddEvent(this);
-        eventsList.update((value) => {
-            value.splice(value.indexOf(this), 1);
-            value.splice(lookDate(this.date, value), 0, this);
+    changeCalendar(calendar: Calendario) {
+        const index = calendar.kanbanLists.findIndex((list) => list.name === this.kanbanList.name);
+        this.kanbanList.tempDeleteEvent(this);
+        if (index !== -1) {
+            this.kanbanList = calendar.kanbanLists[index];
+        } else {
+            this.kanbanList = calendar.defaultList;
+        }
+        this.kanbanList.tempAddEvent(this);
+        calendars.update((value) => {
             return value;
         });
         currentEvent.update((value) => {
@@ -131,24 +140,45 @@ export class Evento {
     }
 
     /**
+     * Método que cambia la fecha de un evento y actualiza los calendarios.
+     * @param date 
+     */
+    changeDate(date: string) {
+        this.date = date;
+        eventsList.update((value) => {
+            value.splice(value.indexOf(this), 1);
+            value.splice(lookDate(date, value), 0, this);
+            return value;
+        });
+        currentEvent.update((value) => {
+            return value;
+        });
+        currentCalendar.update((value) => {
+            return value;
+        });
+    }
+
+    /**
      * Método que elimina este evento.
      */
     delete() {
-        this.calendar.deleteEvent(this);
+        this.kanbanList.tempDeleteEvent(this);
+        currentEvent.update((value) => { return this.kanbanList.events[0] ?? this.kanbanList.calendar.getFirstEvent() });
         eventsList.update((value) => value.filter((event) => event !== this));
+        currentCalendar.update((value) => { return value });
     }
 
     pasaFiltro(filtro: EventoFiltro) {
         return (
-            (this.name.includes(filtro.name) || filtro.name == "")
+            this.pasaFiltroSuave(filtro)
             && (!filtro.filtByDate
                 || (
-                    new Date(this.date) >= new Date(filtro.startDate)
-                    && new Date(this.date) <= new Date(filtro.endDate)
+                    this.date && new Date(this.date) >= new Date(filtro.startDate)
+                    && this.date && new Date(this.date) <= new Date(filtro.endDate)
                 ))
         )
     }
     pasaFiltroSuave(filtro: EventoFiltro) {
-        return this.name.includes(filtro.name) || filtro.name == ""
+        return this.getCalendar.selected && (this.name.includes(filtro.name) || filtro.name == "")
     }
 }

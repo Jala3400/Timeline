@@ -3,6 +3,7 @@
     import IconsBar from "./components/organisms/IconsBar/IconsBar.svelte";
     import AbsoluteList from "./components/pages/AbsoluteList/AbsoluteList.svelte";
     import MainPage from "./components/pages/MainPage/MainPage.svelte";
+    import Organization from "./components/pages/Organization/Organization.svelte";
     import RealTime from "./components/pages/RealTime/RealTime.svelte";
     import { loadEvents, saveCalendars } from "./lib/ManageEvents";
     import {
@@ -17,6 +18,7 @@
     let currentMode: string = "mainPage";
     let page: { [key: string]: any } = {
         mainPage: MainPage,
+        organization: Organization,
         absoluteList: AbsoluteList,
         realTime: RealTime,
     };
@@ -58,11 +60,16 @@
                     currentMode = "mainPage";
                     break;
                 case "2":
+                case "o":
+                    event.preventDefault();
+                    currentMode = "organization";
+                    break;
+                case "3":
                 case "l":
                     event.preventDefault();
                     currentMode = "absoluteList";
                     break;
-                case "3":
+                case "4":
                 case "r":
                     event.preventDefault();
                     currentMode = "realTime";

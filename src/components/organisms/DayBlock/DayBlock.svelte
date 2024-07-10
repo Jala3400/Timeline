@@ -2,11 +2,11 @@
     import { onMount } from "svelte";
     import type { Evento } from "../../../classes/Evento";
     import { dateToString } from "../../../lib/ManageEvents";
-    import { currentCalendar, currentEvent } from "../../../store";
+    import { currentEvent } from "../../../store";
     import EventCard from "../../molecules/EventCard.svelte";
 
     export let events: Evento[] = [];
-    $: targetDay = new Date(events[0].date).toDateString();
+    $: targetDay = new Date(events[0].date!).toDateString();
     $: today = targetDay === new Date().toDateString();
 
     let currentDayElement: HTMLDivElement;
@@ -25,12 +25,11 @@
         if (e.dataTransfer?.getData("type") === "event") {
             e.preventDefault();
             let targetDate = new Date(targetDay);
-            let newDate = new Date($currentEvent.date);
+            let newDate = new Date($currentEvent.date ?? new Date());
             newDate.setFullYear(targetDate.getFullYear());
             newDate.setMonth(targetDate.getMonth());
             newDate.setDate(targetDate.getDate());
             $currentEvent.changeDate(dateToString(newDate));
-            $currentCalendar = $currentCalendar;
         }
     }
 </script>
@@ -76,7 +75,6 @@
         align-items: center;
         text-align: center;
         border-radius: 12px;
-        overflow: hidden;
         width: 100%;
         max-width: 700px;
         overflow: auto;
