@@ -1,6 +1,11 @@
 <script lang="ts">
     import type { ListaKanban } from "../../../classes/ListaKanban";
-    import { currentCalendar, currentEvent, eventFilter } from "../../../store";
+    import {
+        constants,
+        currentCalendar,
+        currentEvent,
+        eventFilter,
+    } from "../../../store";
     import KanbanCard from "./KanbanCard.svelte";
     import { onMount } from "svelte";
     import { createEventDispatcher } from "svelte";
@@ -8,6 +13,11 @@
     export let index: number;
     export let kanbanList: ListaKanban;
     $: collapsed = kanbanList.collapsed;
+
+    const transparency = $constants.transparency;
+
+    $: color = kanbanList.calendar.color;
+    $: activeColor = color + transparency.main;
 
     function onDragStart(e: DragEvent, index: number) {
         if (e.dataTransfer) {
@@ -64,6 +74,7 @@
     on:dragover={onDragOver}
     on:drop={onDrop}
     role="presentation"
+    style="background-color: {activeColor};"
 >
     <div class="top-kanban">
         <button
@@ -125,7 +136,6 @@
         --width: clamp(max(10%, 12.5em), 15%, 20em);
         min-width: var(--width);
         max-width: var(--width);
-        background-color: var(--main-color);
         overflow: hidden;
         max-height: 100%;
         gap: 10px;

@@ -2,16 +2,11 @@
     import type { Calendario } from "../../../../classes/Calendario";
     import {
         calendars,
-        configuration,
-        constants,
         currentCalendar,
         currentDetails,
         currentEvent,
     } from "../../../../store";
     import ColoredButton from "../../../atoms/ColoredButton.svelte";
-
-    const transparency = $constants.transparency;
-    let color = $configuration.mainColor;
 
     /// Establece el calendario actual y cambia la vista a la de detalles del calendario.
     function selectCalendar(calendar: Calendario) {
@@ -21,13 +16,7 @@
     }
 </script>
 
-<div
-    id="all-calendars-details"
-    style="--main-color-pure:{color};
-    --main-color:{color}{transparency.main};
-    --main-color-hover:{color}{transparency.hover};
-    --main-color-active:{color}{transparency.active}"
->
+<div id="all-calendars-details">
     <h1 id="title">Calendars</h1>
     <div id="calendars">
         {#each $calendars as calendar}

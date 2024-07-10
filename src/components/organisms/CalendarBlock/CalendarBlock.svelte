@@ -24,20 +24,29 @@
             $currentCalendar = $currentCalendar;
         }
     }
+
+    $: color = calendar.color;
+
+    let isHovered = false;
+    let isActive = false;
+
+    $: activeColor = color + transparency.main;
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
+    on:mousedown={() => (isActive = true)}
+    on:mouseup={() => (isActive = false)}
+    on:mouseenter={() => (isHovered = true)}
+    on:mouseleave={() => {
+        isHovered = false;
+        isActive = false;
+    }}
     class="complete-block"
-    style="
-    --main-color-pure: {calendar.color};
-    --main-color:{calendar.color}{transparency.main};
---main-color-hover:{calendar.color}{transparency.hover};
---main-color-active:{calendar.color}{transparency.active}"
     on:drop={onDrop}
     on:dragover={onDragOver}
 >
-    <div class="calendar-block">
+    <div class="calendar-block" style="background-color: {activeColor};">
         <input
             id="calendar-name"
             type="text"
@@ -71,7 +80,6 @@
         justify-content: center;
         align-items: center;
         border-radius: 12px;
-        background-color: var(--main-color);
         padding: 1em;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
         min-width: 700px;

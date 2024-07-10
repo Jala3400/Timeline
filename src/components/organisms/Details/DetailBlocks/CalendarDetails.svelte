@@ -7,17 +7,12 @@
     const transparency = $constants.transparency;
 
     $: color = $currentCalendar.color;
-    $:events = $currentCalendar.getDatedEvents();
+    $: events = $currentCalendar.getDatedEvents();
+
+    $: activeColor = color + transparency.main;
 </script>
 
-<div
-    id="calendar-details"
-    style="
-    --main-color-pure: {color};
-    --main-color:{color}{transparency.main};
-    --main-color-hover:{color}{transparency.hover};
-    --main-color-active:{color}{transparency.active}"
->
+<div id="calendar-details" style="background-color: {activeColor};">
     <input id="calendar-name" type="text" bind:value={$currentCalendar.name} />
     <div id="calendar-data">
         <CompInput
@@ -56,7 +51,6 @@
     #calendar-details {
         padding: 1em;
         border-radius: 12px;
-        background-color: var(--main-color);
         text-align: unset;
         display: flex;
         flex-direction: column;

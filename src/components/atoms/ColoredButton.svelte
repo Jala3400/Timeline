@@ -6,15 +6,28 @@
     export let color = "#FF0000";
 
     const transparency = $constants.transparency;
+    let isHovered = false;
+    let isActive = false;
+
+    $: bgColor = isHovered
+        ? color + transparency.hover
+        : color + transparency.main;
+    $: activeColor = isActive ? color + transparency.active : bgColor;
 </script>
 
 <button
-    on:mousedown={func}
+    on:mousedown={() => {
+        func();
+        isActive = true;
+    }}
+    on:mouseup={() => (isActive = false)}
+    on:mouseenter={() => (isHovered = true)}
+    on:mouseleave={() => {
+        isHovered = false;
+        isActive = false;
+    }}
     class="colored-btn"
-    style="--main-color-pure:{color};
-    --main-color:{color}{transparency.main};
-    --main-color-hover:{color}{transparency.hover};
-    --main-color-active:{color}{transparency.active}"
+    style="background-color: {activeColor};"
     ><span class="text">
         {text}
     </span>
@@ -22,7 +35,6 @@
 
 <style>
     .colored-btn {
-        background-color: var(--main-color);
         display: flex;
         justify-content: left;
         padding: 5px 10px;
@@ -34,11 +46,5 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-    }
-    .colored-btn:hover {
-        background-color: var(--main-color-hover);
-    }
-    .colored-btn:active {
-        background-color: var(--main-color-active);
     }
 </style>

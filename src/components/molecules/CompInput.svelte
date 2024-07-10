@@ -5,8 +5,8 @@
     export let placeholder: string = "";
 
     export let change = () => {};
-
     export let input = () => {};
+    export let focus = () => {};
 
     function handleInput(e: any) {
         value = e.target.value;
@@ -24,6 +24,7 @@
         {value}
         {placeholder}
         on:change={change}
+        on:focus={focus}
     />
 </label>
 

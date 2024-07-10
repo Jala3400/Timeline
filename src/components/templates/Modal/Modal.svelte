@@ -9,6 +9,7 @@
     const transparency = $constants.transparency;
 
     $: if (dialog && showModal) dialog.showModal();
+    $: activeColor = color + transparency.main;
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
@@ -16,22 +17,19 @@
     bind:this={dialog}
     on:close={() => (showModal = false)}
     on:mousedown|self={() => dialog.close()}
-    style="--main-color-pure:{color};
-    --main-color:{color}{transparency.main};
-    --main-color-hover:{color}{transparency.hover};
-    --main-color-active:{color}{transparency.active};
-    --main-color-full:{color}{transparency.full}"
+    style="border: 2px solid {color}"
 >
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <form
         class="modal"
         on:click|stopPropagation
         on:submit|preventDefault={() => dialog.close()}
+        style="background-color: {activeColor};"
     >
-        <div id="header">
+        <div id="header" style="border-bottom: 1px solid {color};">
             <slot name="header" />
         </div>
-        <div id="content">
+        <div id="content" style="border-bottom: 1px solid {color};">
             <slot name="content" />
         </div>
 
@@ -49,7 +47,6 @@
         border: none;
         padding: 0;
         background-color: var(--bg);
-        border: 2px solid var(--main-color-full);
         border-radius: 12px;
     }
     dialog::backdrop {
@@ -60,21 +57,11 @@
     .modal {
         padding: 1em;
         color: var(--color);
-        background-color: var(--main-color);
         display: grid;
         gap: 20px;
     }
-    .modal {
-        padding: 1em;
-        color: var(--color);
-        background-color: var(--main-color);
-        display: grid;
-        gap: 20px;
-    }
-
     #header,
     #content {
-        border-bottom: 1px solid var(--main-color-full);
         padding: 0 10px;
     }
 

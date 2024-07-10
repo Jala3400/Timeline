@@ -1,5 +1,6 @@
 <script lang="ts">
     import { constants } from "../../store";
+    import CheckBox from "../atoms/CheckBox.svelte";
 
     export let list: any[];
     export let radio: boolean = false;
@@ -34,6 +35,31 @@
 
 <div class="checkbox-group">
     {#each list as value, index}
+        <!-- {#if radio}
+            <CheckBox
+                color={value.color}
+                radio={true}
+                {value}
+                {focusObject}
+                {onDragOver}
+                {onDragStart}
+                {onDropLocal}
+                {change}
+                {click}
+            />
+        {:else}
+            <CheckBox
+                color={value.color}
+                radio={true}
+                {value}
+                {focusObject}
+                {onDragOver}
+                {onDragStart}
+                {onDropLocal}
+                {change}
+                {click}
+            />
+        {/if} -->
         <label
             class="side-checkbox"
             style="--main-color-pure:{value.color};

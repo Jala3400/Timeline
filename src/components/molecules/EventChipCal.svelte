@@ -20,15 +20,26 @@
         $currentEvent = event;
         $currentDetails = "event";
     }
+
+    let isHovered = false;
+    let isActive = false;
+
+    $: bgColor = isHovered
+        ? color + transparency.hover
+        : color + transparency.main;
+    $: activeColor = isActive ? color + transparency.active : bgColor;
 </script>
 
 <button
     on:click|stopPropagation={selectEvent}
-    on:mousedown|stopPropagation
-    style="--main-color-pure:{color};
-    --main-color:{color}{transparency.main};
-    --main-color-hover:{color}{transparency.hover};
-    --main-color-active:{color}{transparency.active};"
+    on:mousedown|stopPropagation={() => (isActive = true)}
+    on:mouseup={() => (isActive = false)}
+    on:mouseenter={() => (isHovered = true)}
+    on:mouseleave={() => {
+        isHovered = false;
+        isActive = false;
+    }}
+    style="background-color: {activeColor};"
     class="event-name"
     draggable="true"
     on:dragstart={(e) => onDragStart(e, event)}
@@ -38,7 +49,6 @@
 
 <style>
     .event-name {
-        background-color: var(--main-color);
         font-size: 16px;
         border-radius: 5px;
         padding: 5px;
@@ -47,11 +57,5 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-    }
-    .event-name:hover {
-        background-color: var(--main-color-hover);
-    }
-    .event-name:active {
-        background-color: var(--main-color-active);
     }
 </style>

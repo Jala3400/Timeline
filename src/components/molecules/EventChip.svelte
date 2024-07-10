@@ -18,25 +18,40 @@
         $currentEvent = event;
         $currentDetails = "event";
     }
+
+    let isHovered = false;
+    let isActive = false;
+
+    $: bgColor = isHovered
+        ? color + transparency.hover
+        : color + transparency.main;
+    $: activeColor = isActive ? color + transparency.active : bgColor;
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
     on:click|stopPropagation
-    on:mousedown|stopPropagation
-    style="--main-color-pure:{color};
-    --main-color:{color}{transparency.main};
-    --main-color-hover:{color}{transparency.hover};
-    --main-color-active:{color}{transparency.active};
---top:{top}%;"
+    on:mousedown|stopPropagation={() => {
+        isActive = true;
+    }}
+    on:mouseup={() => (isActive = false)}
+    on:mouseenter={() => (isHovered = true)}
+    on:mouseleave={() => {
+        isHovered = false;
+        isActive = false;
+    }}
 >
-    <button on:click={selectEvent} class="time-bar" style="top: {top}%"
+    <button
+        on:click={selectEvent}
+        class="time-bar"
+        style="background-color: {activeColor}; top: {top}%"
     ></button>
     <button
         on:click={selectEvent}
         class="event-name"
-        style="top: min(
+        style="background-color: {activeColor};
+        top: min(
             {top}%,
             calc(100% - 2em)
         );"
@@ -52,12 +67,10 @@
         width: 50%;
         left: 0;
         height: 2px;
-        background-color: var(--main-color);
     }
     .event-name {
         transition: top 0s;
         position: absolute;
-        background-color: var(--main-color);
         font-size: 16px;
         border-radius: 0 5px 5px 5px;
         padding: 5px;

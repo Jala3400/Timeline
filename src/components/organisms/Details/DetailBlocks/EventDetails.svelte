@@ -36,15 +36,11 @@
             kanbanList = value.kanbanList;
         }
     });
+
+    $: activeColor = color + transparency.main;
 </script>
 
-<div
-    id="event-details"
-    style="--main-color-pure:{color};
-    --main-color:{color}{transparency.main};
-    --main-color-hover:{color}{transparency.hover};
-    --main-color-active:{color}{transparency.active}"
->
+<div id="event-details" style="background-color: {activeColor};">
     <input id="event-name" type="text" bind:value={$currentEvent.name} />
     <div id="event-data">
         <div class="comp-input">
@@ -115,7 +111,6 @@
     #event-details {
         padding: 1em;
         border-radius: 12px;
-        background-color: var(--main-color);
         text-align: unset;
         display: flex;
         flex-direction: column;

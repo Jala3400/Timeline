@@ -52,10 +52,6 @@
 <button
     on:click={selectEvent}
     class="event-card"
-    style="--main-color-pure:{color};
-    --main-color:{color}{transparency.main};
---main-color-hover:{color}{transparency.hover};
---main-color-active:{color}{transparency.active}"
     draggable="true"
     on:dragstart={(e) => onDragStart(e, event)}
 >

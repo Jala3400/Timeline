@@ -1,9 +1,7 @@
 <script>
     import { ListaKanban } from "../../../../../classes/ListaKanban";
-    import { constants, currentCalendar } from "../../../../../store";
+    import { currentCalendar } from "../../../../../store";
     import KanbanList from "../../../../organisms/Kanban/KanbanList.svelte";
-
-    const transparency = $constants.transparency;
 
     let kanbanLists = $currentCalendar.kanbanLists;
 
@@ -18,14 +16,7 @@
     }
 </script>
 
-<div
-    id="kanban-container"
-    style="
---main-color-pure: {$currentCalendar.color};
---main-color:{$currentCalendar.color}{transparency.main};
---main-color-hover:{$currentCalendar.color}{transparency.hover};
---main-color-active:{$currentCalendar.color}{transparency.active}"
->
+<div id="kanban-container">
     {#each kanbanLists as kanbanList, index}
         <KanbanList {kanbanList} {index} on:addEvent />
     {/each}

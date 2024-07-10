@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { Evento } from "../../../classes/Evento";
     import {
+        constants,
         currentCalendar,
         currentDetails,
         currentEvent,
@@ -8,6 +9,10 @@
 
     export let event: Evento;
     export let index: number;
+
+    const transparency = $constants.transparency;
+
+    $: activeColor = "#0f0f0f" + transparency.hover;
 
     function onDragStart(e: DragEvent, event: Evento, index: number) {
         if (e.dataTransfer) {
@@ -58,6 +63,7 @@
     on:dragstart|stopPropagation={(e) => onDragStart(e, event, index)}
     on:dragover={onDragOver}
     on:drop|stopPropagation={(e) => onDrop(e, event, index)}
+    style="background-color: {activeColor};"
 >
     <div class="kanban-card-title">{event.name}</div>
 </button>
@@ -66,11 +72,6 @@
     .kanban-card {
         padding: 10px;
         border-radius: 8px;
-        background-color: color-mix(
-            in srgb,
-            #0f0f0f 82.75%,
-            var(--main-color-pure) 17.25%
-        );
     }
     .kanban-card-title {
         font-size: 1.1em;
