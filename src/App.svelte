@@ -99,21 +99,9 @@
     class:hideDetails
     style="
     --main_-color-pure: {$configuration.mainColor};
---main_-color: color-mix(
-            in srgb,
-            {mainColor} {transparency.main},
-            var(--bg)
-        );
---main_-color-hover: color-mix(
-            in srgb,
-            {mainColor} {transparency.hover};
-            var(--bg)
-        );
---main_-color-active: color-mix(
-            in srgb,
-            {mainColor} {transparency.active};
-            var(--bg)
-        );
+--main_-color:{mainColor}{transparency.main};
+--main_-color-hover:{mainColor}{transparency.hover};
+--main_-color-active:{mainColor}{transparency.active};
         {styleColors}
 "
 >
