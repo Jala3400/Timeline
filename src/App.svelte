@@ -85,18 +85,18 @@
     let mainColor = $configuration.mainColor;
 
     $: styleColors = $calendars.reduce((style, calendar) => {
-        style += `--${calendar.id}-color-pure: ${calendar.color};`;
-        style += `--${calendar.id}-color: color-mix(
+        style += `--${calendar.id}-color-pure: ${calendar.color};
+        --${calendar.id}-color: color-mix(
             in srgb,
             ${calendar.color} ${transparency.main},
             var(--bg)
-        );`;
-        style += `--${calendar.id}-color-hover: color-mix(
+        );
+        --${calendar.id}-color-hover: color-mix(
             in srgb,
             ${calendar.color} ${transparency.hover},
             var(--bg)
-        );`;
-        style += `--${calendar.id}-color-active: color-mix(
+        );
+        --${calendar.id}-color-active: color-mix(
             in srgb,
             ${calendar.color} ${transparency.active},
             var(--bg)
