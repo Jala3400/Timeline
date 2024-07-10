@@ -1,20 +1,16 @@
 <script>
-    import { constants } from "../../store";
-
     export let func;
     export let text;
-    export let color = "#FF0000";
-
-    const transparency = $constants.transparency;
+    export let colorId = "main_";
 </script>
 
 <button
     on:mousedown={func}
     class="colored-btn"
-    style="--main-color-pure:{color};
-    --main-color:{color}{transparency.main};
-    --main-color-hover:{color}{transparency.hover};
-    --main-color-active:{color}{transparency.active}"
+    style="--main-color-pure: var(--{colorId}-color-pure);
+    --main-color: var(--{colorId}-color);
+    --main-color-hover: var(--{colorId}-color-hover);
+    --main-color-active: var(--{colorId}-color-active);"
     ><span class="text">
         {text}
     </span>

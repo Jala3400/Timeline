@@ -1,12 +1,10 @@
 <script lang="ts">
     import type { Evento } from "../../classes/Evento";
-    import { constants, currentDetails, currentEvent } from "../../store";
+    import { currentDetails, currentEvent } from "../../store";
 
     export let event: Evento;
 
-    const transparency = $constants.transparency;
-
-    $: color = event.getCalendar.color;
+    $: colorId = event.getCalendar.id;
 
     function onDragStart(e: DragEvent, evento: any) {
         if (e.dataTransfer) {
@@ -25,10 +23,10 @@
 <button
     on:click|stopPropagation={selectEvent}
     on:mousedown|stopPropagation
-    style="--main-color-pure:{color};
-    --main-color:{color}{transparency.main};
-    --main-color-hover:{color}{transparency.hover};
-    --main-color-active:{color}{transparency.active};"
+    style="--main-color-pure: var(--{colorId}-color-pure);
+    --main-color: var(--{colorId}-color);
+    --main-color-hover: var(--{colorId}-color-hover);
+    --main-color-active: var(--{colorId}-color-active);"
     class="event-name"
     draggable="true"
     on:dragstart={(e) => onDragStart(e, event)}

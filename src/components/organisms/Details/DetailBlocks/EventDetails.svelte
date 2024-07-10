@@ -10,7 +10,7 @@
     } from "../../../../store";
     import CompInput from "../../../molecules/CompInput.svelte";
 
-    $: color = calendar.color;
+    $: colorId = calendar.id;
     const transparency = $constants.transparency;
 
     let calendar = $currentEvent.getCalendar;
@@ -40,10 +40,10 @@
 
 <div
     id="event-details"
-    style="--main-color-pure:{color};
-    --main-color:{color}{transparency.main};
-    --main-color-hover:{color}{transparency.hover};
-    --main-color-active:{color}{transparency.active}"
+    style="--main-color-pure: var(--{colorId}-color-pure);
+    --main-color: var(--{colorId}-color);
+    --main-color-hover: var(--{colorId}-color-hover);
+    --main-color-active: var(--{colorId}-color-active);"
 >
     <input id="event-name" type="text" bind:value={$currentEvent.name} />
     <div id="event-data">
