@@ -14,6 +14,7 @@
     currentCalendar.subscribe((value) => {
         deleteButtonText = "Delete";
     });
+    let nameInput: HTMLInputElement;
 </script>
 
 <div
@@ -24,7 +25,17 @@
     --main-color-hover:{color}{transparency.hover};
     --main-color-active:{color}{transparency.active}"
 >
-    <input id="calendar-name" type="text" bind:value={$currentCalendar.name} />
+    <input
+        id="calendar-name"
+        type="text"
+        bind:this={nameInput}
+        bind:value={$currentCalendar.name}
+        on:keydown={(event) => {
+            if (event.key === "Enter") {
+                nameInput.blur();
+            }
+        }}
+    />
     <div id="calendar-data">
         <CompInput
             label="Color"

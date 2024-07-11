@@ -61,7 +61,7 @@
 >
     <div class="left">
         <ColoredIcon
-            text={event.kanbanList.name.charAt(0).toUpperCase()}
+            text={event.kanbanList.calendar.name.charAt(0).toUpperCase()}
             {color}
             func={() => {
                 // Al hacer click en el tiempo restante, se cambian los detalles al calendario del evento.

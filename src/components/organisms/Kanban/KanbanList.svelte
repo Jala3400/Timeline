@@ -1,9 +1,9 @@
 <script lang="ts">
+    import { Evento } from "../../../classes/Evento";
     import type { ListaKanban } from "../../../classes/ListaKanban";
     import { currentCalendar, currentEvent, eventFilter } from "../../../store";
     import KanbanCard from "./KanbanCard.svelte";
     import { onMount } from "svelte";
-    import { createEventDispatcher } from "svelte";
 
     export let index: number;
     export let kanbanList: ListaKanban;
@@ -16,11 +16,9 @@
         }
     }
 
-    const dispatch = createEventDispatcher();
-
     // Lanza el evento para añadir un evento
     function addEvent() {
-        dispatch("addEvent", { kanbanList: kanbanList });
+        kanbanList.calendar.addEvent(new Evento("", "", kanbanList));
     }
 
     let nameInput: HTMLInputElement;
