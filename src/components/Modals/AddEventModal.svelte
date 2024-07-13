@@ -109,6 +109,7 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 20px;
+        width: 25em;
     }
     #calendar-input {
         display: flex;

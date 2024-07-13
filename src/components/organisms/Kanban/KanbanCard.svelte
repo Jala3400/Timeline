@@ -14,7 +14,9 @@
     });
 
     function handleClick(e: MouseEvent) {
-        selectEvent(e, event);
+        if (e.detail !== 0) {
+            selectEvent(e, event);
+        }
     }
 
     function onDragStart(e: DragEvent, event: Evento, index: number) {
@@ -69,12 +71,12 @@
         <!-- svelte-ignore a11y-autofocus -->
         <textarea
             class="kanban-card-title-input"
-            rows={Math.ceil(event.name.length / 20)}
+            rows={Math.max(Math.ceil(event.name.length / 20), 1)}
             bind:this={nameInput}
             bind:value={event.name}
             on:blur={() => (editing = false)}
             on:input={() => ($currentEvent = $currentEvent)}
-            on:keydown={(e) => {
+            on:keydown|stopPropagation={(e) => {
                 if (e.key === "Enter" || e.key === "Escape") {
                     nameInput.blur();
                 }
@@ -82,7 +84,13 @@
             autofocus
         ></textarea>
     {:else}
-        <div class="kanban-card-title" on:click={handleClick} role="presentation">{event.name}</div>
+        <div
+            class="kanban-card-title"
+            on:click={handleClick}
+            role="presentation"
+        >
+            {event.name}
+        </div>
         <button
             class="edit-button"
             on:click|stopPropagation={() => (editing = true)}>Edit</button
@@ -122,9 +130,9 @@
         right: 5px;
         background-color: transparent;
         opacity: 0;
+    background-color: var(--main-color);
     }
     .edit-button:focus,
-    .kanban-card:focus .edit-button,
     .kanban-card:hover .edit-button {
         opacity: 1;
     }

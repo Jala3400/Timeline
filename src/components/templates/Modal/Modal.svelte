@@ -37,14 +37,12 @@
 
         <div id="buttons">
             <slot name="buttons" />
-            <!-- <button on:click={() => dialog.close()}>Close</button> -->
         </div>
     </form>
 </dialog>
 
 <style>
     dialog {
-        max-width: 32em;
         border-radius: 0.2em;
         border: none;
         padding: 0;
@@ -109,8 +107,5 @@
         to {
             opacity: 1;
         }
-    }
-    button {
-        display: block;
     }
 </style>

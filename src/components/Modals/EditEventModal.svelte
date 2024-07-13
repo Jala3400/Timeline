@@ -1,11 +1,6 @@
 <script lang="ts">
     import { dateToString } from "../../lib/ManageEvents";
-    import {
-        calendars,
-        currentCalendar,
-        currentEvent,
-        eventsList,
-    } from "../../store";
+    import { calendars, currentCalendar, currentEvent } from "../../store";
     import CompInput from "../molecules/CompInput.svelte";
     import Modal from "../templates/Modal/Modal.svelte";
 
@@ -18,12 +13,16 @@
     let description = $currentEvent.description;
     let nameInput: HTMLInputElement;
 
+    let changeEvent = true;
+
     function saveEvent() {
+        changeEvent = false;
         $currentEvent.changeDate(date);
         $currentEvent.changeKanbanlist(kanbanList);
         $currentEvent.name = nameInput.value;
         $currentEvent.description = description;
         editEventModal = false;
+        changeEvent = true;
     }
 
     function changeDate(date: string) {
@@ -32,11 +31,13 @@
     }
 
     currentEvent.subscribe((value) => {
-        name = value.name;
-        date = dateToString(new Date(value.date!));
-        calendar = value.getCalendar;
-        kanbanList = value.kanbanList;
-        description = value.description;
+        if (changeEvent) {
+            name = value.name;
+            date = dateToString(new Date(value.date!));
+            calendar = value.getCalendar;
+            kanbanList = value.kanbanList;
+            description = value.description;
+        }
     });
 </script>
 
@@ -61,7 +62,14 @@
     <div id="event-data" slot="content">
         <div class="comp-input">
             <label for="calendar">Calendar</label>
-            <select id="calendar" bind:value={calendar}>
+            <select
+                id="calendar"
+                bind:value={calendar}
+                on:change={() => {
+                    $currentEvent.changeCalendar(calendar);
+                    $currentCalendar = calendar;
+                }}
+            >
                 {#each $calendars as calendar}
                     <option value={calendar}>
                         {calendar.name}
@@ -73,7 +81,7 @@
             <label for="kanban-list">Kanban List</label>
             <div id="kanban-list-input">
                 <select id="kanban-list" bind:value={kanbanList}>
-                    {#each $currentCalendar.kanbanLists as list}
+                    {#each calendar.kanbanLists as list}
                         <option value={list}>
                             {list.name}
                         </option>
@@ -95,6 +103,7 @@
         <div class="comp-input two-span">
             <div>Description</div>
             <textarea
+                rows="8"
                 name="description"
                 id="description"
                 bind:value={description}
@@ -121,7 +130,7 @@
     #event-name {
         margin-bottom: 15px;
         margin-top: 5px;
-        font-size: 2em;
+        font-size: 1.5em;
         font-weight: bold;
         background-color: transparent;
     }
@@ -132,6 +141,8 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 20px;
+        width: 32em;
+        height: 20em;
     }
     #buttons {
         display: flex;
