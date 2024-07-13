@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { Evento } from "../../classes/Evento";
-    import { constants, currentDetails, currentEvent } from "../../store";
+    import { selectEvent } from "../../lib/ManageEvents";
+    import { constants, currentEvent } from "../../store";
 
     export let event: Evento;
 
@@ -16,14 +17,13 @@
     }
 
     // Establece el evento actual y cambia la vista a la de detalles del evento.
-    function selectEvent() {
-        $currentEvent = event;
-        $currentDetails = "event";
+    function handleClick(e: MouseEvent) {
+        selectEvent(e, event);
     }
 </script>
 
 <button
-    on:click|stopPropagation={selectEvent}
+    on:click|stopPropagation={handleClick}
     on:mousedown|stopPropagation
     style="--main-color-pure:{color};
     --main-color:{color}{transparency.main};

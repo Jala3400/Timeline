@@ -5,7 +5,6 @@
         configuration,
         constants,
         currentCalendar,
-        currentDetails,
         currentEvent,
     } from "../../../../store";
     import ColoredButton from "../../../atoms/ColoredButton.svelte";
@@ -17,7 +16,6 @@
     function selectCalendar(calendar: Calendario) {
         $currentCalendar = calendar;
         $currentEvent = $currentCalendar.defaultList.events[0];
-        $currentDetails = "calendar";
     }
 </script>
 

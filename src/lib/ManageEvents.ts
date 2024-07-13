@@ -1,7 +1,7 @@
 import { get } from 'svelte/store';
 import { Calendario } from '../classes/Calendario';
 import type { Evento } from '../classes/Evento';
-import { calendars, eventsList, currentCalendar, currentDetails, currentEvent } from '../store';
+import { calendars, eventsList, currentCalendar, currentEvent, displayModal, currentDetails } from '../store';
 import { parse, stringify } from 'flatted';
 
 
@@ -116,7 +116,6 @@ export function deleteCalendar(calendar: Calendario) {
 
     currentCalendar.set(get(calendars)[0]);
     currentEvent.set(get(currentCalendar).getFirstEvent());
-    currentDetails.set("allCalendars")
     return true;
 }
 
@@ -138,6 +137,17 @@ export function save3daysOpt(conf: any) {
 
 export function load3daysOpt() {
     return parse(localStorage.getItem("3daysConf") ?? '[{"days":3,"offset":0}]');
+}
+
+// Establece el evento actual y cambia la vista a la de detalles del evento.
+export function selectEvent(e: MouseEvent, event: Evento) {
+    currentEvent.set(event);
+    currentCalendar.set(event.getCalendar);
+    if (e.ctrlKey || e.shiftKey) {
+        currentDetails.set("event");
+    } else {
+        displayModal.set({ name: "eventDetails", updateNumber: get(displayModal).updateNumber + 1 });
+    }
 }
 
 /**

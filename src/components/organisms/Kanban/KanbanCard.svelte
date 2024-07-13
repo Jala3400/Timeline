@@ -1,11 +1,8 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import type { Evento } from "../../../classes/Evento";
-    import {
-        currentCalendar,
-        currentDetails,
-        currentEvent,
-    } from "../../../store";
+    import { currentCalendar, currentEvent } from "../../../store";
+    import { selectEvent } from "../../../lib/ManageEvents";
 
     export let event: Evento;
     export let index: number;
@@ -16,10 +13,8 @@
         }
     });
 
-    function selectEvent() {
-        $currentEvent = event;
-        $currentCalendar = event.getCalendar;
-        $currentDetails = "event";
+    function handleClick(e: MouseEvent) {
+        selectEvent(e, event);
     }
 
     function onDragStart(e: DragEvent, event: Evento, index: number) {
@@ -65,7 +60,7 @@
 
 <button
     class="kanban-card"
-    on:click={selectEvent}
+    on:click|self={handleClick}
     draggable="true"
     on:dragstart|stopPropagation={(e) => onDragStart(e, event, index)}
     on:dragover={onDragOver}
@@ -87,9 +82,10 @@
             autofocus
         ></textarea>
     {:else}
-        <div class="kanban-card-title">{event.name}</div>
-        <button class="edit-button" on:click={() => (editing = true)}
-            >Edit</button
+        <div class="kanban-card-title" on:click={handleClick} role="presentation">{event.name}</div>
+        <button
+            class="edit-button"
+            on:click|stopPropagation={() => (editing = true)}>Edit</button
         >
     {/if}
 </button>

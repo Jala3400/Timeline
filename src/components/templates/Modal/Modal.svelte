@@ -37,7 +37,7 @@
 
         <div id="buttons">
             <slot name="buttons" />
-            <button on:click={() => dialog.close()}>Close</button>
+            <!-- <button on:click={() => dialog.close()}>Close</button> -->
         </div>
     </form>
 </dialog>

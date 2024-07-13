@@ -1,8 +1,7 @@
 <script lang="ts">
     import type { Evento } from "../../classes/Evento";
-    import { dateDifference } from "../../lib/ManageEvents";
+    import { dateDifference, selectEvent } from "../../lib/ManageEvents";
     import {
-        currentDetails,
         constants,
         currentEvent,
         currentCalendar,
@@ -16,10 +15,8 @@
     const dateColors = $constants.dateColors;
 
     // Establece el evento actual y cambia la vista a la de detalles del evento.
-    function selectEvent() {
-        $currentEvent = event;
-        $currentCalendar = event.getCalendar;
-        $currentDetails = "event";
+    function handleClick(e: MouseEvent) {
+        selectEvent(e, event);
     }
 
     function onDragStart(e: DragEvent, evento: any) {
@@ -50,7 +47,7 @@
 </script>
 
 <button
-    on:click={selectEvent}
+    on:click={handleClick}
     class="event-card"
     style="--main-color-pure:{color};
     --main-color:{color}{transparency.main};
@@ -67,7 +64,6 @@
                 // Al hacer click en el tiempo restante, se cambian los detalles al calendario del evento.
                 $currentCalendar = event.getCalendar;
                 $currentEvent = event;
-                $currentDetails = "calendar";
             }}
         />
     </div>
@@ -81,7 +77,7 @@
     </p>
 
     <div class="right">
-        <ColoredIcon text={dateDiff} color={timeColor} func={selectEvent} />
+        <ColoredIcon text={dateDiff} color={timeColor} func={handleClick} />
     </div>
 </button>
 
