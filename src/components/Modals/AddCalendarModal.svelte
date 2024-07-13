@@ -13,27 +13,45 @@
 </script>
 
 <Modal bind:showModal={addCalendarModal} color={calendarColor}>
-    <h2 slot="header">Add Calendar</h2>
-    <div slot="content" id="content">
+    <div id="header"><h2>Add Calendar</h2></div>
+    <div id="content">
         <CompInput label="Name" type="text" bind:value={calendarName} />
         <CompInput label="Color" type="color" bind:value={calendarColor} />
         <CompInput label="Default list" type="text" bind:value={defaultList} />
     </div>
-    <button
-        on:click={() => {
-            const calendar = new Calendario(calendarColor, [], calendarName);
-            const kanbanList = new ListaKanban([], defaultList, calendar);
-            calendar.setKanbanLists = [kanbanList];
-            addNewCalendar(calendar);
-        }}
-        slot="buttons">Save</button
-    >
+    <div id="buttons">
+        <button
+            on:click={() => {
+                const calendar = new Calendario(
+                    calendarColor,
+                    [],
+                    calendarName
+                );
+                const kanbanList = new ListaKanban([], defaultList, calendar);
+                calendar.setKanbanLists = [kanbanList];
+                addNewCalendar(calendar);
+            }}>Save</button
+        >
+    </div>
 </Modal>
 
 <style>
+    #header,
+    #content {
+        border-bottom: 1px solid var(--main-color-full);
+        padding: 0 10px;
+    }
+
     #content {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 20px;
+        padding-bottom: 20px;
+    }
+
+    #buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 5px;
     }
 </style>

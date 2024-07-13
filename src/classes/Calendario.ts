@@ -228,6 +228,6 @@ export class Calendario {
     getFirstEvent(): Evento {
         const events = this.kanbanLists.reduce((acc: Evento[], list) =>
             acc.concat(list.events), []);
-        return events[0] ?? new Evento("new event", "", this.defaultList);
+        return events[0] ?? new Evento("Empty event", "", this.defaultList);
     }
 }

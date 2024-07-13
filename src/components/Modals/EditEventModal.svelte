@@ -46,20 +46,21 @@
     on:submit={saveEvent}
     color={calendar.color}
 >
-    <input
-        id="event-name"
-        type="text"
-        bind:this={nameInput}
-        bind:value={name}
-        on:keydown={(event) => {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                nameInput.blur();
-            }
-        }}
-        slot="header"
-    />
-    <div id="event-data" slot="content">
+    <div id="header">
+        <input
+            id="event-name"
+            type="text"
+            bind:this={nameInput}
+            bind:value={name}
+            on:keydown={(event) => {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    nameInput.blur();
+                }
+            }}
+        />
+    </div>
+    <div id="event-data">
         <div class="comp-input">
             <label for="calendar">Calendar</label>
             <select
@@ -111,7 +112,7 @@
         </div>
     </div>
 
-    <div id="buttons" class="two-span" slot="buttons">
+    <div id="buttons" class="two-span">
         <button
             on:click={() => {
                 saveEvent();
@@ -142,7 +143,9 @@
         grid-template-columns: 1fr 1fr;
         gap: 20px;
         width: 32em;
-        height: 20em;
+        border-bottom: 1px solid var(--main-color-full);
+        padding: 0 10px;
+        padding-bottom: 20px;
     }
     #buttons {
         display: flex;
@@ -157,5 +160,9 @@
     }
     .two-span {
         grid-column: span 2;
+    }
+    #header {
+        border-bottom: 1px solid var(--main-color-full);
+        padding: 0 10px;
     }
 </style>
