@@ -141,7 +141,7 @@
     #event-data {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 20px;
+        gap: 15px;
         width: 32em;
         border-bottom: 1px solid var(--main-color-full);
         padding: 0 10px;

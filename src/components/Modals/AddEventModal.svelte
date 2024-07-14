@@ -16,6 +16,11 @@
     let name = "new event";
     let description = "";
 
+    $: if (addEventModal) {
+        name = "new event";
+        description = "";
+    }
+
     // Al cambiar el calendario actual, se actualiza el calendario al que se añade el evento
     currentCalendar.subscribe((value) => {
         calendar = value;

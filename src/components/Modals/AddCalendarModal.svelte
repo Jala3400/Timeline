@@ -8,6 +8,10 @@
     export let addCalendarModal: boolean = false;
     export let calendarColor: string;
 
+    $: if (addCalendarModal) {
+        calendarName = "new calendar";
+    }
+
     let calendarName = "new calendar";
     let defaultList = "Inbox";
 </script>

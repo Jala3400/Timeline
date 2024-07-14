@@ -36,6 +36,7 @@
             kanbanList = value.kanbanList;
         }
     });
+
     let nameInput: HTMLInputElement;
 </script>
 
@@ -108,6 +109,7 @@
             <textarea
                 name="description"
                 id="description"
+                rows="5"
                 bind:value={$currentEvent.description}
             />
         </div>
@@ -145,7 +147,7 @@
     #event-data {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 20px;
+        gap: 15px;
     }
     #buttons {
         display: flex;
