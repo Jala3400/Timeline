@@ -1,7 +1,7 @@
 <script lang="ts">
     import { lookDate } from "../../../../../lib/ManageEvents";
     import { eventFilter, eventsList } from "../../../../../store";
-    import Day from "../../../../organisms/Day/Day.svelte";
+    import DayMult from "../../../../organisms/DayMult/DayMult.svelte";
     import DaysOptions from "../../../../organisms/Options/DaysOptions.svelte";
 
     const dayInms = 24 * 60 * 60 * 1000;
@@ -56,7 +56,7 @@
                     .filter((event) => {
                         if (event.pasaFiltroSuave($eventFilter)) return event;
                     })}
-                <Day
+                <DayMult
                     events={eventos}
                     day={new Date(focusTime + dayInms * (index - offset))}
                     on:addEvent

@@ -150,6 +150,26 @@ export function selectEvent(e: MouseEvent, event: Evento) {
     }
 }
 
+export function groupEventsByDay(eventsList: Evento[]) {
+    let eventsByDay: Evento[][] = [];
+    if (eventsList.length === 0) return eventsByDay;
+    let j = 0;
+    eventsByDay.push([]);
+    let currentDay = new Date(eventsList[0].date!).toDateString();
+    for (let i = 0; i < eventsList.length; i++) {
+        const event = eventsList[i];
+        if (new Date(event.date!).toDateString() === currentDay) {
+            eventsByDay[j].push(event);
+        } else {
+            j++;
+            eventsByDay[j] = [event];
+            currentDay = new Date(event.date!).toDateString();
+        }
+    }
+    return eventsByDay;
+}
+
+
 /**
  * Devuelve el índice en el que se debe insertar un evento en una lista de eventos ordenada por fecha.
  * @param date la fecha del evento
