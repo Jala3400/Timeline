@@ -1,7 +1,7 @@
 import { get } from 'svelte/store';
 import { Calendario } from '../classes/Calendario';
 import type { Evento } from '../classes/Evento';
-import { calendars, eventsList, currentCalendar, currentDetails, currentEvent } from '../store';
+import { calendars, eventsList, currentCalendar, currentEvent, displayModal, currentDetails } from '../store';
 import { parse, stringify } from 'flatted';
 
 
@@ -116,7 +116,6 @@ export function deleteCalendar(calendar: Calendario) {
 
     currentCalendar.set(get(calendars)[0]);
     currentEvent.set(get(currentCalendar).getFirstEvent());
-    currentDetails.set("allCalendars")
     return true;
 }
 
@@ -139,6 +138,37 @@ export function save3daysOpt(conf: any) {
 export function load3daysOpt() {
     return parse(localStorage.getItem("3daysConf") ?? '[{"days":3,"offset":0}]');
 }
+
+// Establece el evento actual y cambia la vista a la de detalles del evento.
+export function selectEvent(e: MouseEvent, event: Evento) {
+    currentEvent.set(event);
+    currentCalendar.set(event.getCalendar);
+    if (e.ctrlKey || e.shiftKey) {
+        currentDetails.set("event");
+    } else {
+        displayModal.set({ name: "eventDetails", updateNumber: get(displayModal).updateNumber + 1 });
+    }
+}
+
+export function groupEventsByDay(eventsList: Evento[]) {
+    let eventsByDay: Evento[][] = [];
+    if (eventsList.length === 0) return eventsByDay;
+    let j = 0;
+    eventsByDay.push([]);
+    let currentDay = new Date(eventsList[0].date!).toDateString();
+    for (let i = 0; i < eventsList.length; i++) {
+        const event = eventsList[i];
+        if (new Date(event.date!).toDateString() === currentDay) {
+            eventsByDay[j].push(event);
+        } else {
+            j++;
+            eventsByDay[j] = [event];
+            currentDay = new Date(event.date!).toDateString();
+        }
+    }
+    return eventsByDay;
+}
+
 
 /**
  * Devuelve el índice en el que se debe insertar un evento en una lista de eventos ordenada por fecha.

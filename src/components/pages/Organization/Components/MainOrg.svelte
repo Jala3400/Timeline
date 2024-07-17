@@ -40,7 +40,7 @@
         />
     </div>
     <div id="main-content">
-        <svelte:component this={view[currentView]} on:addEvent />
+        <svelte:component this={view[currentView]} />
     </div>
 </div>
 

@@ -1,5 +1,6 @@
 <script lang="ts">
     import IconButton from "./components/atoms/IconButton.svelte";
+    import EditEventModal from "./components/Modals/EditEventModal.svelte";
     import IconsBar from "./components/organisms/IconsBar/IconsBar.svelte";
     import AbsoluteList from "./components/pages/AbsoluteList/AbsoluteList.svelte";
     import MainPage from "./components/pages/MainPage/MainPage.svelte";
@@ -11,6 +12,7 @@
         configuration,
         constants,
         currentEvent,
+        displayModal,
         eventsList,
     } from "./store";
 
@@ -81,6 +83,13 @@
     const transparency = $constants.transparency;
     let hideSidebar: boolean = false;
     let hideDetails: boolean = false;
+    let editEventModal: boolean = false;
+
+    displayModal.subscribe((value) => {
+        if (value.name === "eventDetails") {
+            editEventModal = true;
+        }
+    });
 </script>
 
 <div
@@ -101,6 +110,8 @@
     </div>
 </div>
 <div id="saved" class:savedOn>Saved</div>
+
+<EditEventModal bind:editEventModal />
 
 <style>
     #main-container {

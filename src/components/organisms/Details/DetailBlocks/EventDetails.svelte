@@ -36,6 +36,8 @@
             kanbanList = value.kanbanList;
         }
     });
+
+    let nameInput: HTMLInputElement;
 </script>
 
 <div
@@ -45,7 +47,17 @@
     --main-color-hover:{color}{transparency.hover};
     --main-color-active:{color}{transparency.active}"
 >
-    <input id="event-name" type="text" bind:value={$currentEvent.name} />
+    <input
+        id="event-name"
+        type="text"
+        bind:this={nameInput}
+        bind:value={$currentEvent.name}
+        on:keydown={(event) => {
+            if (event.key === "Enter") {
+                nameInput.blur();
+            }
+        }}
+    />
     <div id="event-data">
         <div class="comp-input">
             <label for="calendar">Calendar</label>
@@ -97,6 +109,7 @@
             <textarea
                 name="description"
                 id="description"
+                rows="5"
                 bind:value={$currentEvent.description}
             />
         </div>
@@ -134,7 +147,7 @@
     #event-data {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 20px;
+        gap: 15px;
     }
     #buttons {
         display: flex;

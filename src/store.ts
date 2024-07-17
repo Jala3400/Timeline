@@ -62,6 +62,8 @@ export const calendars: Writable<Calendario[]> = writable(existingCalendars);
 
 export const currentDetails: Writable<string> = writable("allCalendars")
 
+export const displayModal: Writable<{ name: string, updateNumber: number }> = writable({ name: "none", updateNumber: 0 });
+
 export const currentEvent: Writable<Evento> = writable();
 
 export const currentCalendar: Writable<Calendario> = writable(get(calendars)[0]);
