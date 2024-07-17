@@ -1,7 +1,6 @@
 <script lang="ts">
     import {
         calendars,
-        currentDetails,
         eventFilter,
         eventsList,
     } from "../../../store";
@@ -20,7 +19,6 @@
     <NavFolder name="Calendars">
         <CheckGroup
             list={$calendars}
-            click={() => ($currentDetails = "allCalendars")}
             change={() => {
                 $calendars = $calendars;
                 $eventsList = $eventsList; // filtra los eventos

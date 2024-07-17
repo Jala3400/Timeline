@@ -16,6 +16,11 @@
     let name = "new event";
     let description = "";
 
+    $: if (addEventModal) {
+        name = "new event";
+        description = "";
+    }
+
     // Al cambiar el calendario actual, se actualiza el calendario al que se añade el evento
     currentCalendar.subscribe((value) => {
         calendar = value;
@@ -49,8 +54,8 @@
     bind:showModal={addEventModal}
     color={addCalendarModal ? calendarColor : calendar.color}
 >
-    <h2 slot="header">Add Event</h2>
-    <div slot="content" id="content">
+    <div id="header"><h2>Add Event</h2></div>
+    <div id="content">
         <CompInput label="Name" type="text" bind:value={name} />
         <CompInput label="Date" type="datetime-local" bind:value={date} />
         <div class="comp-input">
@@ -95,7 +100,9 @@
             <textarea id="description" bind:value={description} />
         </div>
     </div>
-    <button on:click={() => addEventCard(calendar)} slot="buttons">Save</button>
+    <div id="buttons">
+        <button on:click={() => addEventCard(calendar)}>Save</button>
+    </div>
 </Modal>
 
 <style>
@@ -104,11 +111,6 @@
         flex-direction: column;
         gap: 5px;
         width: 100%;
-    }
-    #content {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
     }
     #calendar-input {
         display: flex;
@@ -119,5 +121,24 @@
     }
     .two-span {
         grid-column: span 2;
+    }
+    #header,
+    #content {
+        border-bottom: 1px solid var(--main-color-full);
+        padding: 0 10px;
+    }
+
+    #content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        width: 25em;
+        padding-bottom: 20px;
+    }
+
+    #buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 5px;
     }
 </style>

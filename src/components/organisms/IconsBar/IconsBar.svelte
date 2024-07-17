@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { currentDetails } from "../../../store";
     import IconButton from "../../atoms/IconButton.svelte";
     export let currentMode: string = "absoluteList";
 
@@ -15,7 +14,6 @@
             text="M"
             func={() => {
                 currentMode = "mainPage";
-                $currentDetails = "allCalendars";
             }}
             selected={currentMode === "mainPage"}
         />
@@ -23,7 +21,6 @@
             text="O"
             func={() => {
                 currentMode = "organization";
-                $currentDetails = "allCalendars";
             }}
             selected={currentMode === "organization"}
         />
@@ -31,7 +28,6 @@
             text="L"
             func={() => {
                 currentMode = "absoluteList";
-                $currentDetails = "allCalendars";
             }}
             selected={currentMode === "absoluteList"}
         />
@@ -39,7 +35,6 @@
             text="R"
             func={() => {
                 currentMode = "realTime";
-                $currentDetails = "allCalendars";
             }}
             selected={currentMode === "realTime"}
         />

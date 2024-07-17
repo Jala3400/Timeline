@@ -1,5 +1,6 @@
 <script lang="ts">
     import IconButton from "../../../atoms/IconButton.svelte";
+    import GanttChart from "./Main/GanttChart.svelte";
     import MonthCalendar from "./Main/MonthCalendar.svelte";
     import MultDays from "./Main/MultDays.svelte";
 
@@ -7,6 +8,7 @@
     let view: { [key: string]: any } = {
         day: MultDays,
         monthCalendar: MonthCalendar,
+        gantt: GanttChart,
     };
 
     // Keyboard shortcuts
@@ -28,6 +30,11 @@
                     event.preventDefault();
                     currentView = "monthCalendar";
                     break;
+                case "3":
+                case "g":
+                    event.preventDefault();
+                    currentView = "gantt";
+                    break;
             }
         }
     });
@@ -44,6 +51,11 @@
             text="C"
             func={() => (currentView = "monthCalendar")}
             selected={currentView === "monthCalendar"}
+        />
+        <IconButton
+            text="G"
+            func={() => (currentView = "gantt")}
+            selected={currentView === "gantt"}
         />
     </div>
     <div id="main-content">

@@ -14,12 +14,6 @@
     let calendar: Calendario;
     let kanbanList: ListaKanban;
 
-    function handleAddEvent(e: { detail: { kanbanList: ListaKanban } }) {
-        calendar = e.detail.kanbanList.calendar;
-        kanbanList = e.detail.kanbanList;
-        addEventModal = true;
-    }
-
     // Keyboard shortcuts
     document.addEventListener("keydown", (event) => {
         if (
@@ -39,7 +33,7 @@
 </script>
 
 <SideBarOrg on:addEvent={() => (addEventModal = true)} />
-<MainOrg on:addEvent={handleAddEvent} />
+<MainOrg />
 <Details />
 
 <AddEventModal

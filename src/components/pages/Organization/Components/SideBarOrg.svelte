@@ -3,7 +3,6 @@
         calendars,
         currentCalendar,
         currentEvent,
-        currentDetails,
         eventFilter,
     } from "../../../../store";
     import IconButton from "../../../atoms/IconButton.svelte";
@@ -41,7 +40,6 @@
                     click={(calendar) => {
                         $currentCalendar = calendar;
                         $currentEvent = $currentCalendar.getFirstEvent();
-                        $currentDetails = "calendar";
                     }}
                 />
             </NavFolder>

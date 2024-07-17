@@ -1,5 +1,4 @@
-import { get } from 'svelte/store';
-import { calendars, currentCalendar, currentDetails, currentEvent, eventsList } from '../store';
+import { calendars, currentCalendar, currentEvent } from '../store';
 import { Evento } from "./Evento";
 import { ListaKanban } from './ListaKanban';
 
@@ -156,7 +155,6 @@ export class Calendario {
     */
     addEvent(event: Evento) {
         this.tempAddEvent(event);
-        currentDetails.set("event");
         currentEvent.set(event);
         currentCalendar.set(this);
     }
@@ -216,8 +214,7 @@ export class Calendario {
      * @param event Evento a eliminar.
     */
     deleteEvent(event: Evento) {
-        currentDetails.set("allCalendars");
-        currentEvent.set(get(eventsList)[0]);
+        currentEvent.set(this.getFirstEvent());
         calendars.update((value) => {
             this.tempDeleteEvent(event);
             return value
@@ -231,6 +228,6 @@ export class Calendario {
     getFirstEvent(): Evento {
         const events = this.kanbanLists.reduce((acc: Evento[], list) =>
             acc.concat(list.events), []);
-        return events[0] ?? new Evento("new event", "", this.defaultList);
+        return events[0] ?? new Evento("Empty event", "", this.defaultList);
     }
 }

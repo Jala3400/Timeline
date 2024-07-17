@@ -16,8 +16,8 @@
     /// Establece el calendario actual y cambia la vista a la de detalles del calendario.
     function selectCalendar(calendar: Calendario) {
         $currentCalendar = calendar;
-        $currentEvent = $currentCalendar.defaultList.events[0];
         $currentDetails = "calendar";
+        $currentEvent = $currentCalendar.getFirstEvent();
     }
 </script>
 

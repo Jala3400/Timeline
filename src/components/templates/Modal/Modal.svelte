@@ -28,23 +28,12 @@
         on:click|stopPropagation
         on:submit|preventDefault={() => dialog.close()}
     >
-        <div id="header">
-            <slot name="header" />
-        </div>
-        <div id="content">
-            <slot name="content" />
-        </div>
-
-        <div id="buttons">
-            <slot name="buttons" />
-            <button on:click={() => dialog.close()}>Close</button>
-        </div>
+        <slot />
     </form>
 </dialog>
 
 <style>
     dialog {
-        max-width: 32em;
         border-radius: 0.2em;
         border: none;
         padding: 0;
@@ -61,33 +50,10 @@
         padding: 1em;
         color: var(--color);
         background-color: var(--main-color);
-        display: grid;
-        gap: 20px;
-    }
-    .modal {
-        padding: 1em;
-        color: var(--color);
-        background-color: var(--main-color);
-        display: grid;
-        gap: 20px;
-    }
-
-    #header,
-    #content {
-        border-bottom: 1px solid var(--main-color-full);
-        padding: 0 10px;
-    }
-
-    #content {
-        padding-bottom: 20px;
-    }
-
-    #buttons {
         display: flex;
-        justify-content: flex-end;
-        gap: 5px;
+        flex-direction: column;
+        gap: 20px;
     }
-
     dialog[open] {
         animation: zoom 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
@@ -109,8 +75,5 @@
         to {
             opacity: 1;
         }
-    }
-    button {
-        display: block;
     }
 </style>

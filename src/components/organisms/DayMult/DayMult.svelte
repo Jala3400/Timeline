@@ -48,7 +48,7 @@
     }
 
     function getFormattedTime(e: MouseEvent) {
-        return getAproxDate(e).toLocaleTimeString();
+        return getAproxDate(e).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
 
     function addEvent(e: MouseEvent) {
