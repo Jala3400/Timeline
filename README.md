@@ -1,7 +1,7 @@
 # Timeline
 
 Una aplicación simple para organización.
-Es una excusa para aprender Svelte y cómo gestiona la reactividad. Se ha hehco un poco sobre la marcha, por lo que no se ha planificado bien y ahora no es escalable.
+Es una excusa para aprender Svelte y cómo gestiona la reactividad. Se ha hehco un poco sobre la marcha, por lo que no se ha planificado bien.
 Puede que en algún momento se haga un rewrite.
 
 ---
